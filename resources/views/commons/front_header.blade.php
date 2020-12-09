@@ -36,6 +36,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 	<link href="{{ URL::to('/') }}/assets/css/main.css?{{ time() }}" rel="stylesheet">
 	<script>window.base_url = '{{ URL::to('/') }}/';</script>
 	<script>window.is_logged_in = '{{ Auth::guard("user")->check() ? 1 : 0 }}';</script>
@@ -94,10 +95,17 @@
 	  </div>
 	</div>
 	@else
-		<div class="top_menu_logout_block top_menu_block">
-			<a class="btn btn-primary" href="/user/login">Login</a> <span class="white">or</span>
-			<a class="btn btn-primary" href="/user/register">Sign up</a>
-		</div>
+		// <div class="top_menu_logout_block top_menu_block">
+		// 	<a class="btn btn-primary" href="/user/login">Login</a> <span class="white">or</span>
+		// 	<a class="btn btn-primary" href="/user/register">Sign up</a>
+		// </div>
+		<div class='menu'> 
+			<a href="{{ Auth::guard('user')->check() ? URL::to('/').'/user/my_account' : URL::to('/') }}">
+				<img src='/assets/images/SmallLogo.png' alt='Small_Logo' class='logoSmall'>
+			</a>
+        <a class='signup' href="/user/register">Sign up</a>
+        <a class='login' href="/user/login">Login</a>
+      </div>
 	@endif
   </nav>
 

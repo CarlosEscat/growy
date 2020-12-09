@@ -1,105 +1,77 @@
 @extends('layouts.front')
-@section('content')
+@section ('content')
 
-<!-- Page Content -->
-  <div class="container growyspace_home_page">
-	<div style="margin-top:83px;" class="breadcrumb-row">
-		<div class="container">
-			<ul class="list-inline">
-				<li class="active">Home</li>
-				<li class="active"></li>
-				
-			</ul>
-		</div>
-	</div>
+<div class='astronaut'>
+  <!-- <img src='../images/Astronaut.png' alt='Astronaut' class='astronaut2'> -->
+  <div class='titleText'>
+    <h1>Welcome to Growyspace</h1>
+    <p class='textTitle'>Register below to find your next<br> opportunity or create one!</p>
+    <br><br><button class='register' onclick="location.href='/user/register'">Register here</button> &nbsp<label class='or'>or</label>&nbsp <button class='loginButton' onclick="location.href='/user/login'">Login</button>
+ </div>
+</div>
 
-    <div class="row">
-      
-	    <div class="col-md-12 mb-5">
-			<div class="growyspace_card card h-100">
-				<div class="card-body allign_center">
-					<h1 class="card-title">Growyspace</h1>
-					<p class="card-text">Your growth is our goal</p>
-					<p class="mb-0"><a style="color:#707070;text-decoration:underline;" href="{{ URL::to('/') }}/page/about-us/3.htm">About us</a></p>
-				</div>
-			</div>
-        </div>
-	  
-     
-	  <div class="col-md-12 mb-5">
-        <div class="growyspace_card card h-100">
-			<div class="card-body">
-				<div style="width:50%;float:left;">
-					<h2 class="card-title">Create your profile</h2>
-					<p class="card-text">Easily create, customise and showcase your professional identity.</p>
-				</div>
-				
-				<img style="float:right;display:block;" src="/assets/images/home_icon1.jpg" />
-				
-			</div>
-        </div>
-      </div>
-	  <div class="col-md-12 mb-5">
-        <div class="growyspace_card card h-100">
-			<div class="card-body">
-			<img style="float:left;display:block;" src="/assets/images/home_icon2.jpg" />
-				<div style="width:40%;float:right;">
-					<h2 class="card-title">Create new opportunities</h2>
-					<p class="card-text">Easily create and place new opportunity cards</p>
-				</div>
-			</div>
-        </div>
-      </div>
-	  <div class="col-md-12 mb-5">
-        <div class="growyspace_card card h-100">
-			<div class="card-body">
-				<div style="width:40%;float:left;">
-					<h4 class="card-title">Explore for opportunities or users</h4>
-					<p class="card-text">Through our search engine, search for available opportunity cards, or other users.</p>
-				</div>
-				<img style="float:right;display:block;" src="/assets/images/home_icon3.jpg" />				
-			</div>
-        </div>
-      </div>
-	   <div class="col-md-12 mb-5">
-        <div class="growyspace_card card h-100">
-			<div class="card-body">
-			<img style="float:left;display:block;" src="/assets/images/home_icon4.jpg" />
-				<div style="width:40%;float:right;">
-					<h2 class="card-title">Connect</h2>
-					<p class="card-text">Reach out to other users through our built-in-house chat function.</p>
-				</div>
-			</div>
-        </div>
-      </div>
-	  <div class="col-md-12 mb-5">
-        <div class="growyspace_card card h-100">
-			<div class="card-body">
-				<div style="width:40%;float:left;">
-					<h4 class="card-title">Create your collection</h4>
-					<p class="card-text">Create, manage, and customize a collection on which you will be able to save(for future reference) available opportunity cards, or other user profiles, the same way you would do with a personal portfolio.</p>
-				</div>
-				<img style="float:right;display:block;" src="/assets/images/home_icon5.jpg" />				
-			</div>
-        </div>
-      </div>
-	  <div class="col-md-12 mb-5">
-        <div class="growyspace_card card h-100">
-			<div class="card-body allign_center">
-				<h4 class="card-title">Sound interesting? Great!</h4>
-				<p class="card-text"> Sign-up now and try our new demo.</p>
-				<p class="mb-0"><a class="btn btn-primary growyspace_btn_primary" href="{{ URL::to('/') }}/user/register">Sign up</a></p>
-				<p><span>or</span> <a href="{{ URL::to('/') }}/user/login">Login</a></p>
-			</div>
-        </div>
-      </div>
-    </div>
-    <!-- /.row -->
-
+<div class='explore'>
+  <div class='circle'>
+    <h2 class='exploreTitle'>Explore Growyspace</h2>
+    <p class='exploreText'>We are a professional development<br>
+    platform that bridges Opportunities <br>
+    with Open-to-work requests from <br>
+    individual professionals. <a href="">Try it now</a></p>
   </div>
-  <!-- /.container -->
+  <img src='/assets/images/icon-search-big.png' alt='Search' class='imageSearch'>
+</div>
+
+<div class='options'>
+  <h2 class='looking'>What are you looking for?</h2>
+  <button type="button" class='opportunityButton' onclick="location.href='#opportunitySeekers'">I'm looking for opportunities</button><br><br>
+  <button class='talentButton' onclick="location.href='#talentSeekers'">I'm looking for talents</button>
+</div>
 
 
 
+<div class='opportunity' id='opportunitySeekers'>
+  <h2 class='seekers'>Growyspace for opportunity seekers</h2>
+  <ul>
+    <li>1) Create an Open-to-work card, and fill out your areas of interest, presentation letter, past experience, skills or education.</li>
+    <li>2) Share your Open-to-work card through the chat function or external, so to gain endorsements of your skills.</li>
+    <li>3) Send your Open-to-work card to the available Opportunities, or other relevant users.</li>
+    <li>4) Explore the available Opportunities, registered users, or available Open-to-work cards.</li>
+    <li>5) Create and manage a collection or portfolio of either available Opportunities, Open-to-work, or users.</li>
+  </ul>
+  <label class='getStarted'>Get started looking for opportunities by signing up!</label>
+  <p class='line'><button class='signupButton' onclick="location.href='/user/register'">Sign up</button></p>
+</div>
 
-@endsection
+<div class='mission'>
+  <div class='star'></div>
+  <div class='missionText'>
+  <h2 class='missionTitle'>Growyspace’s mission</h2>
+  <p class='missionP'>Tech is our tool, and to promote individual professional growth is our mission.</p>
+  </div>
+</div>
+
+<div class='talent' id='talentSeekers'>
+  <h2 class='seekers'>Growyspace for talent seekers</h2>
+  <ul>
+    <li>1) Create an Opportunity card and fill out the relevant details such as location, fields (skills required), and the discription of the opportunity</li>
+    <li>2) Share your created Opportunity card through the chat function or external, so to gain trafic and exposure</li>
+    <li>3) Send your Opportunity card to the available Open-to-work cards created by opportunity seeking profesionals</li>
+    <li>4) Explore the available Open-to-work cards, registered users, or available Opportunities </li>
+    <li>5) Create and manage a collection or portfolio of either available Open-to-work, users, or other Opportunities.</li>
+  </ul>
+  <label class='getStarted'>Find great talents by signing up!</label>
+  <p class='line'><button class='signupButtonTalent' onclick="location.href='/user/register'">Sign up</button></p>
+</div>
+
+<div class='contact'>
+  <div class='contactText'>
+    <h2 class='contactTitle'>Contact us</h2>
+    <p class='contactPText'>Contact a member of Growyspace if you have any inquiries. 
+    <a href="">Contact us</a></p>
+  </div>
+  <div class='imageDiv'>
+    <img src='/assets/images/icon-message-big.png' alt='Message' class='imageMessage'>
+  </div>
+</div>
+
+@endsection 
