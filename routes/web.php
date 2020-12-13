@@ -38,7 +38,10 @@ Route::get('/return_coupon', 'PdfController@return_coupon');
 Route::get('/product/{title}/{id}.htm', 'ProductController@index');
 Route::get('/search', 'SearchController@index');
 Route::get('/messages/{id?}', 'MessageController@index');
-Route::get('/cards/{id}', 'Opportunity_cardController@index');
+
+Route::get('/cards/{id}', 'Opportunity_cardController@get');
+Route::get('/cards', 'Opportunity_cardController@create');
+Route::get('/cards/{id}/edit', 'Opportunity_cardController@update');
 
 Route::get('/carts', 'CheckoutController@carts');
 Route::get('/checkout', 'CheckoutController@checkout');
@@ -47,6 +50,11 @@ Route::get('/checkout', 'CheckoutController@checkout');
 Route::get('/page/{title}/{id}.htm', 'PageController@index');
 Route::post('/contact_us', 'PageController@contact_us_post');
 
+//open-to-work
+
+Route::get('/opentowork/{id}', 'OpentoworkController@get');
+Route::get('/opentowork', 'OpentoworkController@create');
+Route::get('/opentowork/{id}/edit', 'OpentoworkController@update');
 
 //User
 
@@ -117,6 +125,10 @@ Route::post('/ajax/save_croped_image' ,'AjaxController@save_croped_image');
 Route::post('/ajax/get_unread_mesages_info' ,'AjaxController@get_unread_mesages_info');
 Route::post('/ajax/get_user_collections' ,'AjaxController@get_user_collections');
 Route::post('/ajax/get_opc_collections' ,'AjaxController@get_opc_collections');
+Route::post('/ajax/hide_account' ,'AjaxController@hide_account');
+Route::post('/ajax/delete_account' ,'AjaxController@delete_account');
+Route::post('/ajax/add_edit_opentowork_card' ,'AjaxController@add_edit_opentowork_card');
+Route::post('/ajax/endorse_opentowork' ,'AjaxController@endorse_opentowork');
 
 Route::prefix('growyspace-admin')->group(function() {
 

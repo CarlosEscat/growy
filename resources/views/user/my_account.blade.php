@@ -117,7 +117,7 @@
 								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="opt{{ $opc->id }}">
 									@if($owner === true)
 									<a data-opt-id="{{ $opc->id }}" class="dropdown-item invite_user_to_this_card" href="#"> Invite user to this card</a>
-									<a data-opt-id="{{ $opc->id }}" class="dropdown-item edit_opportunity_card_link" href=""> Edit</a>
+									<a href="{{ URL::to('/') }}/cards/{{$opc->id}}/edit" data-opt-id="{{ $opc->id }}" class="dropdown-item edit_opportunity_card_link_new" href=""> Edit</a>
 									<a data-opt-id="{{ $opc->id }}" class="dropdown-item delete_opportunity_card_link"> Delete</a>
 									@endif
 									<a data-opt-id="{{ $opc->id }}" href="/cards/{{ $opc->id }}" class="dropdown-item">Expand</a>
@@ -138,8 +138,9 @@
 					@endforeach
 					@if($owner === true)
 					<div class="add_opportuniti_card_link_block">
-						<img class="add_opportuniti_card_link" src="/assets/images/plus_icon_green.png" />
+						<a href="{{ URL::to('/') }}/cards"><img  src="/assets/images/plus_icon_green.png" />
 						<i class="hidden add_opportuniti_card_link fa-4x fa fa-plus-circle" aria-hidden="true"></i>
+						</a>
 					</div>
 					@endif
 				</div>

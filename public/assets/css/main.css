@@ -2190,3 +2190,133 @@ li {
 html {
   scroll-behavior: smooth;
 }
+
+/**
+  * Opportunity page
+  * Written by Alexander
+  */
+#opportunity .container, #setting .container, #opentowork .container{
+  max-width: 100%;
+}
+.bg-gray{
+  background: #e1e3dd;
+}
+.margin-0-auto{
+  margin:0 auto;
+}
+.main_area{
+  min-height: 1000px;
+  position: relative;
+}
+#opportunity .card-header .editIcon, #opentowork .card-header .editIcon{
+  text-decoration: none;  
+}
+#opportunity .card-header .editIcon span, #opentowork .card-header .editIcon span{
+  font-size: 1.2rem;
+  color:#fff;
+}
+.bgcolor-blue{
+  background: #3170AF;
+}
+.textcolor-white{
+  color: #fff;
+}
+.textcolor-black{
+  /* color: #000; */
+}
+.textcolor-blue{
+ color: #219BC4;
+}
+#opportunity ul .bgcolor-purple, #opentowork ul .bgcolor-purple {
+  background: #332960;
+  color: #fff;
+}
+.chip {
+  display: inline-block;
+  height: 32px;
+  padding: 0 12px;
+  margin-right: 1rem;
+  margin-bottom: 0px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 32px;
+  color: rgba(0,0,0,0.6);
+  cursor: pointer;
+  background-color: #eceff1;
+  border-radius: 16px;
+  -webkit-transition: all .3s linear;
+  transition: all .3s linear;
+}
+
+.left_back{
+  position: absolute;
+  left: 0;
+  margin-top: 49px;
+  margin-left: -140px;
+}
+.popover-body li{
+  list-style: none;
+}
+a.add_to_my_collection{
+  text-decoration: none;
+}
+ .select2-results__options li{
+  margin-bottom: 0px;
+}
+ .select2-selection__rendered{
+  margin:0px;
+}
+li.select2-selection__choice{
+  margin:0px
+}
+
+/* settings */
+#setting .header{
+  background: #fff;
+  /* border: 1px solid red; */
+  color: #332960;
+  font-weight: bold;
+  font-size: 2.5rem;
+  border-radius: 10px;
+}
+#setting .header p{
+  float: left;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0px;
+}
+#setting .header img{
+  padding-right: 15px;
+  width: 50px;
+}
+.settingsButton {
+  width: 172px;
+  height: 44px;
+  box-sizing: border-box;
+  box-shadow: 0px 1px 1px #32275f;
+  border-radius: 10px;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  color: #ffffff;
+  transition: transform 0.2s;
+}
+.btn-delete-color{
+  background: #CA7073;
+}
+.btn-hide-color{
+  background: #332960;
+}
+#setting .alert{
+
+    padding: .55rem 1.25rem;
+
+}
+/* opent-to-work */
+.bgcolor-sky{
+  background:#65C5BF
+}
+#opentowork li{
+  margin-bottom: 20px;
+}

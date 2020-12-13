@@ -9,7 +9,7 @@
 	
    <title>{{ isset($meta_title) ? $meta_title : 'Growyspace' }}</title>
 	
-	@if(isset($opportunity_card_page) && $opportunity_card_page === true)
+	@if(isset($opportunity_card_page) && $opportunity_card_page === true && $opc)
 		<meta property="og:url"           content="http://growyspace.com/cards/{{ $opc-> id }}" />
 		<meta property="og:type"          content="website" />
 		<meta property="og:title"         content="{{ $opc->company.' '.$opc->title }}" />

@@ -540,7 +540,9 @@ class UserController extends Controller
 		Helpers::send_mail_html($request->email, 'New growyspace account', $email_html, 'no_replay@growyspace.com');		
 		return redirect('/user/login')->with('registration_success',  $message);
 	}
-	
+
+
+
 	/**
      * Show the application dashboard.
      *

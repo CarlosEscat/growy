@@ -207,6 +207,87 @@ $(document).ready(function() {
 		$(this).parents('.invite_user_to_this_card_popup_wrapper').addClass('hidden');;
 		return false;
 	});
+	$('#hideAccount').click(function(){
+		$.ajax({
+			type:'POST',
+			url:base_url + 'ajax/hide_account',
+			dataType:'json',
+			data:{
+				_token: $('._token').val()
+			},
+			cache: false,
+			success:function(data) {
+				if (data.complete) {
+					var messages_html = data.messages_html;
+					$.notify({
+						// options
+						message: messages_html 
+					},{
+						// settings
+						type: 'success',
+						placement: {
+							align: 'center'
+						},
+						delay:1000,
+						z_index: 5031
+					});
+					
+					setTimeout(function() {
+						window.location.reload();
+					}, 1000);
+				}
+			}
+		});
+		return false;
+	});
+	$('#deleteAccount').click(function(){
+		$.confirm({
+			title: 'Delete Collecion',
+			content: 'Confirm deletion?',
+			buttons: {
+				confirm: function () {
+					
+					$.ajax({
+						type:'POST',
+						url:base_url + 'ajax/delete_account',
+						dataType:'json',
+						data:{
+							_token: $('._token').val()
+						},
+						cache: false,
+						success:function(data) {
+							if (data.complete) {
+								var messages_html = data.messages_html;
+								$.notify({
+									// options
+									message: messages_html
+								},{
+									// settings
+									type: 'success',
+									placement: {
+										align: 'center'
+									},
+									delay:1000
+								});
+								
+								setTimeout(function() {
+									window.location.reload();
+								}, 1000);
+							
+							}
+						}
+					});
+					
+					
+				},
+				cancel: function () {
+					
+				}
+			}
+		});
+
+		return false;
+	});
 	
 	
 	
@@ -647,7 +728,48 @@ $(document).ready(function() {
 		e.stopPropagation();
 		e.preventDefault();
 	});
-	
+
+	$('.dropdown-submenu a.add_to_my_collection_link_new').on("click", function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		var opc_id = $(this).attr('data-opt-id');
+		$.ajax({
+			type:'POST',
+			url:base_url + 'ajax/get_opc_collections',
+			dataType:'json',
+			data:{
+				opc_id:opc_id,
+				_token: $('._token').val()
+			},
+			cache: false,
+			success:function(data) {
+				if (data.complete) {
+					var collections_html = data.collections_html;
+					console.log(collections_html);
+					$('.dropdown-submenu a.add_to_my_collection_link_new').attr('data-content',collections_html);
+						//popover
+					$('.dropdown-submenu a.add_to_my_collection_link_new').popover();
+
+				}else{
+					$(this).attr('data-content', 'No Collection')
+				}
+			}	
+				
+		});
+		
+
+	});	
+
+	$('.dropdown-submenu a.add_to_share_link_new').on("click", function(e){
+		var opc_id = $(this).attr('data-opt-id');
+		var collections_html = '<a href="https://www.linkedin.com/sharing/share-offsite/?url=http://growyspace.com/cards/'+opc_id+'" target="blank">LinkedIn</a>'
+		$('.dropdown-submenu a.add_to_share_link_new').attr('data-content',collections_html);
+		$('.dropdown-submenu a.add_to_share_link_new').popover();
+		e.stopPropagation();
+		e.preventDefault();
+
+	});	
+
 	$('.dropdown-submenu a.get_opc_collections').on("click", function(e){
 		var opc_id = $(this).attr('data-opt-id');
 		var next_ul = $(this).next('ul');
@@ -1336,6 +1458,8 @@ $(document).ready(function() {
 		formData.append('opc_description',  opc_description);
 		formData.append('opc_country_code',  opc_country_code);
 		
+		var opc_edit_mode = this_.attr('data-opt-id');
+		if(opc_edit_mode != 0) window.opc_edit_mode = 1;
 		if(typeof window.opc_edit_mode != 'undefined' && window.opc_edit_mode == 1) {
 			formData.append('opc_edit_mode',  window.opc_edit_mode);
 			formData.append('opc_id',  this_.attr('data-opt-id'));
@@ -1372,15 +1496,211 @@ $(document).ready(function() {
 				if (data.complete) {
 					if(typeof window.opc_edit_mode != 'undefined' && window.opc_edit_mode == 1) {
 						$('.opc_error_msg').html('<div class="alert alert-success" role="alert">Card updated successfully</div>');
+
 					} else {
 						$('.opc_error_msg').html('<div class="alert alert-success" role="alert">Card added successfully</div>');
-						$('.opc_fields').val('');
 						$('.opc_title').val('');
 						$('.opc_salary').val('');
 						$('.opc_hours').val('');
 						$('.opc_country_code').val('');
 						$('.opc_city').val('');
 						$('.opc_description').val('');
+						$('.opc_company').val('');
+
+					}					
+					this_.text(button_text);
+					this_.prop('disabled', false);
+					//window.need_reload_true = 1;
+					
+					setTimeout(function(){
+						window.location.reload();
+					}, 1000);
+				} else {
+					$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">' + data.message + '<div>');
+				}
+			},
+			error: function(xhr, errStr) {
+
+			}
+		});
+		
+		/*		
+		$.ajax({
+			type:'POST',
+			url:base_url + 'ajax/add_edit_opportunity_card',
+			dataType:'json',
+			data:{
+				opc_fields:opc_fields,
+				opc_title:opc_title,
+				opc_salary:opc_salary,
+				opc_hours:opc_hours,
+				opc_company:opc_company,
+				opc_country_code:opc_country_code,
+				opc_city:opc_city,
+				opc_description:opc_description,
+				_token: $('._token').val()
+			},
+			cache: false,
+			success:function(data) {
+				if (data.complete) {
+					$('.opc_error_msg').html('<div class="alert alert-success" role="alert">Card added syccessfully</div>');
+					$('.opc_fields').val('');
+					$('.opc_title').val('');
+					$('.opc_salary').val('');
+					$('.opc_hours').val('');
+					$('.opc_country_code').val('');
+					$('.opc_city').val('');
+					$('.opc_description').val('');
+					
+					setTimeout(function(){
+						window.location.reload();
+					}, 1000);
+				} else {
+					$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">' + data.message + '<div>');
+				}
+				
+				
+			}
+		});*/
+		return false;
+	});
+	// open to work/ create/update
+
+	$('.add_edit_opentowork_card').click(function(){
+		var opc_roles = $('.opc_roles').val();
+		var opc_fields = $('.opc_fields').val();
+		var opc_title = $('.opc_title').val();
+		var opc_email = $('.opc_email').val();
+		var opc_phone = $('.opc_phone').val();
+		
+		var opc_salary = $('.opc_salary').val();
+		var opc_hours = $('.opc_hours').val();
+		
+		var opc_country_code = $('.opc_country_code').val();
+		var opc_city = $('.opc_city').val();
+		var opc_description = $('.opc_description').val();
+		// var opc_company_logo = $('.opc_company_logo');
+		
+		if (opc_roles.length == 0) {
+			$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">Please add at least one role<div>');
+			return false;
+		}
+		if (opc_fields.length == 0) {
+			$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">Please add at least one field<div>');
+			return false;
+		}
+		
+		if ($.trim(opc_title) == '') {
+			$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">Please add the name.<div>');
+			return false;
+		}
+		
+		if(!validateEmail(opc_email)) {
+			$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">Please add the correct email<div>');
+			return false;
+		}
+		
+		// if (!validatePhone(opc_phone)) {
+		if ($.trim(opc_phone) == '') {
+			// $('.opc_error_msg').html('<div class="alert alert-danger" role="alert">Input an Phone No.[+xx-xxxx-xxxx, +xx.xxxx.xxxx, +xx xxxx xxxx] and Submit<div>');
+			$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">Please add the phone number<div>');
+			return false;
+		}
+		if ($.trim(opc_salary) == '') {
+			//$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">Please add salary.<div>');
+			//return false;
+		}
+		
+		if ($.trim(opc_hours) == '') {
+			//$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">Please add hours.<div>');
+			//return false;
+		}
+				
+		if ($.trim(opc_country_code) == '') {
+			$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">Please select a country<div>');
+			return false;
+		}
+		
+		if ($.trim(opc_city) == '') {
+			$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">Please add a city<div>');
+			return false;
+		}
+		
+		if ($.trim(opc_description) == '') {
+			$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">Please add the pitch<div>');
+			return false;
+		}
+		
+		var this_ = $(this);
+		var button_text = this_.html();
+		this_.html('Processing...');
+		this_.prop('disabled', true);
+		
+		
+		var value = $(this).val();
+		var formData = new FormData();
+		formData.append('opc_fields', opc_fields);
+		formData.append('opc_roles', opc_roles);
+		formData.append('opc_title',  opc_title);
+		formData.append('opc_salary', opc_salary);
+		formData.append('opc_hours',  opc_hours);
+		formData.append('opc_email',  opc_email);
+		formData.append('opc_city',  opc_city);
+		formData.append('opc_description',  opc_description);
+		formData.append('opc_country_code',  opc_country_code);
+		formData.append('opc_phone',  opc_phone);
+		
+		var opc_edit_mode = this_.attr('data-opt-id');
+		if(opc_edit_mode != 0) window.opc_edit_mode = 1;
+		if(typeof window.opc_edit_mode != 'undefined' && window.opc_edit_mode == 1) {
+			formData.append('opc_edit_mode',  window.opc_edit_mode);
+			formData.append('opc_id',  this_.attr('data-opt-id'));
+		}
+
+		formData.append('_token', $('._token').val());
+		
+		$.ajax({
+			async: true,
+			url: base_url + 'ajax/add_edit_opentowork_card',
+			dataType: "json",
+			type : "POST",
+			data : formData,
+			contentType : false,
+			cache : false,
+			processData : false,
+			xhr: function() {
+				var xhr = new window.XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(evt) {
+					if (evt.lengthComputable) {
+						/*var percentComplete = evt.loaded / evt.total;
+						percentComplete = parseInt(percentComplete * 100);
+						$('.take_photo_progress_bar').removeClass('hidden');
+						$('.take_photo_progress_bar div').css('width', percentComplete + '%').html(percentComplete + '%');
+						if (percentComplete === 100) {
+
+						}*/
+					}
+				}, false);
+				return xhr;
+			},
+			success : function(data)
+			{
+				if (data.complete) {
+					if(typeof window.opc_edit_mode != 'undefined' && window.opc_edit_mode == 1) {
+						$('.opc_error_msg').html('<div class="alert alert-success" role="alert">Card updated successfully</div>');
+
+					} else {
+						$('.opc_error_msg').html('<div class="alert alert-success" role="alert">Card added successfully</div>');
+						$('.opc_title').val('');
+						$('.opc_salary').val('');
+						$('.opc_hours').val('');
+						$('.opc_country_code').val('');
+						$('.opc_city').val('');
+						$('.opc_description').val('');
+						$('.opc_phone').val('');
+						$('.opc_roles').val('');
+						$('.opc_email').val('');
+
 					}					
 					this_.text(button_text);
 					this_.prop('disabled', false);
@@ -1440,7 +1760,7 @@ $(document).ready(function() {
 	});
 	
 	
-	$('.opc_fields,.search_opc_fields,.search_skills').select2({
+	$('.opc_fields,.search_opc_fields,.search_skills,.opc_roles,.search_opc_opc_roles').select2({
 		tags: true
 		//tokenSeparators: [',', ' ']
 	});
@@ -2109,6 +2429,7 @@ $(document).ready(function() {
 	});
 	
 	$('.edit_opportunity_card_link').click(function(){
+		alert();
 		window.opc_edit_mode = 1;
 		window.opc_id = $(this).attr('data-opt-id');
 		$.magnificPopup.close();
@@ -2178,7 +2499,7 @@ $(document).ready(function() {
 									$.magnificPopup.close();
 									
 									setTimeout(function() {
-										window.location.reload();
+										window.location = '/user/my_account';
 									}, 1000);
 								}
 							}
@@ -2363,6 +2684,8 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+
+
 });
 
 function encodeQueryData(data) {
@@ -2514,6 +2837,12 @@ function validateEmail(email) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
+
+function validatePhone(phone)
+{
+	const re = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+  return re.test(String(phone).toLowerCase());
+}
 function get_unread_mesages_info() {
 	$.ajax({
 		type:'POST',
@@ -2543,3 +2872,34 @@ function messages_page_design_controller() {
 		$('.messages_left').removeClass('hidden');
 	}
 }
+
+$('#opentowork_endorse').click(function(){
+	var opentoworkID = $(this).attr('data-opt-id');
+	$.ajax({
+		type:'POST',
+		url:base_url + 'ajax/endorse_opentowork',
+		dataType:'json',
+		data:{
+			_token: $('._token').val(),
+			id: opentoworkID
+		},
+		cache: false,
+		success:function(data) {
+			$.notify({
+				// options
+				message: data.message 
+			},{
+				// settings
+				type: 'success',
+				placement: {
+					align: 'center'
+				},
+				delay:1000,
+				z_index:20000
+			});
+			setTimeout(function() {
+				window.location.reload();
+			}, 1000);
+		}
+	});
+});

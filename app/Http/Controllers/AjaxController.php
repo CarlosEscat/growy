@@ -37,7 +37,9 @@ use Helpers;
 
 
 use App\Opportunity_card;
+use App\Opentowork_card;
 use App\Opportunity_card_field;
+use App\Roles;
 use App\User_skill;
 use App\Skill;
 use App\User_education;
@@ -1595,7 +1597,146 @@ class AjaxController extends Controller
 			));
 		}
 	}
-	
+	public function add_edit_opentowork_card(Request $request) {
+		if ($request->ajax()) {
+			
+			if(!Auth::guard('user')->check()) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request',
+				));exit;
+			}
+			
+			$opc_edit_mode = isset($request->opc_edit_mode) ? $request->opc_edit_mode : 0;
+			$opc_id = isset($request->opc_id) ? $request->opc_id : false;
+			$opc_fields = isset($request->opc_fields) ? $request->opc_fields : [];
+			$opc_roles = isset($request->opc_roles) ? $request->opc_roles : [];
+			$opc_title = isset($request->opc_title) ? $request->opc_title : false;
+			$opc_email = isset($request->opc_email) ? $request->opc_email : false;
+			
+			$opc_salary = isset($request->opc_salary) ? $request->opc_salary : false;
+			$opc_hours = isset($request->opc_hours) ? $request->opc_hours : false;
+			
+			$opc_country_code = isset($request->opc_country_code) ? $request->opc_country_code : false;
+			$opc_city = isset($request->opc_city) ? $request->opc_city : false;
+			$opc_description = isset($request->opc_description) ? $request->opc_description : false;
+			$opc_phone = isset($request->opc_phone) ? $request->opc_phone : false;
+			
+			if($opc_edit_mode == 1) {
+				if($opc_id === false) {
+					echo json_encode(array(
+						'complete' => false,
+						'message' => 'Wrong Request1',
+					));exit;
+				}
+				
+				$user_id = Auth::guard('user')->user()->id;
+				$opc = Opentowork_card::find($opc_id);
+			
+				if($opc === null) {
+					echo json_encode(array(
+						'complete' => false,
+						'message' => 'Wrong Request',
+					));exit;
+				}
+				
+				if($opc->user_id != $user_id) {
+					echo json_encode(array(
+						'complete' => false,
+						'message' => 'Wrong Request',
+					));exit;
+				}
+			}
+			
+			if(empty($opc_fields)) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request1',
+				));exit;
+			}
+			if(empty($opc_roles)) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request3',
+				));exit;
+			}
+			
+			if(empty($opc_title)) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request2',
+				));exit;
+			}
+			
+			
+			
+			if(empty($opc_country_code)) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request6',
+				));exit;
+			}
+			
+			if(empty($opc_city)) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request7',
+				));exit;
+			}
+			
+			if(empty($opc_description)) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request8',
+				));exit;
+			}
+			
+			if ($opc_edit_mode == 0) {
+				$opc = new Opentowork_card;
+			}
+			
+			$opc_fields_array = explode(',',$opc_fields);
+			
+			foreach($opc_fields_array as $opc_field) {
+				$opf = Opportunity_card_field::where('name',$opc_field)->first();
+				
+				if ($opf === null) {
+					$opf = new Opportunity_card_field;
+					$opf->name = $opc_field;
+					$opf->save();
+				}
+			} 
+
+			$opc_roles_array = explode(',',$opc_roles);
+			
+			foreach($opc_roles_array as $opc_role) {
+				$opf = Roles::where('name',$opc_roles)->first();
+				
+				if ($opf === null) {
+					$opf = new Roles;
+					$opf->name = $opc_role;
+					$opf->save();
+				}
+			} 						
+			$opc->user_id = Auth::guard('user')->user()->id;
+			$opc->title = $opc_title;
+			$opc->fields = json_encode($opc_fields_array);
+			$opc->roles = json_encode($opc_roles_array);
+			$opc->salary = $opc_salary;
+			$opc->email = $opc_email;
+			$opc->hours = $opc_hours;
+			$opc->country_code = $opc_country_code;
+			$opc->city = $opc_city;
+			$opc->description = $opc_description;
+			$opc->phone = $opc_phone;
+			$opc->save();
+			
+						
+			echo json_encode(array(
+				'complete' => true
+			));
+		}
+	}	
 	public function get_opc_collections(Request $request) {
 		if ($request->ajax()) {
 			
@@ -2789,6 +2930,70 @@ class AjaxController extends Controller
 				'complete' => true,
 				'options_html' => $options_html,
 				'options' => $options
+			));
+		}
+	}
+	public function delete_account(Request $request){
+		$user_id = Auth::guard('user')->user()->id;		
+		$user = User::find($user_id)->delete();
+		echo json_encode(array(
+			'complete' => true,
+			'messages_html' => 'Your account has been deleted',
+		));
+	}
+
+	public function hide_account(Request $request){		
+		$user_id = Auth::guard('user')->user()->id;
+		$user = User::find($user_id);
+		$user->is_deleted = 1; 
+		$user->save();
+		echo json_encode(array(
+			'complete' => true,
+			'messages_html' => 'Your account has been hidden',
+		));
+	}
+	public function endorse_opentowork(Request $request) {
+		if ($request->ajax()) {
+			if(!Auth::guard('user')->check()) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request',
+				));exit;
+			}
+			
+			$user_id = Auth::guard('user')->user()->id;
+			$opc_id =  isset($request->id) ? $request->id : 0;
+			if($opc_id == $user_id){
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Can\'t endorse own value',
+				));exit;
+			}
+			$opc = Opentowork_card::find($opc_id);
+			if($opc === null) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request',
+				));exit;
+			}
+			$opc_endorse_json = $opc->endorse;
+			$opc_endorse = [];
+			if (trim($opc_endorse_json) != '') {
+				$opc_endorse = json_decode($opc_endorse_json,true);
+			}
+			
+			if (($key = array_search($user_id, $opc_endorse)) !== false) {
+				unset($opc_endorse[$key]);
+			}else{
+				array_push($opc_endorse, $user_id);
+			}
+
+			$opc->endorse = json_encode($opc_endorse);
+			$opc->save();
+
+			echo json_encode(array(
+				'complete' => true,
+				'message' => 'Success',
 			));
 		}
 	}

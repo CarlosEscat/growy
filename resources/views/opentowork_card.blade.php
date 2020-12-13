@@ -1,31 +1,19 @@
 @extends('layouts.front')
 @section('content') 
 
-<!-- Load Facebook SDK for JavaScript -->
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-var js, fjs = d.getElementsByTagName(s)[0];
-if (d.getElementById(id)) return;
-js = d.createElement(s); js.id = id;
-js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<!-- Open to work Start -->
 
-
-<!-- Opportunity Start -->
-
-<div id="opportunity">
-    <div class="container bg-gray">
-                
+<div id="opentowork">
+    <div class="container bg-gray">                
 
         <!-- card -->
         <div class="col-md-7 main_area mt-5 pt-5 margin-0-auto">
             <a  href="{{ URL::to('/') }}/user/my_account" class="left_back"><img src='/assets/images/back.png' alt='Back' ></a>
             <div class="m-t-5 card mt-5 align-last">
-                <div class="card-header bgcolor-blue textcolor-white">
-                    <h2>Opportunity
+                <div class="card-header bgcolor-sky textcolor-white">
+                    <h2>Open-to-work
                     @if(!$third_person)
-                    <a  href="{{ URL::to('/') }}/cards/{{$opc->id}}/edit" data-opt-id="{{ $opc->id }}" class="editIcon float-right edit_opportunity_card_link_new">
+                    <a  href="{{ URL::to('/') }}/opentowork/{{$opc->id}}/edit" data-opt-id="{{ $opc->id }}" class="editIcon float-right edit_opportunity_card_link_new">
                         <img src='/assets/images/Icon-edit-new.png' alt='Edit' > <span>Edit</span>
                     </a>
                     @endif
@@ -36,17 +24,41 @@ fjs.parentNode.insertBefore(js, fjs);
                     <!-- Title -->
                     <h4 class="card-title font-weight-bold textcolor-black">{{ $opc->title }}</h4>
                     <!-- Data -->
-                    <h6>{{ $opc->company }}</h6>
+                    <h6>{{ $opc->email }}</h6>
+                    <p><span class="">{{ $opc->phone }}</span></p>
                     <p> <span class="fa fa-map-marker"></span> <span class="">{{ isset($countries[$opc->country_code]) ? $countries[$opc->country_code] : '' }}, {{ $opc->city }}</span></p>
-                    <p class="mb-2 font-weight-bold">Description</p>
+                    <p class="mb-2 font-weight-bold">Pitch</p>
                     <!-- Text -->
                     <p class="card-text">{!! nl2br($opc->description) !!}</p>
                     
-                    <p class="mb-2 font-weight-bold">Requested Skills</p>
+                    <p class="mb-2 font-weight-bold">Roles of interest</p>
+                    <ul class="list-unstyled list-inline d-flex margin-0-auto mb-0">
+                        @foreach($opc_roles as $oc)
+                        <li class="list-inline-item mr-0 pr-2">
+                            <div class="chip bgcolor-purple mr-0">{{ $oc }}</div>
+                        </li>
+                        @endforeach
+                    </ul>
+                    <p class="mb-2 font-weight-bold">Skills</p>
                     <ul class="list-unstyled list-inline d-flex margin-0-auto mb-0">
                         @foreach($opc_fields as $oc)
                         <li class="list-inline-item mr-0 pr-2">
-                            <div class="chip bgcolor-purple mr-0">{{ $oc }}</div>
+                            <div class="chip bgcolor-purple mr-0" style="height:85px;">
+                                <p style="margin-bottom: 0px;    padding: 0px 15px 5px 5px;">{{ $oc }}</p>
+                              
+                                <span style="padding: 0px 15px 5px 5px;">
+                                    @if(count($opc_endorse) > 0)
+                                    <img src='/assets/images/Icon-endorsed.png' alt='Endorse' />
+                                    <span>X {{count($opc_endorse)}}</span>
+                                    <span id="opentowork_endorse"  data-opt-id="{{ $opc->id }}" style="color: #90CDE1;float: right;">Undo</span>
+                                    
+                                    @else
+                                        <img src='/assets/images/Icon-endorsed2.png' alt='Endorse' />
+                                        <span id="opentowork_endorse"  data-opt-id="{{ $opc->id }}" style="color: #90CDE1;float: right;">Endorse</span>
+                                    
+                                    @endif
+                                </span>
+                            </div>
                         </li>
                         @endforeach
                     </ul>
@@ -65,12 +77,13 @@ fjs.parentNode.insertBefore(js, fjs);
                     </span>     -->
                     <span class="dropdown-submenu"><a href="#" data-opt-id="{{ $opc->id }}"  class="btn btn-flat float-right pl-1 mx-0 mb-0 text-decoration-none textcolor-blue add_to_share_link_new " data-toggle="popover" data-placement="bottom" data-content="" data-html="true" data-sanitize="false">Share</a>
                     </span>   
-
                     @if(!$third_person)
                         <a href="#" class="btn btn-flat float-right pl-1 mx-0 mb-0 text-decoration-none textcolor-blue">Find Matches</a>
                     @else
                         <a href="#" class="btn btn-flat float-right pl-1 mx-0 mb-0 text-decoration-none textcolor-blue">Send Opportunity</a>
-                    @endif               
+                    @endif
+                   
+                                      
 
                 </div>
             </div>
