@@ -1390,7 +1390,8 @@ $(document).ready(function() {
 		var opc_city = $('.opc_city').val();
 		var opc_description = $('.opc_description').val();
 		var opc_company_logo = $('.opc_company_logo');
-		
+		var refer = 0;
+		if($(this).attr('data-opt-id')) refer = $(this).attr('data-opt-id');
 		if (opc_fields.length == 0) {
 			$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">Please add at least one field<div>');
 			return false;
@@ -1457,6 +1458,7 @@ $(document).ready(function() {
 		formData.append('opc_city',  opc_city);
 		formData.append('opc_description',  opc_description);
 		formData.append('opc_country_code',  opc_country_code);
+		formData.append('refer',  refer);
 		
 		var opc_edit_mode = this_.attr('data-opt-id');
 		if(opc_edit_mode != 0) window.opc_edit_mode = 1;
@@ -1513,7 +1515,9 @@ $(document).ready(function() {
 					//window.need_reload_true = 1;
 					
 					setTimeout(function(){
-						window.location.reload();
+						var lastID = this_.attr('data-opt-id');
+						if(data.last_inserted_id) lastID = data.last_inserted_id;
+						window.location.href = '/cards/'+lastID;
 					}, 1000);
 				} else {
 					$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">' + data.message + '<div>');
@@ -1580,7 +1584,9 @@ $(document).ready(function() {
 		var opc_city = $('.opc_city').val();
 		var opc_description = $('.opc_description').val();
 		// var opc_company_logo = $('.opc_company_logo');
-		
+		var refer = 0;
+		if($(this).attr('data-opt-id')) refer = $(this).attr('data-opt-id');
+
 		if (opc_roles.length == 0) {
 			$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">Please add at least one role<div>');
 			return false;
@@ -1649,6 +1655,7 @@ $(document).ready(function() {
 		formData.append('opc_description',  opc_description);
 		formData.append('opc_country_code',  opc_country_code);
 		formData.append('opc_phone',  opc_phone);
+		formData.append('refer',  refer);
 		
 		var opc_edit_mode = this_.attr('data-opt-id');
 		if(opc_edit_mode != 0) window.opc_edit_mode = 1;
@@ -1707,7 +1714,9 @@ $(document).ready(function() {
 					//window.need_reload_true = 1;
 					
 					setTimeout(function(){
-						window.location.reload();
+						var lastID = this_.attr('data-opt-id');
+						if(data.last_inserted_id) lastID = data.last_inserted_id;
+						window.location.href = '/opentowork/'+lastID;
 					}, 1000);
 				} else {
 					$('.opc_error_msg').html('<div class="alert alert-danger" role="alert">' + data.message + '<div>');
@@ -2515,6 +2524,64 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+	$('.delete_opentowork_card_link').click(function(){
+		var this_ = $(this);
+		var opp_card_block = this_.parents('.opp_card_block');
+		var opc_id = this_.attr('data-opt-id');
+		var button_text = this_.html();
+				
+		$.confirm({
+			title: 'Delete opportunity card',
+			content: 'Confirm deletion?',
+			buttons: {
+				confirm: function () {
+					
+					$.ajax({
+						type:'POST',
+						url:base_url + 'ajax/delete_opentowork',
+						dataType:'json',
+						data:{
+							opc_id:opc_id,
+							_token: $('._token').val()
+						},
+						cache: false,
+						success:function(data) {
+							if (data.complete) {
+								
+								$.notify({
+									// options
+									message: 'Open-to-work was deleted successfully.' 
+								},{
+									// settings
+									type: 'success',
+									placement: {
+										align: 'center'
+									},
+									delay:1000
+								});
+								
+								if(opp_card_block.length == 1) {
+									opp_card_block.remove();
+								} else {
+									$.magnificPopup.close();
+									
+									setTimeout(function() {
+										window.location = '/user/my_account';
+									}, 1000);
+								}
+							}
+						}
+					});
+					
+					
+				},
+				cancel: function () {
+					
+				}
+			}
+		});
+		return false;
+	});
 	
 	$('.delete_education_link').click(function() {
 		var this_ = $(this);
@@ -2685,6 +2752,51 @@ $(document).ready(function() {
 		return false;
 	});
 
+	// sharing button
+	$.fn.editable.defaults.mode = 'popup';
+	$.fn.editable.defaults.params = function (params) {
+        params._token = $('._token').val()
+        return params;
+    };
+	$('#opportunity_share').editable({
+		type: 'text',
+		pk: 1,
+		url: '/post',
+		showbuttons: false,
+		success: function(data) {
+			console.log('success')
+		}
+	});
+
+	//add to collection in the opportunity
+	$('#opportunity_collection').editable({
+		type: 'POST',
+		url: base_url + 'ajax/add_to_my_collection_from',
+
+		display: function(value, sourceData) {
+		
+		}
+	});	
+	$('.endorse_list').editable({
+		showbuttons: false
+	});	
+
+
+
+	//Find Matches
+	$('#opportunity_findmatch').editable({
+		type: 'text',
+		pk: 2,
+		url: '/post',
+		source: [
+			{value: 1, text: 'banana'},
+			{value: 2, text: 'peach'},
+			{value: 3, text: 'apple'},
+			{value: 4, text: 'watermelon'},
+			{value: 5, text: 'orange'}
+		],
+		
+	});
 
 });
 
@@ -2873,15 +2985,20 @@ function messages_page_design_controller() {
 	}
 }
 
-$('#opentowork_endorse').click(function(){
-	var opentoworkID = $(this).attr('data-opt-id');
+$('.opentowork_endorse').click(function(){
+	var skill = $(this).attr('data-opt-skill');
+	var user_id = $(this).attr('data-user-id');
+	var logined = $(this).attr('data-logined');
+
 	$.ajax({
 		type:'POST',
 		url:base_url + 'ajax/endorse_opentowork',
 		dataType:'json',
 		data:{
 			_token: $('._token').val(),
-			id: opentoworkID
+			received_user: user_id,
+			skill:skill,
+
 		},
 		cache: false,
 		success:function(data) {
@@ -2903,3 +3020,29 @@ $('#opentowork_endorse').click(function(){
 		}
 	});
 });
+
+//getting the opportunity collections
+// var getOpt_collections = function() {
+
+// 	$.ajax({
+// 		type:'POST',
+// 		url:base_url + 'ajax/get_opc_collection_list',
+// 		dataType:'json',
+// 		data:{
+// 			_token: $('._token').val()
+// 		},
+// 		cache: false,
+// 		success:function(data) {
+// 			data.result = [
+// 				{value: 1, text: 'banana'},
+// 				{value: 2, text: 'peach'},
+// 				{value: 3, text: 'apple'},
+// 				{value: 4, text: 'watermelon'},
+// 				{value: 5, text: 'orange'}
+// 			];
+// 			return data.result;
+// 		}	
+			
+// 	});
+
+// };

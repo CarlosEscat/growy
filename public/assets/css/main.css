@@ -1562,8 +1562,7 @@ html {
   .profile_name_profession_block p {
     margin-bottom: 0 !important;
   }
-  .profile_name_profession_block {
-  }
+  
 }
 @media only screen and (max-width: 768px) {
   .messages_back_arrow {
@@ -1656,8 +1655,7 @@ html {
     width: 81px;
     margin-top: 10px;
   }
-  .profile_name_profession_block {
-  }
+
 
   .profile_name_profession_block h1 {
     font-size: 27px;
@@ -2210,10 +2208,30 @@ html {
 }
 #opportunity .card-header .editIcon, #opentowork .card-header .editIcon{
   text-decoration: none;  
+  padding-right: 24px;
 }
 #opportunity .card-header .editIcon span, #opentowork .card-header .editIcon span{
   font-size: 1.2rem;
   color:#fff;
+}
+.edit_opportunity_card_link_new img{
+  width: 24.18px;height: 22.35px;margin-top: 7px;
+}
+.location_icon{
+  padding-top: 16px;
+  margin: 0px;
+}
+.location_icon img{
+  margin-top: -7px;
+}
+.open_to_work_location_icon{
+  margin: 0px;
+}
+.open_to_work_location_icon img{
+  margin-top: -7px;
+}
+.request_skills{
+  padding-bottom: 40px;
 }
 .bgcolor-blue{
   background: #3170AF;
@@ -2221,9 +2239,7 @@ html {
 .textcolor-white{
   color: #fff;
 }
-.textcolor-black{
-  /* color: #000; */
-}
+
 .textcolor-blue{
  color: #219BC4;
 }
@@ -2243,7 +2259,7 @@ html {
   color: rgba(0,0,0,0.6);
   cursor: pointer;
   background-color: #eceff1;
-  border-radius: 16px;
+  border-radius: 6px;
   -webkit-transition: all .3s linear;
   transition: all .3s linear;
 }
@@ -2251,8 +2267,11 @@ html {
 .left_back{
   position: absolute;
   left: 0;
-  margin-top: 49px;
-  margin-left: -140px;
+  margin-top: 0px;
+  margin-left: -137px;
+}
+.left_back img{
+  max-width: 114px;
 }
 .popover-body li{
   list-style: none;
@@ -2319,4 +2338,190 @@ li.select2-selection__choice{
 }
 #opentowork li{
   margin-bottom: 20px;
+}
+.padding-top-80{
+  padding-top: 80px;
+}
+.card-custom{
+  width: 888px;
+  margin: 0 auto;
+  background: #e1e3dd;
+  border: 0px;
+  padding-top: 60px;
+}
+.card-header-custom{
+  height: 78px;
+    padding: 0px;
+    border-radius: 10px 10px 0px 0px;
+}
+.card-header-custom h2{
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 44px;
+  line-height: 30px;
+  letter-spacing: -0.015em;
+  color: #FFFFFF;
+  margin-top: 24px;
+  margin-left: 18px;
+}
+.card-body-custom{
+  background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 0px 10px 10px;
+    padding: 24px 18px 39px 18px;
+}
+.card-body-custom h4{
+  font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 36px;
+    letter-spacing: -0.015em;
+    color: #000000;
+    margin: 0px;
+    padding: 0px;
+}
+.card-body-custom h6{
+  padding-top: 16px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 30px;
+  letter-spacing: -0.015em;
+  color: #000000;
+  margin: 0px;
+}
+.cityLabel{
+  padding-left: 12px;
+  font-size: 25px;
+  line-height: 30px;
+  letter-spacing: -0.015em;
+}
+.descriptionLabel{
+  font-size: 18px;
+    line-height: 36px;
+    letter-spacing: -0.015em;
+    color: #000000;
+    padding-top: 16px;
+    font-weight: bold;
+    margin: 0px;
+}
+.phone_layout{
+  margin: 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.card-text{
+  font-size: 18px;
+  line-height: 30px;
+  letter-spacing: -0.015em;
+  color: rgba(0, 0, 0, 0.8);
+  margin: 0px;
+}
+.skillsLabel{
+  padding-top: 18px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 30px;
+  letter-spacing: -0.015em;
+  color: #1C3041;
+  margin: 0px;
+  padding-bottom: 0px;
+}
+.chip-custom{
+  background: #332960;
+  border-radius: 6px;
+  height: 25px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.015em;
+  color: #FFFFFF;
+}
+.btn-customs{
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  letter-spacing: -0.015em;
+  color: #219BC4;
+  margin-left: 24px;
+}
+.padding-top-100{
+  padding-top:100px
+}
+
+.select2-selection__choice{
+  background-color: #332960 !important;
+  border-radius: 6px !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+  background-color: transparent;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0 12px;
+  float: right;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove span{
+  cursor: pointer;
+  color: #fff;
+  border: 1px solid #AEAEAE;
+  border-radius: 30px;
+  background: #332960;
+  font-size: 21px;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 0px;
+  padding: 9px 3px;
+}
+.select2-selection__choice__display{
+  font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.015em;
+    color: #FFFFFF;
+    padding-top: 6px;
+    padding-left: 10px !important;
+
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover, .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:focus {
+  background-color: #332960;
+}
+
+.editable-click, a.editable-click, a.editable-click:hover {
+  text-decoration: none;
+  border-bottom: dashed 0px #0088cc;
+}
+.editable-controls input {
+  width: 100%
+}
+
+.form-inline label {
+  display: block;
+}
+.custom_endorse{
+  height: 65px;
+}
+.undo_icon{
+  color: #90CDE1;float: right;
+}
+.opentowork_endorse{
+  padding-left:10px;
+}
+.alert {
+  margin-bottom: 0px;
 }

@@ -48,6 +48,8 @@ use App\User_collection;
 use App\User_collection_item;
 use App\User_message;
 use App\User_message_conversation;
+use App\Endorse_list;
+
 
 class AjaxController extends Controller
 {
@@ -484,7 +486,7 @@ class AjaxController extends Controller
 				));exit;
 			}
 			
-			$collection_item_user_ids = User_collection_item::where('collection_id',$collection_id)->whereNotNull('user_id')->pluck('user_id')->toArray();;
+			$collection_item_user_ids = User_collection_item::where('collection_id',$collection_id)->whereNotNull('user_id')->pluck('user_id')->toArray();
 			$collection_item_opc_ids = User_collection_item::where('collection_id',$collection_id)->whereNotNull('opportunity_card_id')->pluck('opportunity_card_id')->toArray();;
 			//$items_count = User_collection_item::where('collection_id',$collection_id)->count();
 			
@@ -721,7 +723,60 @@ class AjaxController extends Controller
 			));
 		}
 	}
-	
+	public function add_to_my_collection_from(Request $request) {
+		if(!Auth::guard('user')->check()) {
+			echo json_encode(array(
+				'complete' => false,
+				'message' => 'Wrong Request',
+			));exit;
+		}
+        $inputs = Input::all();
+		$item_type = $inputs['name'];
+		$card_id = $inputs['pk'];
+		$collection_list = $inputs['value'];
+		$user_id = Auth::guard('user')->user()->id;
+		if(is_array($collection_list)){
+			foreach($collection_list as $key => $collection_id){
+				
+				$itemList = User_collection_item::where('collection_id',$collection_id)->where('opportunity_card_id',$card_id)->pluck('opportunity_card_id')->toArray();
+				
+				if(count($itemList) > 0) {
+					// already registered
+					//$o = User_collection_item::where('collection_id',$collection_id)->where('opportunity_card_id',$card_id)->delete();
+					
+
+				}else{
+					$user_collection_item = new User_collection_item;
+					$user_collection_item->collection_id = $collection_id;
+					$user_collection_item->opportunity_card_id = $card_id;
+					$user_collection_item->save();
+				}
+			}
+		}else{
+			$collection_id = $collection_list;
+			
+			$itemList = User_collection_item::where('collection_id',$collection_id)->where('opportunity_card_id',$card_id)->pluck('opportunity_card_id')->toArray();
+			
+			if(count($itemList) > 0) {
+				// already registered
+				//$o = User_collection_item::where('collection_id',$collection_id)->where('opportunity_card_id',$card_id)->delete();
+				
+				
+
+			}else{
+				$user_collection_item = new User_collection_item;
+				$user_collection_item->collection_id = $collection_id;
+				$user_collection_item->opportunity_card_id = $card_id;
+				$user_collection_item->save();
+			}
+		}
+
+					
+	echo json_encode(array(
+		'complete' => true,
+	));
+		
+	}	
 	public function get_user_data(Request $request) {
 		if ($request->ajax()) {
 			if(!Auth::guard('user')->check()) {
@@ -1355,6 +1410,49 @@ class AjaxController extends Controller
 			));
 		}
 	}
+	public function delete_opentowork(Request $request) {
+		if ($request->ajax()) {
+			
+			if(!Auth::guard('user')->check()) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request',
+				));exit;
+			}
+			
+			$opc_id = isset($request->opc_id) ? $request->opc_id : false;
+			
+			if($opc_id === false) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request1',
+				));exit;
+			}
+			
+			$user_id = Auth::guard('user')->user()->id;
+			$opc = Opentowork_card::find($opc_id);
+		
+			if($opc === null) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request',
+				));exit;
+			}
+			
+			if($opc->user_id != $user_id) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request',
+				));exit;
+			}
+			
+			$opc->delete();
+			
+			echo json_encode(array(
+				'complete' => true
+			));
+		}
+	}
 	
 	public function update_skills(Request $request) {
 		if ($request->ajax()) {
@@ -1593,7 +1691,8 @@ class AjaxController extends Controller
 			}
 						
 			echo json_encode(array(
-				'complete' => true
+				'complete' => true,
+				'last_inserted_id' =>$opc->id
 			));
 		}
 	}
@@ -1621,7 +1720,8 @@ class AjaxController extends Controller
 			$opc_city = isset($request->opc_city) ? $request->opc_city : false;
 			$opc_description = isset($request->opc_description) ? $request->opc_description : false;
 			$opc_phone = isset($request->opc_phone) ? $request->opc_phone : false;
-			
+			$refer = isset($request->refer) ? $request->refer : false;
+
 			if($opc_edit_mode == 1) {
 				if($opc_id === false) {
 					echo json_encode(array(
@@ -1701,21 +1801,22 @@ class AjaxController extends Controller
 				$opf = Opportunity_card_field::where('name',$opc_field)->first();
 				
 				if ($opf === null) {
-					$opf = new Opportunity_card_field;
-					$opf->name = $opc_field;
-					$opf->save();
+					$newopf = new Opportunity_card_field;
+					$newopf->name = $opc_field;
+					$newopf->save();
 				}
 			} 
 
 			$opc_roles_array = explode(',',$opc_roles);
 			
 			foreach($opc_roles_array as $opc_role) {
-				$opf = Roles::where('name',$opc_roles)->first();
 				
-				if ($opf === null) {
-					$opf = new Roles;
-					$opf->name = $opc_role;
-					$opf->save();
+				$opf_role = Roles::where('name',$opc_role)->get();
+				
+				if (count($opf_role) == 0) {
+					$newopf_role = new Roles;
+					$newopf_role->name = $opc_role;
+					$newopf_role->save();
 				}
 			} 						
 			$opc->user_id = Auth::guard('user')->user()->id;
@@ -1733,7 +1834,8 @@ class AjaxController extends Controller
 			
 						
 			echo json_encode(array(
-				'complete' => true
+				'complete' => true,
+				'last_inserted_id' =>$opc->id
 			));
 		}
 	}	
@@ -1789,6 +1891,105 @@ class AjaxController extends Controller
 			
 		}
 	}
+	public function get_opc_collection_list(Request $request) {
+		if ($request->ajax()) {
+			$rlt = array();
+			if(!Auth::guard('user')->check()) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request1',
+					'action' => 'redirect_to_login_page'
+				));exit;
+			}
+			
+			$user_id = Auth::guard('user')->user()->id;
+			$opc_id = isset($request->opc_id) ? $request->opc_id : false;
+			
+			if($opc_id === false) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request2',
+				));exit;
+			}
+			
+			$opc = Opportunity_card::find($opc_id);
+			
+			if($opc === null) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request3',
+				));exit;
+			}
+			
+			$user_collections = User_collection::where('user_id',$user_id)->get();
+			$collections_html = '';
+			
+			foreach($user_collections as $uc) {
+				// $ugi = $uc->items_with_opc($opc_id);
+				$collectonID = $uc->id;
+				//$itemList = User_collection_item::where('collection_id',$collectonID)->where('opportunity_card_id',$opc)->pluck('opportunity_card_id')->toArray();
+				//if(count($itemList) > 0){
+					$rlt[] = ["value" => $collectonID, "text" => $uc->name];
+				//}else{
+					
+				//}
+
+
+
+				// foreach($itemList as $key => $value) {
+				// 	$opc  = Opportunity_card::find($value);
+				// 	if($opc && $opc->title){
+
+				// 		$rlt[] = ["value" => $value, "text" => $opc->title];
+				// 	}
+				// }
+				
+				
+				
+			}
+			
+			echo json_encode($rlt);
+			
+		}
+	}
+	public function get_endorse_list(Request $request) {
+		if ($request->ajax()) {
+			$rlt = array();
+			if(!Auth::guard('user')->check()) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request1',
+					'action' => 'redirect_to_login_page'
+				));exit;
+			}
+			
+			$user_id = Auth::guard('user')->user()->id;
+			$opc_id = isset($request->opc_id) ? $request->opc_id : false;
+			$skill = isset($request->skill) ? $request->skill : false;
+	
+			if($opc_id === false) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request2',
+				));exit;
+			}
+
+			$opSkill = Opportunity_card_field::where('name',$skill)->first();
+			$given_userList = Endorse_list::where('received_user_id',$opc_id)->where('skill_id',$opSkill->id)->pluck('given_user_id')->toArray();
+
+	
+			
+			foreach($given_userList as $user) {
+				$name = User::where('id',$user)->first();
+				$rlt[] = ["value" => $user, "text" => $name->full_name];
+							
+			}
+			
+			echo json_encode($rlt);
+			
+		}
+	}
+	
 	
 	public function get_user_collections(Request $request) {
 		if ($request->ajax()) {
@@ -2962,35 +3163,28 @@ class AjaxController extends Controller
 			}
 			
 			$user_id = Auth::guard('user')->user()->id;
-			$opc_id =  isset($request->id) ? $request->id : 0;
-			if($opc_id == $user_id){
+			$received_user =  isset($request->received_user) ? $request->received_user : 0;
+			$skillparam =  isset($request->skill) ? $request->skill : "";
+			if($user_id == $received_user){
 				echo json_encode(array(
 					'complete' => false,
 					'message' => 'Can\'t endorse own value',
 				));exit;
 			}
-			$opc = Opentowork_card::find($opc_id);
-			if($opc === null) {
-				echo json_encode(array(
-					'complete' => false,
-					'message' => 'Wrong Request',
-				));exit;
-			}
-			$opc_endorse_json = $opc->endorse;
-			$opc_endorse = [];
-			if (trim($opc_endorse_json) != '') {
-				$opc_endorse = json_decode($opc_endorse_json,true);
+
+			$opSkill = Opportunity_card_field::where('name',$skillparam)->first();
+			$itemList = Endorse_list::where('received_user_id',$received_user)->where('given_user_id',$user_id)->where('skill_id',$opSkill->id)->first();
+
+			if($itemList && $itemList->id){
+				Endorse_list::where('id',$itemList->id)->delete();
+			}else{
+				$endorse_item = new Endorse_list;
+				$endorse_item->received_user_id = $received_user;
+				$endorse_item->given_user_id = $user_id;
+				$endorse_item->skill_id = $opSkill->id;
+				$endorse_item->save();
 			}
 			
-			if (($key = array_search($user_id, $opc_endorse)) !== false) {
-				unset($opc_endorse[$key]);
-			}else{
-				array_push($opc_endorse, $user_id);
-			}
-
-			$opc->endorse = json_encode($opc_endorse);
-			$opc->save();
-
 			echo json_encode(array(
 				'complete' => true,
 				'message' => 'Success',

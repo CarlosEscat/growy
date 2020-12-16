@@ -37,6 +37,9 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+	
+	<link href="{{ URL::to('/') }}/assets/bootstrap4-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+	
 	<link href="{{ URL::to('/') }}/assets/css/main.css?{{ time() }}" rel="stylesheet">
 	<script>window.base_url = '{{ URL::to('/') }}/';</script>
 	<script>window.is_logged_in = '{{ Auth::guard("user")->check() ? 1 : 0 }}';</script>

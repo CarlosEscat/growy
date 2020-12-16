@@ -4,19 +4,21 @@
 
 <!-- Open-to-work Start -->
 
-<div id="opentowork">
+<div id="opportunity">
     <div class="container bg-gray">                
 
         <!-- card -->
-        <div class="col-md-6 main_area mt-5 pt-5 margin-0-auto">
-            <a  href="{{ URL::to('/') }}/user/my_account" class="left_back"><img src='/assets/images/back.png' alt='Back' ></a>
-            <div class=" card mt-5 align-last">
-                <div class="card-header bgcolor-sky textcolor-white">
-                    <h2>Open-to-work</h2>
+        <div class=" main_area margin-0-auto padding-top-80">
+            
+            <div class="card align-last card-custom">
+                <a href="{{ URL::to('/') }}/user/my_account" class="left_back"><img src="/assets/images/back.png" alt="Back" style="
+                    max-width: 114px;
+                "></a>
+                <div class="card-header bgcolor-sky textcolor-white card-header-custom">
+                    <h2>Opent-to-work
                 </div>
-                <div class="opc_error_msg"></div>
-					<br/>
-                <div class="card-body mt-2">
+                <div class="opc_error_msg" style="margin:0px"></div>
+                <div class="card-body card-body-custom">
                     <div class="form-group row">
 						<label class="col-md-2 control-label">Name:</label>
 						<div class="col-md-10 controls">
@@ -108,9 +110,9 @@
                     <div class="form-group row">
 						<div class="col-md-12 text-right">
                         @if(isset($id) && $id > 0)
-                            <a  style="color:#219BC4;cursor: pointer;" data-opt-id="{{ $id }}" class="delete_opportunity_card_link" >Delete</a>
+                            <a  style="color:#219BC4;cursor: pointer;" data-opt-id="{{ $id }}" class="delete_opentowork_card_link" >Delete</a>
                         @endif
-						    <a style="color:#CA7073; padding-left:20px;cursor: pointer;" data-opt-id="{{ isset($id) ? $id  : 0 }}" class="add_edit_opentowork_card">Save</a>
+						    <a style="color:#CA7073; padding-left:20px;cursor: pointer;" data-opt-id="{{ isset($id) ? $id  : 0 }}"  data-opt-refer="{{ isset($refer) ? $refer  : 0 }}" class="add_edit_opentowork_card">Save</a>
 						</div>
 					</div>
                 </div>

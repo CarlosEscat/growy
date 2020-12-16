@@ -31,6 +31,12 @@
 		<script src="{{ URL::to('/') }}/assets/plugins/notify/bootstrap-notify.min.js"></script>
 		
 		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+
+
+		<script src="{{ URL::to('/') }}/assets/bootstrap4-editable/js/bootstrap-editable.min.js"></script>
+
+
 		<script src="{{ URL::to('/') }}/assets/js/main.js?{{ time() }}"></script>
 		<input type="hidden" class="_token" value="{!! csrf_token() !!}" /> 
 		@if (count($errors) > 0) 

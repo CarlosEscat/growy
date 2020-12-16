@@ -36,6 +36,8 @@
 <script src="{{ URL::to('/') }}/admin/js/main.js?time={{ time() }}"></script>
 <script src="{{ URL::to('/') }}/admin/js/dropzone_init.js"></script>
 
+
+
 @if (count($errors) > 0)
 	<script type="text/javascript">
 		@foreach ($errors->all() as $key =>  $error)

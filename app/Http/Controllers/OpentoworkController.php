@@ -10,12 +10,14 @@ use App\User_collection;
 use App\Product; 
 use App\Skill; 
 use App\User;  
+use App\Opportunity_card;
 use App\Opportunity_card_field; 
 use App\roles; 
 use Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\DB;
 use App\Opentowork_card;
+use App\Endorse_list;
 
 
 class OpentoworkController extends Controller
@@ -47,10 +49,9 @@ class OpentoworkController extends Controller
 			$logged_in_user_id = Auth::guard('user')->user()->id;
 			if($logged_in_user_id == $opc->user_id) $third_person = false;
 		}
-		
-		 
-
+	
 		$countries = Config::get('countries');
+
 		$opc_fields_json = $opc->fields;
 		$opc_fields = [];
 		
@@ -66,20 +67,24 @@ class OpentoworkController extends Controller
 		}
 		$meta_title = $opc->title;
 
-		$opc_endorse_json = $opc->endorse;
-		$opc_endorse = [];
-		
-		if (trim($opc_endorse_json) != '') {
-			$opc_endorse = json_decode($opc_endorse_json,true);
+		//skill vs endorse
+		$endorsed_users = [];
+		foreach($opc_fields as $skill){
+			$opSkill = Opportunity_card_field::where('name',$skill)->first();
+			$itemList = Endorse_list::where('received_user_id', $opc->user_id)->where('skill_id', $opSkill->id)->pluck('given_user_id')->toArray();
+			$endorsed_users[$skill] = $itemList;
 		}
+
+
 
 		return view('opentowork_card',[
 			'countries' => $countries,
 			'opc_fields' => $opc_fields,
 			'opc_roles' => $opc_roles,
-			'opc_endorse' => $opc_endorse,
+			'opc_endorse' => $endorsed_users,
 			'meta_title' => $meta_title,
 			'opc' => $opc,
+			'logged_in_user_id'=> $logged_in_user_id,
 			'third_person'=> $third_person,
 			'opentowork_card_page' => true
 		]);
@@ -136,6 +141,45 @@ class OpentoworkController extends Controller
 			'id' => $card_id,
 			'opc_roles' => $opc_roles_all,
 			'opc_roles_db' => $opc_roles,
+			'opentowork_card_page' => true
+		]);
+	}	
+    public function referCreate($oppid)
+    {
+		$opc  = Opportunity_card::find($oppid);
+		
+		if($opc === null) {
+			abort(404);
+		}
+		
+		$countries = Config::get('countries');
+		$opc_fields_json = $opc->fields;
+		$opc_fields = [];
+		
+		if (trim($opc_fields_json) != '') {
+			$opc_fields = json_decode($opc_fields_json,true);
+		}
+		
+		$meta_title = $opc->company.' '.$opc->title;
+		$opc_fields_all = Opportunity_card_field::orderBy('name','asc')->pluck('name')->toArray();
+		$opc_roles_all = Roles::orderBy('name','asc')->pluck('name')->toArray();
+
+		$opc_roles_json = $opc->title;
+		$opc_roles = [];
+		
+		if (trim($opc_roles_json) != '') {
+			$opc_roles = json_decode($opc_roles_json,true);
+		}
+		$opc->description = '';
+		return view('opentowork_create',[
+			'countries' => $countries,
+			'opc_fields' => $opc_fields_all,
+			'opc_fields_db' => $opc_fields,
+			'meta_title' => $meta_title,
+			'opc' => $opc,
+			'opc_roles' => $opc_roles_all,
+			'opc_roles_db' => $opc_roles,
+			'refer' => 1,
 			'opentowork_card_page' => true
 		]);
 	}	

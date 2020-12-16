@@ -42,6 +42,7 @@ Route::get('/messages/{id?}', 'MessageController@index');
 Route::get('/cards/{id}', 'Opportunity_cardController@get');
 Route::get('/cards', 'Opportunity_cardController@create');
 Route::get('/cards/{id}/edit', 'Opportunity_cardController@update');
+Route::get('/cards/{id}/refer', 'Opportunity_cardController@referCreate');
 
 Route::get('/carts', 'CheckoutController@carts');
 Route::get('/checkout', 'CheckoutController@checkout');
@@ -55,7 +56,7 @@ Route::post('/contact_us', 'PageController@contact_us_post');
 Route::get('/opentowork/{id}', 'OpentoworkController@get');
 Route::get('/opentowork', 'OpentoworkController@create');
 Route::get('/opentowork/{id}/edit', 'OpentoworkController@update');
-
+Route::get('/opentowork/{id}/refer', 'OpentoworkController@referCreate');
 //User
 
 Route::post('/user/registration', 'UserController@registration_post');
@@ -99,6 +100,7 @@ Route::post('/ajax/update_colissimo_address' ,'AjaxController@update_colissimo_a
 Route::post('/ajax/add_edit_opportunity_card' ,'AjaxController@add_edit_opportunity_card');
 Route::post('/ajax/get_opc_data' ,'AjaxController@get_opc_data');
 Route::post('/ajax/delete_opc' ,'AjaxController@delete_opc');
+Route::post('/ajax/delete_opentowork' ,'AjaxController@delete_opentowork');
 Route::post('/ajax/get_opc_all_fields' ,'AjaxController@get_opc_all_fields');
 Route::post('/ajax/manage_skills' ,'AjaxController@manage_skills');
 Route::post('/ajax/update_skills' ,'AjaxController@update_skills');
@@ -112,6 +114,7 @@ Route::post('/ajax/delete_experience' ,'AjaxController@delete_experience');
 Route::post('/ajax/update_profession' ,'AjaxController@update_profession');
 Route::post('/ajax/get_user_data' ,'AjaxController@get_user_data');
 Route::post('/ajax/add_to_my_collection' ,'AjaxController@add_to_my_collection');
+Route::post('/ajax/add_to_my_collection_from' ,'AjaxController@add_to_my_collection_from');
 Route::post('/ajax/add_collection' ,'AjaxController@add_collection');
 Route::post('/ajax/delete_collection' ,'AjaxController@delete_collection');
 Route::post('/ajax/get_collection_items' ,'AjaxController@get_collection_items');
@@ -125,6 +128,8 @@ Route::post('/ajax/save_croped_image' ,'AjaxController@save_croped_image');
 Route::post('/ajax/get_unread_mesages_info' ,'AjaxController@get_unread_mesages_info');
 Route::post('/ajax/get_user_collections' ,'AjaxController@get_user_collections');
 Route::post('/ajax/get_opc_collections' ,'AjaxController@get_opc_collections');
+Route::get('/ajax/get_opc_collection_list/{opc_id}' ,'AjaxController@get_opc_collection_list');
+Route::get('/ajax/get_endorse_list/{opc_id}/{skill}' ,'AjaxController@get_endorse_list');
 Route::post('/ajax/hide_account' ,'AjaxController@hide_account');
 Route::post('/ajax/delete_account' ,'AjaxController@delete_account');
 Route::post('/ajax/add_edit_opentowork_card' ,'AjaxController@add_edit_opentowork_card');
