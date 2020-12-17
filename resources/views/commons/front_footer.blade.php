@@ -66,12 +66,15 @@
 		@endif -->
 
 		<div class='footer'>
-  		<img src='/assets/images/GrowyspaceLogo.png' alt='Growyspace-Logo' class='growyspaceLogo'>
+  		<img src='../assets/images/GrowyspaceLogo.png' alt='Growyspace-Logo' class='growyspaceLogo'>
   		<ul class='footerMenu'>
-    		<li><a href="">Terms</a></li>
-    		<li><a href="">Privacy</a></li>
-    		<li><a href="">About us</a></li>
-    		<li><a href="">Contact us</a></li>
+				<li><a href="{{ URL::to('/') }}/page/terms-and-conditions/1.htm">Terms</a></li>
+				
+				<li><a href="{{ URL::to('/') }}/page/privacy-and-policy/2.htm">Privacy</a></li>
+				
+				<li><a href="{{ URL::to('/') }}/page/about-us/3.htm">About Us</a></li>
+				
+				<li><a href="{{ URL::to('/') }}/page/contact/4.htm">Contact</a></li>
   		</ul>
   		<div class='bottomFooter'>
     		<label class='copyright'>Copyright © growyspace.com 2020</label>

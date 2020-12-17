@@ -49,11 +49,12 @@
   <nav class="top_header_block fixed-top">
     <div class="container header_container">
 		<div class="header_left {{ Auth::guard('user')->check() ? '' : 'logout_case_header_left' }}">
-			<a href="{{ Auth::guard('user')->check() ? URL::to('/').'/user/my_account' : URL::to('/') }}"><img src="/assets/images/logo.png" /></a>
+			<a href="{{ Auth::guard('user')->check() ? URL::to('/').'/user/my_account' : URL::to('/') }}"><img src="../assets/images/SmallLogo.png" /></a>
 		</div>
 		
-		@if(Auth::guard('user')->check())
-			<!-- Search form -->
+		<!-- Search form -->
+		<!-- @if(Auth::guard('user')->check())
+			
 			<form style="width:100%;" action="{{ URL::to('/') }}/search"> 
 				<div class="search_input_block">
 					<span class="fa fa-search search_icon"></span>
@@ -61,24 +62,26 @@
 					<input type="hidden" name="type" value="{{ isset($_GET['type']) ? $_GET['type'] : 0 }}" />
 				</div>
 			</form>
-		@endif
+		@endif -->
+		
     </div>
 	@if(Auth::guard('user')->check())
 	<div class="top_menu_block">
 		<ul>
-			<li>
+		<!-- 	<li>
 				@if(is_file(base_path() . '/public/uploads/profile/'.Auth::guard('user')->user()->id.'/'.Auth::guard('user')->user()->profile_image_cropped))
 			    
 					<a href="{{ URL::to('/') }}/user/my_account"><img class="top_profile_image" src="/uploads/profile/{{ Auth::guard('user')->user()->id }}/{{ Auth::guard('user')->user()->profile_image_cropped }}" /></a>
 				@else
 					<a href="{{ URL::to('/') }}/user/my_account"><img src="/assets/images/no_profile.png" /></a>
 				@endif
-			</li>
-			<li><a href="{{ URL::to('/') }}/messages"><img src="/assets/images/message.png" /><span class="{{ $not_read_messages_count > 0 ? '' : 'hidden' }} not_read_messages_count">{{ $not_read_messages_count }}</span></a></li>
-			<li><a href="{{ URL::to('/') }}/user/my-collection"><img src="/assets/images/collection.png" /></a></li>
-			<li><a href="{{ URL::to('/') }}/search"><img src="/assets/images/search_white.png" /></a></li>
-			<li><a href="{{ URL::to('/') }}/user/my_account/settings"><img src="/assets/images/settings.png" /></a></li>
-			<li><a href="{{ URL::to('/') }}/user/logout"><img src="/assets/images/logout.png" /></a></li>
+			</li> -->
+			<li><a class="menu_list_logged" href="{{ URL::to('/') }}/messages"><img src="../assets/images/Icon-message-new.png" /><span class="{{ $not_read_messages_count > 0 ? '' : 'hidden' }} not_read_messages_count">{{ $not_read_messages_count }}</span> Messages</a></li>
+			<li><a class="menu_list_logged" href="{{ URL::to('/') }}/user/my-collection"><img src="../assets/images/redesign-collections.png" /> Collections</a></li>
+			<li><a class="menu_list_logged" href="{{ URL::to('/') }}/search"><img src="../assets/images/icon-search-new.png" /> Explore</a></li>
+			<li><a class="menu_list_logged" href="{{ URL::to('/') }}/user/my_account/settings"><img src="../assets/images/icon-settings-new.png" /> Settings</a></li>
+			<li><a class="menu_list_logged" href="{{ URL::to('/') }}/user/my_account"><img src="../assets/images/icon-profile.png" /> My Profile</a></li>
+			<li><a class="menu_list_logged" href="{{ URL::to('/') }}/user/logout"><img src="../assets/images/logout.png" /> Log out</a></li>
 			
 		</ul>
 	    <button class="hidden btn btn-primary dropdown-toggle btn-lg" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -101,10 +104,10 @@
 		// </div>
 		<div class='menu'> 
 			<a href="{{ Auth::guard('user')->check() ? URL::to('/').'/user/my_account' : URL::to('/') }}">
-				<img src='/assets/images/SmallLogo.png' alt='Small_Logo' class='logoSmall'>
+				<img src='../assets/images/SmallLogo.png' alt='Small_Logo' class='logoSmall'>
 			</a>
-        <a class='signup' href="/user/register">Sign up</a>
-        <a class='login' href="/user/login">Login</a>
+        <a class='signup' href="user/register">Sign up</a>
+        <a class='login' href="user/login">Login</a>
       </div>
 	@endif
   </nav>

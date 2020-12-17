@@ -16,7 +16,9 @@ html {
 }
 .top_header_block {
   height: 81px;
-  background-color: #118ed3;
+  background-color: white;
+  border: 1px solid #000000;
+  filter: drop-shadow(0px 8px 8px rgba(51, 41, 96, 0.5));
 }
 .bottom_header_block {
   background-color: #00a8e1;
@@ -252,17 +254,20 @@ html {
 }
 .profile_pic_wrapper {
   width: 220px;
-  position: absolute;
-  bottom: -16px;
+  /* position: absolute;
+  bottom: -16px; */
 }
 .profile_name_profession_block {
-  position: absolute;
+  /* position: absolute;
   left: 246px;
-  top: 21px;
+  top: 21px; */
+  text-align: left;
+  margin-top: 3%;
+  margin-left: 3%;
 }
 
 .profile_pic_wrapper_rounded {
-  border-radius: 50%;
+  /* border-radius: 50%; */
 }
 .add_my_experience_link_block {
   height: 138px;
@@ -1745,6 +1750,14 @@ height: 95px; */
   left: 2%;
 }
 
+.menu_list_logged {
+  text-decoration: none;
+  color: black;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+}
+
 .signup {
   position: absolute;
   width: 70px;
@@ -1785,7 +1798,7 @@ height: 95px; */
   font-family: "Montserrat";
   display: inline-block;
   height: 838px;
-  background-image: url("/assets/images/Astronaut.png");
+  background-image: url("../images/Astronaut.png");
   background-size: 100% 100%;
   width: 100%;
   border-bottom-width: 1px;
@@ -1975,7 +1988,7 @@ a {
   font-size: 36px;
 }
 
-ul {
+.home_ul {
   text-align: left;
   list-style-type: none;
   font-size: 24px;
@@ -1983,7 +1996,7 @@ ul {
   margin-left: 5%;
 }
 
-li {
+.home_li {
   margin-bottom: 50px;
 }
 
@@ -2151,6 +2164,7 @@ li {
   font-family: "Montserrat";
   text-align: center;
   border-top: 1px solid #000000;
+  background: white;
 }
 
 .growyspaceLogo {
