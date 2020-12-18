@@ -686,12 +686,13 @@ html {
 }
 .search_user_block {
   cursor: pointer;
-  width: 355px;
+  width: 762px;
   height: 157px;
   float: left;
   margin: 0 10px 10px 0;
   position: relative;
-  box-shadow: 0 2px 8px rgba(0, 0, 255, 0.2);
+  min-height: 228px;
+  margin-bottom: 30px;
 }
 .search_no_profile_image {
   width: 90px;
@@ -766,12 +767,18 @@ html {
   min-width: 14rem;
 }
 .collection_item_block {
-  min-height: 96px;
+  min-height: 120px;
   border: 1px solid #118ed3;
-  margin-bottom: 15px;
-  padding: 10px;
+  margin-bottom: 18px;
+  padding: 10px 18px 10px 26px;
   position: relative;
   cursor: pointer;
+  
+  background: #FFFFFF;
+  border: 4px solid #FFFFFF;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(51, 41, 96, 0.5);
+  border-radius: 10px;
 }
 
 .collection_item_block h4 {
@@ -783,9 +790,24 @@ html {
 }
 .add_collection_link_block {
   text-align: center;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(50, 39, 95, 0.5);
+  border-radius: 10px;
+  height: 44px;
+  margin-top: 36px;
+  width: 100%;
+  padding-top: 10px;
+  color: #000000;
+  font-weight: 600;
+  font-size: 18px;
 }
 .add_collection_link_block p {
-  font-size: 30px;
+  font-size: 18px;
+  margin: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #000;
+  font-weight: 600;
 }
 .add_edit_collection_header {
   height: 80px;
@@ -808,7 +830,10 @@ html {
   top: 0;
 }
 .collection_item_block.active {
-  background-color: #ccc;
+  background: #EAEAEA;
+  border: 4px solid #E0D5D5;
+  box-sizing: border-box;
+  border-radius: 10px;
 }
 .switch label {
   cursor: pointer;
@@ -2193,7 +2218,7 @@ html {
   * Opportunity page
   * Written by Alexander
   */
-#opportunity .container, #setting .container, #opentowork .container{
+#opportunity .container, #setting .container, #opentowork .container, #collections .container{
   max-width: 100%;
 }
 .bg-gray{
@@ -2235,6 +2260,9 @@ html {
 }
 .bgcolor-blue{
   background: #3170AF;
+}
+.bgcolor-collection{
+  background: #332960;
 }
 .textcolor-white{
   color: #fff;
@@ -2290,7 +2318,7 @@ li.select2-selection__choice{
 }
 
 /* settings */
-#setting .header{
+#setting .header, #collections .header{
   background: #fff;
   /* border: 1px solid red; */
   color: #332960;
@@ -2298,13 +2326,13 @@ li.select2-selection__choice{
   font-size: 2.5rem;
   border-radius: 10px;
 }
-#setting .header p{
+#setting .header p, #collections .header p{
   float: left;
   padding-left: 20px;
   padding-right: 20px;
   margin: 0px;
 }
-#setting .header img{
+#setting .header img, #collections .header img{
   padding-right: 15px;
   width: 50px;
 }
@@ -2325,7 +2353,7 @@ li.select2-selection__choice{
   background: #CA7073;
 }
 .btn-hide-color{
-  background: #332960;
+  background: #219BC4;
 }
 #setting .alert{
 

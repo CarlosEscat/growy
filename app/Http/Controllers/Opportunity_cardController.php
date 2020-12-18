@@ -85,7 +85,9 @@ class Opportunity_cardController extends Controller
 
     public function create()
     {
-
+		if(!Auth::guard('user')->user()){
+			return redirect('/');
+		}
 		$countries = Config::get('countries');
 		$opc_fields = Opportunity_card_field::orderBy('name','asc')->pluck('name')->toArray();
 		$opc = [];
@@ -104,7 +106,9 @@ class Opportunity_cardController extends Controller
 		if($opc === null) {
 			abort(404);
 		}
-		
+		if(!Auth::guard('user')->user()){
+			return redirect('/');
+		}		
 		$countries = Config::get('countries');
 		$opc_fields_json = $opc->fields;
 		$opc_fields = [];
@@ -133,7 +137,11 @@ class Opportunity_cardController extends Controller
 		if($opc === null) {
 			abort(404);
 		}
-		
+
+		if(!Auth::guard('user')->user()){
+			return redirect('/');
+		}
+
 		$countries = Config::get('countries');
 		$opc_fields_json = $opc->fields;
 		$opc_fields = [];

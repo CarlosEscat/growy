@@ -79,6 +79,9 @@ Route::get('user/my_account/orders', 'UserController@orders');
 Route::get('user/my_account/orders/{id}/view', 'UserController@view_order');
 
 Route::get('user/my-collection', 'CollectionController@index');
+Route::get('user/collection/', 'CollectionController@create');
+Route::get('user/collection/{id}', 'CollectionController@update');
+
 Route::get('user/{id}/view', 'UserController@view_user');
 Route::get('/user/recover_password/{token}', 'UserController@recover_password');
 Route::get('/user/activate_account/{token}/{email}', 'UserController@activate_account');

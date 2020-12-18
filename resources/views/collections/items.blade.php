@@ -1,58 +1,86 @@
 @if($users->count() > 0)
 	@foreach($users as $u)
 		<div data-user-id="{{ $u->id }}" class="search_user_block">
-			<div class="hidden dropdown opp_card_actions_block">
-				<button class="btn btn-light dropdown-toggle" type="button" id="u{{ $u->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<span class="sr-only"></span>
-				</button>
-				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="u{{ $u->id }}">
-					@if($u->id != $user_id)
-						<li><a data-user-id="" class="dropdown-item send_a_message" href="/messages/{{ $u->id }}"> Send a message</a></li>
+			<div class="card align-last card-custom" style="background: #B7B1D8;width: 762px;padding: 0px;height: 56px;">
+				<p style="font-size: 25px;padding-left: 18px;margin: 0px; margin-top: 10px;color: #fff;">{{$collection_name}}
+					<span style="text-decoration: none;padding-right: 24px;float: right;">
+						<img src="/assets/images/location2.png" alt="Edit" style="width: 15px;"> 
+						<span style="font-weight: 500;font-size: 20px;line-height: 24px;letter-spacing: -0.015em;color: #FFFFFF;float: right;padding-top: 8px;padding-left: 8px;">{{$u->city}}, {{$countries[$u->country_code]}}</span>
+					</span>
+				</p>
+				<div style="margin-top:10px;padding-left: 18px;padding-top: 18px;background: #FFFFFF;padding-bottom: 20px;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);border-radius: 0px 0px 10px 10px;">
+					@if(is_file(base_path() . '/public/uploads/profile/'.$u->id.'/'.$u->profile_image_cropped))
+						<img style="width: 90px;float: left;margin-right: 18px;" src="{{ URL::to('/') }}/{{ 'uploads/profile/'.$u->id.'/'.$u->profile_image_cropped }}" />
+					@else
+						<img style="width: 90px;float: left;margin-right: 18px;" src="{{ URL::to('/') }}/assets/images/no_profile_image.jpg" />
 					@endif
-					<li><a href="#" action_type="remove" collection_user_id = "{{ $u->id }}" item_type="user" collection_id="{{ $collection_id }}" class="dropdown-item add_to_my_collection">Remove from my collection</a></li>
-				</div>
-			</div>
-			@if(is_file(base_path() . '/public/uploads/profile/'.$u->id.'/'.$u->profile_image_cropped))
-				<img class="search_profile_image" src="{{ URL::to('/') }}/{{ 'uploads/profile/'.$u->id.'/'.$u->profile_image_cropped }}" />
-			@else
-				<img class="search_no_profile_image" src="{{ URL::to('/') }}/assets/images/no_profile_image.jpg" />
-			@endif
 	
-			<div class="search_user_info_block">
-				<h3>{{ $u->full_name }}</h3>
-				<h4>{{ $u->profession }}</h4>
-				<p><span class="fa fa-map-marker"></span> {{ isset($countries[$u->country_code]) ? $countries[$u->country_code] : $u->country_code }}, {{ $u->city }}</p>
-			</div>
-			<div class="search_user_actions_block">
-				@if($u->id != $user_id)
-				<a data-opt-id="" class="growyspace_btn" href="/messages/{{ $u->id }}"><span><img class="growyspace_btn_icon" src="/assets/images/send_message.png" /></span></a>
-				@endif
-				<a action_type="remove" collection_user_id = "{{ $u->id }}" item_type="user" collection_id="{{ $collection_id }}" class="add_to_my_collection growyspace_btn" href=""><span><img class="growyspace_btn_icon" src="/assets/images/remove_from_collection.png" /></span></a>
-			</div>
-			<div class="hidden search_user_location">
+					
+						<p style="font-size: 30px;margin: 0px;">{{ $u->full_name }}</p>
+						<p style="font-size: 25px;margin: 0px;">{{ $u->profession }}</p>										
+			
+
+					<div style="padding-right: 18px; padding-top:27px;">
+						<a href="{{ URL::to('/') }}/user/my_account" class="float-right  text-decoration-none textcolor-blue btn-customs" style="color: #CA7073">Delete from collection</a>                    
+						<a href="{{ URL::to('/') }}/messages/{{ $u->id }}"  data-type="checklist" data-source="#" data-title="Select collections" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Send a message</a>
+						<a href="{{ URL::to('/') }}/user/{{$u->id}}/view"  data-type="text" data-title="Copy this link to share" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Go to profile</a>                     
+										
+					</div>
+				</div>
 			</div>
 		</div>
 	@endforeach
 @endif
 @if($opportunity_cards !== null && $opportunity_cards->count() > 0)
 	@foreach($opportunity_cards as $opc)
-		<div data-opt-id="{{ $opc->id }}" class="opp_card_block">
-			
-			<div class="dropdown opp_card_actions_block">
-				<button class="btn btn-light dropdown-toggle" type="button" id="opt{{ $opc->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<span class="sr-only"></span>
-				</button>
-				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="opt{{ $opc->id }}">
-					<li><a class="hidden dropdown-item" href="#"> Invite user to this card</a></li>
-					<li><a href="#" action_type="remove" collection_opc_id = "{{ $opc->id }}" item_type="opc" collection_id="{{ $collection_id }}" class="dropdown-item add_to_my_collection">Remove from my collection</a></li>
+		<div data-opt-id="{{ $opc->id }}" class="search_user_block">
+			<div class="card align-last card-custom" style="background: #3170AF;width: 762px;padding: 0px;height: 56px;">
+				<p style="font-size: 25px;padding-left: 18px;margin: 0px; margin-top: 10px;color: #fff;">{{$collection_name}}
+					<span style="text-decoration: none;padding-right: 24px;float: right;">
+						<img src="/assets/images/location2.png" alt="Edit" style="width: 15px;"> 
+						<span style="font-weight: 500;font-size: 20px;line-height: 24px;letter-spacing: -0.015em;color: #FFFFFF;float: right;padding-top: 8px;padding-left: 8px;">{{$opc->city}}, {{$countries[$opc->country_code]}}</span>
+					</span>
+				</p>
+				<div style="margin-top:10px;padding-left: 18px;padding-top: 18px;background: #FFFFFF;padding-bottom: 20px;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);border-radius: 0px 0px 10px 10px;">
+				
+						<p style="margin: 0px;font-weight: 600;font-size: 30px;line-height: 36px;">{{ strlen($opc->title) > 150 ? substr($opc->title,0,150).'...' : $opc->title }}</p>
+						<p style="margin: 0px;font-size: 18px;line-height: 30px;">{{ strlen($opc->company) > 150 ? substr($opc->company,0,150).'...' : $opc->company }}</p>										
+					
+
+					<div style="padding-right: 18px; padding-top:27px;">
+						<a href="#" class="float-right  text-decoration-none textcolor-blue btn-customs" style="color: #CA7073">Delete from collection</a>                    
+						<a href="#"  data-type="checklist" data-source="#" data-title="Select collections" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Send Open-to-work</a>
+						<a href="{{ URL::to('/') }}/cards/{{$opc->id}}"  data-type="text" data-title="Copy this link to share" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Read more</a>                     
+										
+					</div>
 				</div>
 			</div>
-			
-			<h3>{{ strlen($opc->title) > 22 ? substr($opc->title,0,22).'...' : $opc->title }}</h3>
-			<h4>{{ strlen($opc->company) > 22 ? substr($opc->company,0,22).'...' : $opc->company }}</h4> 
-			
-			<div class="opp_card_block_bottom">
-				<p><span class="fa fa-map-marker"></span> {{ (isset($countries[$opc->country_code]) ? $countries[$opc->country_code] : $opc->country_code).', '.$opc->city }}</p>
+		</div>
+	@endforeach
+@endif
+@if($opentowork_cards !== null && $opentowork_cards->count() > 0)
+	@foreach($opentowork_cards as $opc)
+		<div data-opt-id="{{ $opc->id }}" class="search_user_block">
+			<div class="card align-last card-custom" style="background: #3170AF;width: 762px;padding: 0px;height: 56px;">
+				<p style="font-size: 25px;padding-left: 18px;margin: 0px; margin-top: 10px;color: #fff;">{{$collection_name}}
+					<span style="text-decoration: none;padding-right: 24px;float: right;">
+						<img src="/assets/images/location2.png" alt="Edit" style="width: 15px;"> 
+						<span style="font-weight: 500;font-size: 20px;line-height: 24px;letter-spacing: -0.015em;color: #FFFFFF;float: right;padding-top: 8px;padding-left: 8px;">{{$opc->city}}, {{$countries[$opc->country_code]}}</span>
+					</span>
+				</p>
+				<div style="margin-top:10px;padding-left: 18px;padding-top: 18px;background: #FFFFFF;padding-bottom: 20px;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);border-radius: 0px 0px 10px 10px;">
+				
+						<p style="margin: 0px;font-weight: 600;font-size: 30px;line-height: 36px;">{{ strlen($opc->title) > 150 ? substr($opc->title,0,150).'...' : $opc->title }}</p>
+						<p style="margin: 0px;font-size: 18px;line-height: 30px;">{{ strlen($opc->company) > 150 ? substr($opc->company,0,150).'...' : $opc->company }}</p>										
+					
+
+					<div style="padding-right: 18px; padding-top:27px;">
+						<a href="#" class="float-right  text-decoration-none textcolor-blue btn-customs" style="color: #CA7073">Delete from collection</a>                    
+						<a href="#"   data-type="checklist" data-source="#" data-title="Select collections" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Send opportunity</a>
+						<a href="{{ URL::to('/') }}/opentowork/{{$opc->id}}" data-type="text" data-title="Copy this link to share" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="" >Read more</a>                     
+										
+					</div>
+				</div>
 			</div>
 		</div>
 	@endforeach

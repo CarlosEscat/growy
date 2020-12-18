@@ -1,47 +1,39 @@
 @extends('layouts.front')
 @section('content')
-<!-- Content -->
-<div style="margin-top: 88px;height:100%;" class="container page-content bg-white">
-  	<!-- Breadcrumb row -->
-	<div class="breadcrumb-row">
-		<div class="container">
-			<ul class="list-inline">
-				<li><a href="{{ URL::to('/') }}">Home</a></li>
-				<li class="active">My Collection</li>
-			
-			</ul>
+<div id="collections">
+    <div class="container bg-gray">
+
+		<div class="col-md-10 main_area mt-5 pt-5 margin-0-auto">
+            <div class="row mt-3 col-md-12">
+				<div class="header">			
+				<p style="float: left;"><img src='/assets/images/collection_header_icon.png' alt='Setting' >Collections</p>
+				</div>
+			</div>
+
+			<div class="row  mt-3">
+				<div style="min-height:300px;" class="col-md-4">
+					@foreach($collections as $collection)
+					<div data-col-id="{{ $collection->id }}" data-col-name="{{ base64_encode($collection->name) }}" class="collection_item_block">
+											
+						<h4 style="font-weight: 600;font-size: 26px;line-height: 36px;letter-spacing: -0.015em;color: #000000;">
+							{{ $collection->name }}
+
+							<a  href="{{ URL::to('/') }}/user/collection/{{ $collection->id }}" data-col-id="{{ $collection->id }}" data-col-name="{{ base64_encode($collection->name) }}" class="editIcon float-right edit_collection_link">
+							<img src='/assets/images/Icon-edit-new.png' alt='Edit' ></a></h4>
+						<p data-id="col{{ $collection->id }}" class="collection_entries_count " style="margin:0px">Created by: <span style="color:#219BC4;padding-left: 8px;">{{ $username}}</span></p>
+				
+						<a href="#" data-type="text"  data-title="Copy this link to share" class="editable editable-click  float-right  text-decoration-none textcolor-blue btn-customs collection_share" data-placement="bottom" data-original-title="" title="" data-value="{{ URL::to('/') }}/user/my-collection/{{ $collection->id }}">Share</a>
+					</div>
+					@endforeach
+					
+					<div class="add_collection_link_block add_collection_link_"> <a href="{{ URL::to('/') }}/user/collection/" style="text-decoration: none;color: #000">Create new collection</a></div>
+				</div>	
+				<div style="min-height:300px;padding-left: 45px;" class="collection_items_block col-md-8">			
+	
+				</div>		
+			</div>
 		</div>
 	</div>
-	<div style="margin-top:30px;margin-bottom:40px;" class="row"> 
-	 <!-- Header -->
-		<div style="min-height:300px;" class="col-md-4">
-			@foreach($collections as $collection)
-			<div data-col-id="{{ $collection->id }}" data-col-name="{{ base64_encode($collection->name) }}" class="collection_item_block">
-				<div class="dropdown collection_actions_block">
-					<button class="btn btn-light dropdown-toggle" type="button" id="col{{ $collection->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<span class="sr-only"></span>
-					</button>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="col{{ $collection->id }}">
-						<a data-col-id="{{ $collection->id }}" data-col-name="{{ base64_encode($collection->name) }}" class="dropdown-item edit_collection_link" href=""> Edit</a>
-						<a data-col-id="{{ $collection->id }}" class="dropdown-item delete_collection_link"> Delete</a>
-					</div>
-				</div>
-			
-				<h4>{{ $collection->name }}</h4>
-				<p data-id="col{{ $collection->id }}" class="collection_entries_count ">{{ $collection->items_count() > 1 ? $collection->items_count().' entries' : $collection->items_count().' entry' }}</p>
-			</div>
-			@endforeach
-			
-			<div class="add_collection_link_block">
-				<img class="add_collection_link" src="/assets/images/plus_icon.png" />
-				<i class="hidden add_collection_link fa-4x fa fa-plus-circle" aria-hidden="true"></i>
-				<p>Add new collection</p>
-			</div>
-		</div>
-		<div style="min-height:300px;" class="collection_items_block col-md-8">
-			
-		</div>
-    </div>
 	
 </div>
 @include('popups.add_edit_collection')

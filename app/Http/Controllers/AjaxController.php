@@ -492,6 +492,8 @@ class AjaxController extends Controller
 			
 			$users = User::whereIn('id',$collection_item_user_ids)->get();
 			$opportunity_cards = Opportunity_card::whereIn('id',$collection_item_opc_ids)->get();
+
+			$opentowork_cards = Opentowork_card::whereIn('id',$collection_item_opc_ids)->get();
 			
 			$items_count = $users->count() + $opportunity_cards->count();
 			
@@ -501,13 +503,14 @@ class AjaxController extends Controller
 				'user_id' => $user_id,			
 				'collection_id' => $collection_id,			
 				'users' => $users,	
-				
-				'opportunity_cards' => $opportunity_cards			
+				'collection_name' => $collection->name,				
+				'opportunity_cards' => $opportunity_cards,
+				'opentowork_cards' => $opentowork_cards	
 			]);
 			
 			echo json_encode(array(
 				'collection_items_html' => $collection_items_html,
-				'items_count' => $items_count,
+				// 'items_count' => $items_count,
 				'complete' => true
 			));
 		}

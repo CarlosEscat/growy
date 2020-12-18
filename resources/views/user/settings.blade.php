@@ -13,7 +13,7 @@
 		    <div class=" card mt-5 align-last">
 
 				{!! Form::open(['url' => '/user/change_password', 'method' => 'POST']) !!}
-                <div class="card-body mt-2">
+                <div class="card-body card-body-custom">
 				@if(count($errors->get('current_password')) > 0)
 						<div class="alert alert-danger">
 							{{ $errors->first('current_password') }}
