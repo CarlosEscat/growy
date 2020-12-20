@@ -31,7 +31,18 @@
                     <div class="form-group row">
 						<div class="col-md-12 text-right">
                         @if(isset($id) && $id > 0)
-                            <a  style="color:#219BC4;cursor: pointer;" data-col-id="{{ $id }}" class="delete_collection_link" >Delete</a>
+                            @if(!$third_person)	
+                            <a  style="color:#219BC4;cursor: pointer;"  data-toggle="dropdown" >Delete</a>
+							                                              	
+							<div class="dropdown-menu dropdown-menu-right"  style="padding: 0px;">
+								<p style="padding: 10px;">Are you sure you want to delete?</p>
+								<div style="width: 90%;margin: 0 auto;padding-bottom: 10px;">
+									<span class="delete_collection_link" style="color: #CA7073;cursor: pointer;" data-col-id="{{ $id }}">Delete</span> <span style="float: right;color: #219BC4;cursor: pointer;">Back</span>
+								</div>	
+
+							</div>
+
+						    @endif       
                         @endif
 						    <a style="color:#CA7073; padding-left:20px;cursor: pointer;" data-col-id="{{ isset($id) ? $id  : 0 }}"  data-opt-refer="{{ isset($refer) ? $refer  : 0 }}" class="add_edit_collection">Save</a>
 						</div>

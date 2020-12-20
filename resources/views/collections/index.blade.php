@@ -22,7 +22,7 @@
 							<img src='/assets/images/Icon-edit-new.png' alt='Edit' ></a></h4>
 						<p data-id="col{{ $collection->id }}" class="collection_entries_count " style="margin:0px">Created by: <span style="color:#219BC4;padding-left: 8px;">{{ $username}}</span></p>
 				
-						<a href="#" data-type="text"  data-title="Copy this link to share" class="editable editable-click  float-right  text-decoration-none textcolor-blue btn-customs collection_share" data-placement="bottom" data-original-title="" title="" data-value="{{ URL::to('/') }}/user/my-collection/{{ $collection->id }}">Share</a>
+						<a href="#" data-type="text"  data-title="Copy this link to share" class="editable editable-click  float-right  text-decoration-none textcolor-blue btn-customs collection_share" data-placement="bottom" data-original-title="" title="" data-value="{{ URL::to('/') }}/collections/{{ $collection->id }}">Share</a>
 					</div>
 					@endforeach
 					

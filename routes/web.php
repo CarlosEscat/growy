@@ -81,6 +81,7 @@ Route::get('user/my_account/orders/{id}/view', 'UserController@view_order');
 Route::get('user/my-collection', 'CollectionController@index');
 Route::get('user/collection/', 'CollectionController@create');
 Route::get('user/collection/{id}', 'CollectionController@update');
+Route::get('collections/{id}', 'CollectionController@get');
 
 Route::get('user/{id}/view', 'UserController@view_user');
 Route::get('/user/recover_password/{token}', 'UserController@recover_password');
@@ -117,7 +118,9 @@ Route::post('/ajax/delete_experience' ,'AjaxController@delete_experience');
 Route::post('/ajax/update_profession' ,'AjaxController@update_profession');
 Route::post('/ajax/get_user_data' ,'AjaxController@get_user_data');
 Route::post('/ajax/add_to_my_collection' ,'AjaxController@add_to_my_collection');
+Route::post('/ajax/delete_my_individual_collection' ,'AjaxController@delete_my_individual_collection');
 Route::post('/ajax/add_to_my_collection_from' ,'AjaxController@add_to_my_collection_from');
+Route::post('/ajax/add_to_my_collection_from2' ,'AjaxController@add_to_my_collection_from2');
 Route::post('/ajax/add_collection' ,'AjaxController@add_collection');
 Route::post('/ajax/delete_collection' ,'AjaxController@delete_collection');
 Route::post('/ajax/get_collection_items' ,'AjaxController@get_collection_items');

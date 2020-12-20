@@ -49,7 +49,7 @@ use App\User_collection_item;
 use App\User_message;
 use App\User_message_conversation;
 use App\Endorse_list;
-
+use Illuminate\Support\Str;
 
 class AjaxController extends Controller
 {
@@ -325,8 +325,30 @@ class AjaxController extends Controller
 			$last_msg_id = isset($request->last_msg_id) ? $request->last_msg_id : 0;
 			$user_id = Auth::guard('user')->user()->id;
 			//$last_message_id = isset($request->to_id) ? $request->to_id : 0;
-			
-			
+		
+			$contains = Str::contains($message, url('/'));
+			if($contains){
+				$svr = url('/')."/";
+				$split = explode($svr, $message);
+				$rlt = explode('/', $split[1]);
+				$key = strtoupper($rlt[0]);
+				if($key == "CARDS"){
+					$key = "CARD";
+				}
+
+				// $ect = explode(' ', $rlt[1]);
+
+				// $combined = '{'.$key.$ect[0].'}';
+				// if(count($ect) > 0){
+				// 	$message = $combined." ".$ect[1];
+				// }else{
+				// 	$message = $combined;
+				// }
+				$message = '{'.$key.$rlt[1].'}';
+
+
+			}
+
 			$u = User::find($to_id);
 			
 			if($u === null) {
@@ -466,7 +488,9 @@ class AjaxController extends Controller
 					'message' => 'Wrong Request',
 				));exit;
 			}
-			
+
+
+
 			$user_id = Auth::guard('user')->user()->id;
 			$collection_id = isset($request->collection_id) ? $request->collection_id : false;
 					
@@ -485,15 +509,21 @@ class AjaxController extends Controller
 					'message' => 'Wrong Request',
 				));exit;
 			}
-			
+
+			$third_person = true;
+			if(Auth::guard('user')->user() && Auth::guard('user')->user()->id){
+				$logged_in_user_id = Auth::guard('user')->user()->id;
+				if($logged_in_user_id == $collection->user_id) $third_person = false;
+			}
+
 			$collection_item_user_ids = User_collection_item::where('collection_id',$collection_id)->whereNotNull('user_id')->pluck('user_id')->toArray();
-			$collection_item_opc_ids = User_collection_item::where('collection_id',$collection_id)->whereNotNull('opportunity_card_id')->pluck('opportunity_card_id')->toArray();;
-			//$items_count = User_collection_item::where('collection_id',$collection_id)->count();
+			$collection_item_opc_ids = User_collection_item::where('collection_id',$collection_id)->whereNotNull('opportunity_card_id')->pluck('opportunity_card_id')->toArray();
+			$collection_item_opentowork_ids = User_collection_item::where('collection_id',$collection_id)->whereNotNull('opentowork_card_id')->pluck('opentowork_card_id')->toArray();
 			
 			$users = User::whereIn('id',$collection_item_user_ids)->get();
 			$opportunity_cards = Opportunity_card::whereIn('id',$collection_item_opc_ids)->get();
 
-			$opentowork_cards = Opentowork_card::whereIn('id',$collection_item_opc_ids)->get();
+			$opentowork_cards = Opentowork_card::whereIn('id',$collection_item_opentowork_ids)->get();
 			
 			$items_count = $users->count() + $opportunity_cards->count();
 			
@@ -505,7 +535,8 @@ class AjaxController extends Controller
 				'users' => $users,	
 				'collection_name' => $collection->name,				
 				'opportunity_cards' => $opportunity_cards,
-				'opentowork_cards' => $opentowork_cards	
+				'opentowork_cards' => $opentowork_cards,
+				'third_person' => $third_person
 			]);
 			
 			echo json_encode(array(
@@ -726,6 +757,45 @@ class AjaxController extends Controller
 			));
 		}
 	}
+	public function delete_my_individual_collection(Request $request) {
+		if ($request->ajax()) {
+			if(!Auth::guard('user')->check()) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request',
+				));exit;
+			}
+			
+			$collection_id = isset($request->collection_id) ? $request->collection_id : false;
+			$item_type = isset($request->item_type) ? $request->item_type : false;
+			$item_id = isset($request->item_id) ? $request->item_id : false;
+
+			$user_id = Auth::guard('user')->user()->id;
+
+			$collection = User_collection::where('id',$collection_id)->where('user_id',$user_id)->first();
+			
+			if($collection === null) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request',
+				));exit;
+			}
+			
+			if($item_type == 'user') {
+				$user_collection_item = User_collection_item::where('collection_id',$collection_id)->where('user_id',$item_id)->delete();
+			} elseif($item_type == 'opportunity') {
+				$user_collection_item = User_collection_item::where('collection_id',$collection_id)->where('opportunity_card_id',$item_id)->delete();
+			} elseif($item_type == 'opentowork') {
+				$user_collection_item = User_collection_item::where('collection_id',$collection_id)->where('opentowork_card_id',$item_id)->delete();
+			}
+			
+			
+						
+			echo json_encode(array(
+				'complete' => true
+			));
+		}
+	}
 	public function add_to_my_collection_from(Request $request) {
 		if(!Auth::guard('user')->check()) {
 			echo json_encode(array(
@@ -770,6 +840,60 @@ class AjaxController extends Controller
 				$user_collection_item = new User_collection_item;
 				$user_collection_item->collection_id = $collection_id;
 				$user_collection_item->opportunity_card_id = $card_id;
+				$user_collection_item->save();
+			}
+		}
+
+					
+	echo json_encode(array(
+		'complete' => true,
+	));
+		
+	}	
+	public function add_to_my_collection_from2(Request $request) {
+		if(!Auth::guard('user')->check()) {
+			echo json_encode(array(
+				'complete' => false,
+				'message' => 'Wrong Request',
+			));exit;
+		}
+        $inputs = Input::all();
+		$item_type = $inputs['name'];
+		$card_id = $inputs['pk'];
+		$collection_list = $inputs['value'];
+		$user_id = Auth::guard('user')->user()->id;
+		if(is_array($collection_list)){
+			foreach($collection_list as $key => $collection_id){
+				
+				$itemList = User_collection_item::where('collection_id',$collection_id)->where('opentowork_card_id',$card_id)->pluck('opentowork_card_id')->toArray();
+				
+				if(count($itemList) > 0) {
+					// already registered
+					//$o = User_collection_item::where('collection_id',$collection_id)->where('opportunity_card_id',$card_id)->delete();
+					
+
+				}else{
+					$user_collection_item = new User_collection_item;
+					$user_collection_item->collection_id = $collection_id;
+					$user_collection_item->opentowork_card_id = $card_id;
+					$user_collection_item->save();
+				}
+			}
+		}else{
+			$collection_id = $collection_list;
+			
+			$itemList = User_collection_item::where('collection_id',$collection_id)->where('opentowork_card_id',$card_id)->pluck('opentowork_card_id')->toArray();
+			
+			if(count($itemList) > 0) {
+				// already registered
+				//$o = User_collection_item::where('collection_id',$collection_id)->where('opportunity_card_id',$card_id)->delete();
+				
+				
+
+			}else{
+				$user_collection_item = new User_collection_item;
+				$user_collection_item->collection_id = $collection_id;
+				$user_collection_item->opentowork_card_id = $card_id;
 				$user_collection_item->save();
 			}
 		}

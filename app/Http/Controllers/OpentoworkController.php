@@ -75,7 +75,9 @@ class OpentoworkController extends Controller
 			$endorsed_users[$skill] = $itemList;
 		}
 
-
+		//getting my opportunity list
+		$user_id = Auth::guard('user')->user()->id;
+		$opportunityList = Opportunity_card::where('user_id',$user_id)->get();
 
 		return view('opentowork_card',[
 			'countries' => $countries,
@@ -86,6 +88,7 @@ class OpentoworkController extends Controller
 			'opc' => $opc,
 			'logged_in_user_id'=> $logged_in_user_id,
 			'third_person'=> $third_person,
+			'opc_list' => $opportunityList,
 			'opentowork_card_page' => true
 		]);
 	}

@@ -48,6 +48,7 @@
                 <!-- {{ implode(', ', $collection_checked) }} -->
 
                     <!-- Button -->
+                    <div>
                     <a href="{{ URL::to('/') }}/user/my_account" class=" float-right  text-decoration-none textcolor-blue btn-customs">Go to user profile</a>                    
                     
                     <a href="#" id="opportunity_collection" data-pk="{{ $opc->id }}" data-type="checklist" data-source="{{ URL::to('/') }}/ajax/get_opc_collection_list/{{$opc->id}}"  data-title="Select collections" class="editable editable-click  float-right  text-decoration-none textcolor-blue btn-customs" data-placement="bottom"   data-original-title="" title="">Add to collection</a>
@@ -58,9 +59,24 @@
                     @if(!$third_person)
                         <a href="#" id="opportunity_findmatch" data-type="select" data-value="Not selected" data-title="Find Matches" class="editable editable-click  float-right  text-decoration-none textcolor-blue btn-customs" data-placement="bottom"  data-original-title="" title="" style="color: #E1E3DD;">Find Matches</a>
                     @else
-                        <a href="{{ URL::to('/') }}/opentowork/{{ $opc->id }}/refer" class=" float-right  text-decoration-none textcolor-blue btn-customs">Send Open-to-work</a>
+                        
+                        <a href="{{ URL::to('/') }}/opentowork/{{ $opc->id }}/refer" class=" float-right  text-decoration-none textcolor-blue btn-customs" data-toggle="dropdown">Send Open-to-work</a>    
+                                              	
+							<div class="dropdown-menu dropdown-menu-right"  style="padding: 0px;">
+                            @if(count($opc_list) > 0) 
+                                <ul style="margin: 0px;padding: 0px;">
+                                    @foreach ($opc_list as $item)
+                                        <li class="send_opentowork"><a href="{{ URL::to('/') }}/opentowork/{{ $item->id }}">{{$item->title}}</a></li>
+                                    @endforeach
+                                        <li class="send_opentowork"><a href="{{ URL::to('/') }}/opentowork/{{ $opc->id }}/refer">Create New one</a></li>
+                                </ul>
+                            @else
+                                 <li class="send_opentowork"><a href="{{ URL::to('/') }}/opentowork/{{ $opc->id }}/refer">Create New one</a></li>
+                            @endif
+							</div>
+    
                     @endif               
-
+                    </div>
                 </div>
             </div>
             <p class="padding-top-100 text-center">

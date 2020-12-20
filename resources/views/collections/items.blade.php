@@ -12,7 +12,7 @@
 					@if(is_file(base_path() . '/public/uploads/profile/'.$u->id.'/'.$u->profile_image_cropped))
 						<img style="width: 90px;float: left;margin-right: 18px;" src="{{ URL::to('/') }}/{{ 'uploads/profile/'.$u->id.'/'.$u->profile_image_cropped }}" />
 					@else
-						<img style="width: 90px;float: left;margin-right: 18px;" src="{{ URL::to('/') }}/assets/images/no_profile_image.jpg" />
+						<img style="width: 90px;float: left;margin-right: 18px;" src="{{ URL::to('/') }}/assets/images/no_profile_image.png" />
 					@endif
 	
 					
@@ -21,7 +21,18 @@
 			
 
 					<div style="padding-right: 18px; padding-top:27px;">
-						<a href="{{ URL::to('/') }}/user/my_account" class="float-right  text-decoration-none textcolor-blue btn-customs" style="color: #CA7073">Delete from collection</a>                    
+						@if(!$third_person)	
+							<a href="#" class="float-right text-decoration-none textcolor-blue btn-customs " style="color: #CA7073" data-toggle="dropdown">Delete from collection</a>  
+                                              	
+							<div class="dropdown-menu dropdown-menu-right"  style="padding: 0px;">
+								<p style="padding: 10px;">Are you sure you want to delete?</p>
+								<div style="width: 90%;margin: 0 auto;padding-bottom: 10px;">
+									<span class="delete_my_individual_collection" style="color: #CA7073;" collection_id="{{$collection_id}}" item_type="user" item_id="{{$u->id}}">Delete</span> <span style="float: right;color: #219BC4;">Back</span>
+								</div>	
+
+							</div>
+
+						@endif                   
 						<a href="{{ URL::to('/') }}/messages/{{ $u->id }}"  data-type="checklist" data-source="#" data-title="Select collections" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Send a message</a>
 						<a href="{{ URL::to('/') }}/user/{{$u->id}}/view"  data-type="text" data-title="Copy this link to share" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Go to profile</a>                     
 										
@@ -48,7 +59,17 @@
 					
 
 					<div style="padding-right: 18px; padding-top:27px;">
-						<a href="#" class="float-right  text-decoration-none textcolor-blue btn-customs" style="color: #CA7073">Delete from collection</a>                    
+						@if(!$third_person)	
+							<a href="#" class="float-right text-decoration-none textcolor-blue btn-customs " style="color: #CA7073" data-toggle="dropdown">Delete from collection</a>  
+										
+							<div class="dropdown-menu dropdown-menu-right"  style="padding: 0px;">
+								<p style="padding: 10px;">Are you sure you want to delete?</p>
+								<div style="width: 90%;margin: 0 auto;padding-bottom: 10px;">
+									<span class="delete_my_individual_collection" style="color: #CA7073;" collection_id="{{$collection_id}}" item_type="opportunity" item_id="{{$opc->id}}">Delete</span> <span style="float: right;color: #219BC4;">Back</span>
+								</div>	
+
+							</div>
+						@endif                       
 						<a href="#"  data-type="checklist" data-source="#" data-title="Select collections" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Send Open-to-work</a>
 						<a href="{{ URL::to('/') }}/cards/{{$opc->id}}"  data-type="text" data-title="Copy this link to share" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Read more</a>                     
 										
@@ -61,7 +82,7 @@
 @if($opentowork_cards !== null && $opentowork_cards->count() > 0)
 	@foreach($opentowork_cards as $opc)
 		<div data-opt-id="{{ $opc->id }}" class="search_user_block">
-			<div class="card align-last card-custom" style="background: #3170AF;width: 762px;padding: 0px;height: 56px;">
+			<div class="card align-last card-custom" style="background: #65C5BF;width: 762px;padding: 0px;height: 56px;">
 				<p style="font-size: 25px;padding-left: 18px;margin: 0px; margin-top: 10px;color: #fff;">{{$collection_name}}
 					<span style="text-decoration: none;padding-right: 24px;float: right;">
 						<img src="/assets/images/location2.png" alt="Edit" style="width: 15px;"> 
@@ -75,7 +96,18 @@
 					
 
 					<div style="padding-right: 18px; padding-top:27px;">
-						<a href="#" class="float-right  text-decoration-none textcolor-blue btn-customs" style="color: #CA7073">Delete from collection</a>                    
+						@if(!$third_person)	
+
+							<a href="#" class="float-right text-decoration-none textcolor-blue btn-customs " style="color: #CA7073" data-toggle="dropdown">Delete from collection</a>  
+										
+							<div class="dropdown-menu dropdown-menu-right"  style="padding: 0px;">
+								<p style="padding: 10px;">Are you sure you want to delete?</p>
+								<div style="width: 90%;margin: 0 auto;padding-bottom: 10px;">
+									<span class="delete_my_individual_collection" style="color: #CA7073;" collection_id="{{$collection_id}}" item_type="opentowork" item_id="{{$opc->id}}">Delete</span> <span style="float: right;color: #219BC4;">Back</span>
+								</div>	
+
+							</div>
+						@endif                     
 						<a href="#"   data-type="checklist" data-source="#" data-title="Select collections" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Send opportunity</a>
 						<a href="{{ URL::to('/') }}/opentowork/{{$opc->id}}" data-type="text" data-title="Copy this link to share" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="" >Read more</a>                     
 										

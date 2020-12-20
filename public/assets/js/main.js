@@ -291,7 +291,7 @@ $(document).ready(function() {
 	
 	
 	
-	$(document).on('click','.messages_conversation_item_block',function(){
+	$(document).on('click','.msg_left_item ',function(){
 		var user_id = $(this).attr('data-user-id');
 		
 		if(user_id > 0) {
@@ -477,50 +477,36 @@ $(document).ready(function() {
 		// var collection_block = this_.parents('.collection_item_block');
 		var collection_id = this_.attr('data-col-id');
 		
-		$.confirm({
-			title: 'Delete Collecion',
-			content: 'Confirm deletion?',
-			buttons: {
-				confirm: function () {
+		$.ajax({
+			type:'POST',
+			url:base_url + 'ajax/delete_collection',
+			dataType:'json',
+			data:{
+				collection_id:collection_id,
+				_token: $('._token').val()
+			},
+			cache: false,
+			success:function(data) {
+				if (data.complete) {
 					
-					$.ajax({
-						type:'POST',
-						url:base_url + 'ajax/delete_collection',
-						dataType:'json',
-						data:{
-							collection_id:collection_id,
-							_token: $('._token').val()
+					$.notify({
+						// options
+						message: 'Collection deleted successfully.' 
+					},{
+						// settings
+						type: 'success',
+						placement: {
+							align: 'center'
 						},
-						cache: false,
-						success:function(data) {
-							if (data.complete) {
-								
-								$.notify({
-									// options
-									message: 'Collection deleted successfully.' 
-								},{
-									// settings
-									type: 'success',
-									placement: {
-										align: 'center'
-									},
-									delay:1000
-								});
-								
-								// collection_block.remove();
-								
-								setTimeout(function() {
-									window.location.href = "/user/my-collection";
-								}, 1000);
-							
-							}
-						}
+						delay:1000
 					});
 					
+					// collection_block.remove();
 					
-				},
-				cancel: function () {
-					
+					setTimeout(function() {
+						window.location.href = "/user/my-collection";
+					}, 1000);
+				
 				}
 			}
 		});
@@ -726,7 +712,50 @@ $(document).ready(function() {
 		
 		return false;
 	});
-	
+	$(document).on('click','.delete_my_individual_collection',function() {
+		var this_ = $(this);
+		var button_text = this_.html();
+		this_.html('Processing...');
+		this_.prop('disabled', true);
+		var collection_id = $(this).attr('collection_id');
+		var item_type = $(this).attr('item_type');
+		var item_id = $(this).attr('item_id');
+		$.ajax({
+			type:'POST',
+			url:base_url + 'ajax/delete_my_individual_collection',
+			dataType:'json',
+			data:{								
+				collection_id:collection_id,				
+				item_type:item_type,				
+				item_id:item_id,				
+				_token: $('._token').val()
+			},
+			cache: false,
+			success:function(data) {
+				if (data.complete) {
+					$.notify({
+						// options
+						message: 'The card was removed successfully.' 
+					},{
+						// settings
+						type: 'success',
+						placement: {
+							align: 'center'
+						},
+						delay:1000
+					});
+					setTimeout(function() {
+						window.location.reload();
+					}, 1000);
+				}
+			}
+		});	
+
+		
+		
+		
+		return false;
+	});	
 	$('.dropdown-submenu a.add_to_my_collection_link').on("click", function(e){
 		$(this).next('ul').toggle();
 		e.stopPropagation();
@@ -1027,15 +1056,15 @@ $(document).ready(function() {
 		}
 	});
 	
-	$(document).on('click','.opp_card_block',function(e) {
-		var tmp1 = $(e.target).hasClass('dropdown-toggle');
-		var tmp2 = $(e.target).hasClass('dropdown-item');
+	// $(document).on('click','.opp_card_block',function(e) {
+	// 	var tmp1 = $(e.target).hasClass('dropdown-toggle');
+	// 	var tmp2 = $(e.target).hasClass('dropdown-item');
 		
-		if(tmp1 === false && tmp2 === false) {
-			window.opc_id = $(this).attr('data-opt-id');
-			$('.open_view_opportunity_card_popup').click();
-		}
-	});
+	// 	if(tmp1 === false && tmp2 === false) {
+	// 		window.opc_id = $(this).attr('data-opt-id');
+	// 		$('.open_view_opportunity_card_popup').click();
+	// 	}
+	// });
 	
 	$('.add_edit_experience').click(function(){
 		var exp_company        = $('.exp_company').val();
@@ -2784,6 +2813,14 @@ $(document).ready(function() {
 	$('#opportunity_collection').editable({
 		type: 'POST',
 		url: base_url + 'ajax/add_to_my_collection_from',
+
+		display: function(value, sourceData) {
+		
+		}
+	});	
+	$('#opentowork_collection').editable({
+		type: 'POST',
+		url: base_url + 'ajax/add_to_my_collection_from2',
 
 		display: function(value, sourceData) {
 		

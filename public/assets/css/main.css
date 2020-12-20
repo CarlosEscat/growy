@@ -122,11 +122,10 @@ html {
   max-width: 355px;
   width: 100%;
   height: 157px;
-
   float: left;
   margin: 0 10px 10px 0;
   position: relative;
-  box-shadow: 0 2px 8px rgba(0, 0, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 255, .2);
 }
 .add_opportuniti_card_link_block {
   height: 160px;
@@ -891,11 +890,14 @@ html {
 }
 .message_recipient_info_block {
   height: 100px;
-  background-color: #00a8e1;
+  background-color: #fff;
   position: relative;
   padding: 10px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: 1;
 }
-.message_recipient_info_block h2 {
+/* .message_recipient_info_block h2 {
   color: white;
   font-size: 35px;
   margin-bottom: 4px;
@@ -905,11 +907,11 @@ html {
   color: white;
   font-size: 28px;
   font-weight: 300;
-}
+} */
 .message_user_profile_image {
   position: absolute;
   left: 10px;
-  top: 31px;
+  top: 12px;
   width: 80px;
 }
 .message_recipient_info_name_profession_block {
@@ -936,27 +938,31 @@ html {
 .incoming_msg_img {
   display: inline-block;
   width: 6%;
+  margin-top: 10px;
 }
 .incoming_msg_img img {
   max-width: 100%;
 }
 .received_msg {
   display: inline-block;
-  padding: 0 0 0 10px;
+  padding: 0 0 0 14px;
   vertical-align: top;
   width: 92%;
+  margin-top: 30px;
 }
 .received_withd_msg {
   width: 57%;
 }
-.received_withd_msg p {
-  background: #ebebeb none repeat scroll 0 0;
-  border-radius: 3px;
-  color: #646464;
-  font-size: 14px;
+.received_withd_msg span {
+  /* background: #ebebeb none repeat scroll 0 0;
+  border-radius: 3px; */
+  color: #1C3041;
+  font-size: 18px;
   margin: 0;
-  padding: 5px 10px 5px 12px;
+  padding: 12px 16px 12px 16px;
   width: 100%;
+  background: #E5E5E5;
+  border-radius: 10px;
 }
 .time_date {
   color: #747474;
@@ -970,16 +976,16 @@ html {
 }
 .sent_msg {
   float: right;
-  width: 46%;
+  /* width: 46%; */
 }
 .sent_msg p.sent_msg_text {
-  background: #05728f none repeat scroll 0 0;
-  border-radius: 3px;
-  font-size: 14px;
+  background: #332960 none repeat scroll 0 0;
+  font-size: 18px;
   margin: 0;
   color: #fff;
-  padding: 5px 10px 5px 12px;
-  width: 100%;
+  width: auto;
+  border-radius: 10px;
+  padding: 12px 16px 12px 16px;
 }
 .message_loader {
   border: 16px solid #f3f3f3;
@@ -2218,7 +2224,7 @@ html {
   * Opportunity page
   * Written by Alexander
   */
-#opportunity .container, #setting .container, #opentowork .container, #collections .container{
+#opportunity .container, #setting .container, #opentowork .container, #collections .container, #collections .container{
   max-width: 100%;
 }
 .bg-gray{
@@ -2482,6 +2488,17 @@ li.select2-selection__choice{
   color: #219BC4;
   margin-left: 24px;
 }
+.btn-msg-customs{
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  letter-spacing: -0.015em;
+  color: #000;
+  margin-left: 24px;
+}
 .padding-top-100{
   padding-top:100px
 }
@@ -2552,4 +2569,100 @@ li.select2-selection__choice{
 }
 .alert {
   margin-bottom: 0px;
+}
+
+.msg_left {
+    overflow-y: auto;
+    height: 3em;
+    width: 10em;
+    line-height: 1em;
+}
+
+.msg_left::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.msg_left::-webkit-scrollbar:vertical {
+    width: 11px;
+}
+
+.msg_left::-webkit-scrollbar:horizontal {
+    height: 11px;
+}
+
+.msg_left::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 2px solid white; /* should match background, can't be transparent */
+    background-color:#332960;
+}
+.msg_left_item {
+  min-height: 120px;
+  border: 1px solid #118ed3;
+  margin-bottom: 18px;
+  padding: 10px 18px 10px 26px;
+  position: relative;
+  cursor: pointer;
+  background: #FFFFFF;
+  border: 4px solid #FFFFFF;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(51, 41, 96, 0.5);
+  border-radius: 10px;
+}
+.msg_left_item.active {
+  background: #EAEAEA;
+  border: 4px solid #E0D5D5;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.messages_block{
+  overflow-y: auto;
+  height: 3em;
+  line-height: 1em;
+}
+
+.messages_block::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.messages_block::-webkit-scrollbar:vertical {
+  width: 11px;
+}
+
+.messages_block::-webkit-scrollbar:horizontal {
+  height: 11px;
+}
+
+.messages_block::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 2px solid white; /* should match background, can't be transparent */
+  background-color:#332960;
+}
+.outgoing_opp_card .msg_block{
+  max-width: 455px;
+  background: #332960;
+  border-radius: 10px;
+
+}
+.incoming_opp_card .msg_block{
+  max-width: 455px;
+  background: #EAEAEA;
+  border-radius: 10px;
+
+}
+.incoming_opp_card p{
+  color: #000;
+}
+.outgoing_opp_card p{
+  color: #fff;
+}
+.send_opentowork{
+  margin: 0px !important;
+  border-bottom: 0.5px solid #000000;
+  font-size: 12px;
+  font-weight: 500;    
+  padding: 4px 8px 4px 8px;
+}
+.send_opentowork a{
+  text-decoration: none;
+  color: #000;
 }

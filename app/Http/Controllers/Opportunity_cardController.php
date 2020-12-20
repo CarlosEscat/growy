@@ -71,6 +71,8 @@ class Opportunity_cardController extends Controller
 				array_push($checked_value, $uc->id);
 			}
 		}
+		//getting my opentowork list
+		$opentoworkList = Opentowork_card::where('user_id',$user_id)->get();
 
 		return view('opportunity_card',[
 			'countries' => $countries,
@@ -79,6 +81,7 @@ class Opportunity_cardController extends Controller
 			'opc' => $opc,
 			'checked_value' => $checked_value,
 			'third_person'=> $third_person,
+			'opc_list' => $opentoworkList,
 			'opportunity_card_page' => true
 		]);
 	}
