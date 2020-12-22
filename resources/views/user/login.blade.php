@@ -22,10 +22,10 @@
   	<!-- Breadcrumb row -->
 	<div style="background:#E1E3DD;" class="breadcrumb-row">
 		<div style="background:#E1E3DD;" class="container">
-			<ul class="list-inline">
+			<!-- <ul class="list-inline">
 				<li><a href="{{ URL::to('/') }}">Home</a></li>
 				<li class="active">Login</li>
-			</ul>
+			</ul> -->
 		</div>
 	</div>
 	<!-- Breadcrumb row END -->
