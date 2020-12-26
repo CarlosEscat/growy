@@ -1,26 +1,44 @@
 @extends('layouts.front')
 @section('content')
+
+<style>
+
+#registerform {
+	background:white;
+	border-radius:10px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#buttonSignup {
+	background: #332960;
+	border: none;
+}
+
+</style>
 <!-- Content -->
-<div class="space_lab_main_content page-content bg-white">
+<div style="background:#E1E3DD;" class="space_lab_main_content page-content bg-white">
   	<!-- Breadcrumb row -->
-	<div class="breadcrumb-row">
+	<div style="background:#E1E3DD;" class="breadcrumb-row">
 		<div class="container">
-			<ul class="list-inline">
+			<!-- <ul class="list-inline">
 				<li><a href="{{ URL::to('/') }}">Home</a></li>
 				<li>Registration</li>
-			</ul>
+			</ul> -->
 		</div>
 	</div>
 	<!-- Breadcrumb row END -->
 	<div class="page-content bg-white">
 		<!-- contact area -->
-		<div class="section-full content-inner">
+		<div style="background:#E1E3DD;min-height:750px" class="section-full content-inner">
 			<!-- Product -->
-			<div class="container">	
+			
+			<div id="registerform" class="container">	
 				<div class="shop-form">
 					<div class="row">
 				
 						<div class="col-md-12 col-lg-12 m-b30">
+						<h2 style="color:#332960;margin-top:10px;">Register</h2>
+						
 							{!! Form::open(['url' => '/user/registration', 'method' => 'POST']) !!}
 								
 								<div class="form-group {{ ((count($errors->get('full_name')) > 0) ? 'has-error' : '') }}">
@@ -80,7 +98,7 @@
 									@endif
 								</div>
 								<div class="form-group">
-									<button type="submit" class="btn btn-primary">Sign Up</button>
+									<button id="buttonSignup" type="submit" class="btn btn-primary">Sign Up</button>
 								</div>
 							{!! Form::close() !!}
 						</div>

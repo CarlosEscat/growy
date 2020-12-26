@@ -16,7 +16,13 @@ html {
 }
 .top_header_block {
   height: 81px;
+<<<<<<< HEAD
   background-color: #118ed3;
+=======
+  background-color: white;
+  border: 1px solid #000000;
+  filter: drop-shadow(0px 8px 8px rgba(51, 41, 96, 0.5));
+>>>>>>> feature/carlosbranch
 }
 .bottom_header_block {
   background-color: #00a8e1;
@@ -122,10 +128,18 @@ html {
   max-width: 355px;
   width: 100%;
   height: 157px;
+<<<<<<< HEAD
   float: left;
   margin: 0 10px 10px 0;
   position: relative;
   box-shadow: 0 2px 8px rgba(0, 0, 255, .2);
+=======
+
+  float: left;
+  margin: 0 10px 10px 0;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 255, 0.2);
+>>>>>>> feature/carlosbranch
 }
 .add_opportuniti_card_link_block {
   height: 160px;
@@ -251,6 +265,7 @@ html {
 }
 .profile_pic_wrapper {
   width: 220px;
+<<<<<<< HEAD
   position: absolute;
   bottom: -16px;
 }
@@ -262,6 +277,22 @@ html {
 
 .profile_pic_wrapper_rounded {
   border-radius: 50%;
+=======
+  /* position: absolute;
+  bottom: -16px; */
+}
+.profile_name_profession_block {
+  /* position: absolute;
+  left: 246px;
+  top: 21px; */
+  text-align: left;
+  margin-top: 3%;
+  margin-left: 3%;
+}
+
+.profile_pic_wrapper_rounded {
+  /* border-radius: 50%; */
+>>>>>>> feature/carlosbranch
 }
 .add_my_experience_link_block {
   height: 138px;
@@ -685,12 +716,21 @@ html {
 }
 .search_user_block {
   cursor: pointer;
+<<<<<<< HEAD
   width: 762px;
   float: left;
   margin: 0 10px 10px 0;
   position: relative;
   min-height: 228px;
   margin-bottom: 30px;
+=======
+  width: 355px;
+  height: 157px;
+  float: left;
+  margin: 0 10px 10px 0;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 255, 0.2);
+>>>>>>> feature/carlosbranch
 }
 .search_no_profile_image {
   width: 90px;
@@ -765,6 +805,7 @@ html {
   min-width: 14rem;
 }
 .collection_item_block {
+<<<<<<< HEAD
   min-height: 120px;
   border: 1px solid #118ed3;
   margin-bottom: 18px;
@@ -777,6 +818,14 @@ html {
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(51, 41, 96, 0.5);
   border-radius: 10px;
+=======
+  min-height: 96px;
+  border: 1px solid #118ed3;
+  margin-bottom: 15px;
+  padding: 10px;
+  position: relative;
+  cursor: pointer;
+>>>>>>> feature/carlosbranch
 }
 
 .collection_item_block h4 {
@@ -788,6 +837,7 @@ html {
 }
 .add_collection_link_block {
   text-align: center;
+<<<<<<< HEAD
   background: #FFFFFF;
   box-shadow: 0px 4px 4px rgba(50, 39, 95, 0.5);
   border-radius: 10px;
@@ -806,6 +856,11 @@ html {
   padding-bottom: 10px;
   color: #000;
   font-weight: 600;
+=======
+}
+.add_collection_link_block p {
+  font-size: 30px;
+>>>>>>> feature/carlosbranch
 }
 .add_edit_collection_header {
   height: 80px;
@@ -828,10 +883,14 @@ html {
   top: 0;
 }
 .collection_item_block.active {
+<<<<<<< HEAD
   background: #EAEAEA;
   border: 4px solid #E0D5D5;
   box-sizing: border-box;
   border-radius: 10px;
+=======
+  background-color: #ccc;
+>>>>>>> feature/carlosbranch
 }
 .switch label {
   cursor: pointer;
@@ -889,6 +948,7 @@ html {
 }
 .message_recipient_info_block {
   height: 100px;
+<<<<<<< HEAD
   background-color: #fff;
   position: relative;
   padding: 10px;
@@ -897,6 +957,13 @@ html {
   z-index: 1;
 }
 /* .message_recipient_info_block h2 {
+=======
+  background-color: #00a8e1;
+  position: relative;
+  padding: 10px;
+}
+.message_recipient_info_block h2 {
+>>>>>>> feature/carlosbranch
   color: white;
   font-size: 35px;
   margin-bottom: 4px;
@@ -906,11 +973,19 @@ html {
   color: white;
   font-size: 28px;
   font-weight: 300;
+<<<<<<< HEAD
 } */
 .message_user_profile_image {
   position: absolute;
   left: 10px;
   top: 12px;
+=======
+}
+.message_user_profile_image {
+  position: absolute;
+  left: 10px;
+  top: 31px;
+>>>>>>> feature/carlosbranch
   width: 80px;
 }
 .message_recipient_info_name_profession_block {
@@ -937,21 +1012,31 @@ html {
 .incoming_msg_img {
   display: inline-block;
   width: 6%;
+<<<<<<< HEAD
   margin-top: 18px;
+=======
+>>>>>>> feature/carlosbranch
 }
 .incoming_msg_img img {
   max-width: 100%;
 }
 .received_msg {
   display: inline-block;
+<<<<<<< HEAD
   padding: 0 0 0 14px;
   vertical-align: top;
   width: 92%;
   margin-top: 30px;
+=======
+  padding: 0 0 0 10px;
+  vertical-align: top;
+  width: 92%;
+>>>>>>> feature/carlosbranch
 }
 .received_withd_msg {
   width: 57%;
 }
+<<<<<<< HEAD
 .received_withd_msg span {
   /* background: #ebebeb none repeat scroll 0 0;
   border-radius: 3px; */
@@ -962,6 +1047,16 @@ html {
   width: 100%;
   background: #E5E5E5;
   border-radius: 10px;
+=======
+.received_withd_msg p {
+  background: #ebebeb none repeat scroll 0 0;
+  border-radius: 3px;
+  color: #646464;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px 10px 5px 12px;
+  width: 100%;
+>>>>>>> feature/carlosbranch
 }
 .time_date {
   color: #747474;
@@ -975,6 +1070,7 @@ html {
 }
 .sent_msg {
   float: right;
+<<<<<<< HEAD
   /* width: 46%; */
 }
 .sent_msg p.sent_msg_text {
@@ -986,6 +1082,18 @@ html {
   border-radius: 10px;
   padding: 12px 16px 12px 16px;
   line-height: normal;
+=======
+  width: 46%;
+}
+.sent_msg p.sent_msg_text {
+  background: #05728f none repeat scroll 0 0;
+  border-radius: 3px;
+  font-size: 14px;
+  margin: 0;
+  color: #fff;
+  padding: 5px 10px 5px 12px;
+  width: 100%;
+>>>>>>> feature/carlosbranch
 }
 .message_loader {
   border: 16px solid #f3f3f3;
@@ -1221,12 +1329,21 @@ html {
   border-color: #00a8e1;
 }
 .header_left {
+<<<<<<< HEAD
   width: 50px;
+=======
+  /* width: 50px; */
+>>>>>>> feature/carlosbranch
   float: left;
   margin-right: 7px;
 }
 .header_left img {
+<<<<<<< HEAD
   width: 50px;
+=======
+  /* width: 50px; */
+  height: 100%;
+>>>>>>> feature/carlosbranch
 }
 .search_input_block {
   margin-bottom: 0;
@@ -1243,9 +1360,15 @@ html {
   color: #8fcaeb;
 }
 .search_input {
+<<<<<<< HEAD
   border-radius: 10px 0px 0px 10px;
   height: 44px;
   padding-left: 55px;
+=======
+  height: 50px;
+  border-radius: 27px;
+  padding-left: 26px;
+>>>>>>> feature/carlosbranch
 }
 .search_input::placeholder {
   color: #8fcaeb;
@@ -1512,9 +1635,12 @@ html {
 }
 .messages_back_arrow {
   display: none;
+<<<<<<< HEAD
 }
 .change_chat {
   display: none;
+=======
+>>>>>>> feature/carlosbranch
 }
 @media only screen and (max-width: 1350px) {
   .top_menu_block ul li {
@@ -1596,8 +1722,12 @@ html {
   .profile_name_profession_block p {
     margin-bottom: 0 !important;
   }
+<<<<<<< HEAD
   #explore .btn-customs{
     display: unset;
+=======
+  .profile_name_profession_block {
+>>>>>>> feature/carlosbranch
   }
 }
 @media only screen and (max-width: 768px) {
@@ -1609,6 +1739,7 @@ html {
     width: 25px;
     z-index: 100;
   }
+<<<<<<< HEAD
 
   .message_user_profile_image {
     position: absolute;
@@ -1644,6 +1775,42 @@ html {
   }
 }
 
+=======
+  .message_user_profile_image {
+    position: absolute;
+    left: 33px;
+    top: 31px;
+    width: 74px;
+  }
+  .message_recipient_info_name_profession_block {
+    position: absolute;
+    left: 114px;
+    top: 13px;
+  }
+  .message_recipient_info_block h2 {
+    font-size: 28px;
+  }
+  .message_recipient_info_block h3 {
+    font-size: 24px;
+  }
+  .profile_pic_wrapper {
+    width: 110px;
+  }
+  .profile_name_profession_block h1 {
+    font-size: 29px;
+  }
+  .profession_label {
+    font-size: 25px;
+  }
+  .profile_name_profession_block {
+    left: 136px;
+  }
+  .bottom_header_block {
+    height: 148px;
+  }
+}
+
+>>>>>>> feature/carlosbranch
 @media only screen and (max-width: 530px) {
   .top_menu_block {
     height: 53px;
@@ -1692,7 +1859,12 @@ html {
     width: 81px;
     margin-top: 10px;
   }
+<<<<<<< HEAD
 
+=======
+  .profile_name_profession_block {
+  }
+>>>>>>> feature/carlosbranch
 
   .profile_name_profession_block h1 {
     font-size: 27px;
@@ -1759,11 +1931,15 @@ html {
     width: 65px;
   }
 }
+<<<<<<< HEAD
 @media only screen and (max-width:599px){
   .change_chat {
     display: block;
   }
 }
+=======
+
+>>>>>>> feature/carlosbranch
 /* ********************************************************************************************* */
 /* NEW GROWYSPACE CSS */
 /* ********************************************************************************************* */
@@ -1784,6 +1960,17 @@ height: 95px; */
   left: 2%;
 }
 
+<<<<<<< HEAD
+=======
+.menu_list_logged {
+  text-decoration: none;
+  color: black;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+}
+
+>>>>>>> feature/carlosbranch
 .signup {
   position: absolute;
   width: 70px;
@@ -1824,7 +2011,11 @@ height: 95px; */
   font-family: "Montserrat";
   display: inline-block;
   height: 838px;
+<<<<<<< HEAD
   background-image: url("/assets/images/Astronaut.png");
+=======
+  background-image: url("../images/Astronaut.png");
+>>>>>>> feature/carlosbranch
   background-size: 100% 100%;
   width: 100%;
   border-bottom-width: 1px;
@@ -2014,7 +2205,11 @@ a {
   font-size: 36px;
 }
 
+<<<<<<< HEAD
 ul {
+=======
+.home_ul {
+>>>>>>> feature/carlosbranch
   text-align: left;
   list-style-type: none;
   font-size: 24px;
@@ -2022,7 +2217,11 @@ ul {
   margin-left: 5%;
 }
 
+<<<<<<< HEAD
 li {
+=======
+.home_li {
+>>>>>>> feature/carlosbranch
   margin-bottom: 50px;
 }
 
@@ -2190,6 +2389,10 @@ li {
   font-family: "Montserrat";
   text-align: center;
   border-top: 1px solid #000000;
+<<<<<<< HEAD
+=======
+  background: white;
+>>>>>>> feature/carlosbranch
 }
 
 .growyspaceLogo {
@@ -2230,6 +2433,7 @@ html {
   scroll-behavior: smooth;
 }
 
+<<<<<<< HEAD
 /**
   * Opportunity page
   * Written by Alexander
@@ -3217,3 +3421,178 @@ li.select2-selection__choice{
     margin-bottom: 1rem;
 }
 }
+=======
+.background {
+  text-align: center;
+  height: min-content;
+  width: 100%;
+  background: #e1e3dd;
+  box-shadow: inset 0px 11px 8px -10px #000000,
+    inset 0px -11px 8px -10px #000000;
+  padding-top: 200px;
+}
+
+.my_profile {
+  width: 333px;
+  height: 74px;
+  margin-left: 5%;
+  width: 333px;
+  height: 74px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.header_color {
+  background: #b7b1d8;
+  margin: auto;
+  margin-top: 2%;
+  width: 60%;
+  height: 54.39px;
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.account_container {
+  text-align: left;
+  background: white;
+  border-radius: 0px 0px 10px 10px;
+  height: max-content;
+  margin: auto;
+  width: 60%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.edit_label {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 36px;
+}
+
+.button_add_education {
+  margin-top: 10px;
+  background: #332960;
+  box-shadow: 0px 4px 4px #32275f;
+  border-radius: 10px;
+  color: white;
+  height: 44px;
+  width: 306px;
+  border-width: 0px;
+}
+
+.button_add_experience {
+  background: #332960;
+  box-shadow: 0px 4px 4px #32275f;
+  border-radius: 10px;
+  color: white;
+  height: 44px;
+  width: 306px;
+  border-width: 0px;
+  margin-top: 20px;
+}
+
+.profile_name_profession_block {
+  width: 100%;
+}
+
+.profile_name_profession_block label {
+  width: 15%;
+}
+
+.profile_name_profession_block input[type="text"] {
+  height: 45px;
+  width: 80%;
+  background: #ffffff;
+  border: 0.5px solid #000000;
+  box-sizing: border-box;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.profile_experience input[type="text"] {
+  height: 45px;
+  width: 80%;
+  background: #ffffff;
+  border: 0.5px solid #000000;
+  box-sizing: border-box;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.profile_experience label {
+  width: 15%;
+  margin-left: 15px;
+}
+
+.profile_education input[type="text"] {
+  height: 45px;
+  width: 75%;
+  background: #ffffff;
+  border: 0.5px solid #000000;
+  box-sizing: border-box;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.profile_education label {
+  width: 20%;
+  margin-left: 15px;
+}
+
+.edit_textarea {
+  width: 852px;
+  height: 99px;
+  border: 0.5px solid #000000;
+  box-sizing: border-box;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+select#location_exp {
+  width: 80%;
+  display: inline-block;
+}
+
+select#month_exp {
+  width: 15%;
+  display: inline-block;
+}
+
+select#year_exp {
+  width: 15%;
+  display: inline-block;
+}
+
+select#end_month_exp {
+  width: 15%;
+  display: inline-block;
+}
+
+select#end_year_exp {
+  width: 15%;
+  display: inline-block;
+}
+
+select#location_edu {
+  width: 75%;
+  display: inline-block;
+}
+
+select#month_edu {
+  width: 15%;
+  display: inline-block;
+}
+
+select#year_edu {
+  width: 15%;
+  display: inline-block;
+}
+
+select#end_month_edu {
+  width: 15%;
+  display: inline-block;
+}
+
+select#end_year_edu {
+  width: 15%;
+  display: inline-block;
+}
+>>>>>>> feature/carlosbranch

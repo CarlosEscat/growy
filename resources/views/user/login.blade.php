@@ -1,22 +1,39 @@
 @extends('layouts.front')
 @section('content')
+
+<style>
+	.container {
+		background: white;
+	}
+
+	.row {
+		background: white;
+		border-radius: 10px;
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	}
+
+	#buttonLogin {
+		background: #332960;
+		border: none;
+	}
+</style>
 <!-- Content -->
-<div class="space_lab_main_content page-content bg-white">
+<div style="background:#E1E3DD;" class="space_lab_main_content page-content bg-white">
   	<!-- Breadcrumb row -->
-	<div class="breadcrumb-row">
-		<div class="container">
-			<ul class="list-inline">
+	<div style="background:#E1E3DD;" class="breadcrumb-row">
+		<div style="background:#E1E3DD;" class="container">
+			<!-- <ul class="list-inline">
 				<li><a href="{{ URL::to('/') }}">Home</a></li>
 				<li class="active">Login</li>
-			</ul>
+			</ul> -->
 		</div>
 	</div>
 	<!-- Breadcrumb row END -->
 	<div style="min-height:500px;overflow:hidden;height:500px;" class="page-content bg-white">
 		<!-- contact area -->
-		<div class="section-full content-inner">
+		<div style="background:#E1E3DD;height:500px;" class="section-full content-inner">
 			<!-- Product -->
-			<div class="container">	
+			<div style="background:#E1E3DD;" class="container">	
 				<div class="shop-form">
 					<div class="row">
 						<div class="col-md-12 col-lg-12 m-b30">
@@ -29,8 +46,10 @@
 								@if(count($errors->get('wrong_login_details')) > 0)
 									<p class="inline_error">{{ $errors->first('wrong_login_details')}}</p>
 								@endif
-																
-								<h4>Log in</h4>
+
+															
+								<h2 style="color:#332960;margin-top:10px;">Log in</h2>
+								
 								<div class="form-group">
 									<label class="turbo_form_label">Email <span class="red">*</span></label>
 									<input type="text" class="form-control" name="email" placeholder="Email" value="">
@@ -48,8 +67,8 @@
 								
 								<div class="form-group">
 									<input type="hidden" name="from_page" value="login" />
-									<button type="submit" class="btn btn-primary">Login</button>
-									<a class="forgot_password_btn">Forgot password ?</a>
+									<button id="buttonLogin" type="submit" class="btn btn-primary">Login</button>
+									<a style="color=#332960" class="forgot_password_btn">Forgot password ?</a>
 								</div>
 							{!! Form::close() !!}
 						</div>
