@@ -1195,12 +1195,13 @@ html {
   border-color: #00a8e1;
 }
 .header_left {
-  width: 50px;
+  /* width: 50px; */
   float: left;
   margin-right: 7px;
 }
 .header_left img {
-  width: 50px;
+  /* width: 50px; */
+  height: 100%;
 }
 .search_input_block {
   margin-bottom: 0;
@@ -2203,4 +2204,178 @@ a {
 
 html {
   scroll-behavior: smooth;
+}
+
+.background {
+  text-align: center;
+  height: min-content;
+  width: 100%;
+  background: #e1e3dd;
+  box-shadow: inset 0px 11px 8px -10px #000000,
+    inset 0px -11px 8px -10px #000000;
+  padding-top: 200px;
+}
+
+.my_profile {
+  width: 333px;
+  height: 74px;
+  margin-left: 5%;
+  width: 333px;
+  height: 74px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.header_color {
+  background: #b7b1d8;
+  margin: auto;
+  margin-top: 2%;
+  width: 60%;
+  height: 54.39px;
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.account_container {
+  text-align: left;
+  background: white;
+  border-radius: 0px 0px 10px 10px;
+  height: max-content;
+  margin: auto;
+  width: 60%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.edit_label {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 36px;
+}
+
+.button_add_education {
+  margin-top: 10px;
+  background: #332960;
+  box-shadow: 0px 4px 4px #32275f;
+  border-radius: 10px;
+  color: white;
+  height: 44px;
+  width: 306px;
+  border-width: 0px;
+}
+
+.button_add_experience {
+  background: #332960;
+  box-shadow: 0px 4px 4px #32275f;
+  border-radius: 10px;
+  color: white;
+  height: 44px;
+  width: 306px;
+  border-width: 0px;
+  margin-top: 20px;
+}
+
+.profile_name_profession_block {
+  width: 100%;
+}
+
+.profile_name_profession_block label {
+  width: 15%;
+}
+
+.profile_name_profession_block input[type="text"] {
+  height: 45px;
+  width: 80%;
+  background: #ffffff;
+  border: 0.5px solid #000000;
+  box-sizing: border-box;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.profile_experience input[type="text"] {
+  height: 45px;
+  width: 80%;
+  background: #ffffff;
+  border: 0.5px solid #000000;
+  box-sizing: border-box;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.profile_experience label {
+  width: 15%;
+  margin-left: 15px;
+}
+
+.profile_education input[type="text"] {
+  height: 45px;
+  width: 75%;
+  background: #ffffff;
+  border: 0.5px solid #000000;
+  box-sizing: border-box;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.profile_education label {
+  width: 20%;
+  margin-left: 15px;
+}
+
+.edit_textarea {
+  width: 852px;
+  height: 99px;
+  border: 0.5px solid #000000;
+  box-sizing: border-box;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+select#location_exp {
+  width: 80%;
+  display: inline-block;
+}
+
+select#month_exp {
+  width: 15%;
+  display: inline-block;
+}
+
+select#year_exp {
+  width: 15%;
+  display: inline-block;
+}
+
+select#end_month_exp {
+  width: 15%;
+  display: inline-block;
+}
+
+select#end_year_exp {
+  width: 15%;
+  display: inline-block;
+}
+
+select#location_edu {
+  width: 75%;
+  display: inline-block;
+}
+
+select#month_edu {
+  width: 15%;
+  display: inline-block;
+}
+
+select#year_edu {
+  width: 15%;
+  display: inline-block;
+}
+
+select#end_month_edu {
+  width: 15%;
+  display: inline-block;
+}
+
+select#end_year_edu {
+  width: 15%;
+  display: inline-block;
 }
