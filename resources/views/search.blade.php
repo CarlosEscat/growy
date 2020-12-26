@@ -2,208 +2,209 @@
 @section('content')
 
 <script>window.search_url = '{{ $search_url }}';</script>
-<div class="container page-content bg-white">
-  	<!-- Breadcrumb row -->
-	<div style="margin-top:83px;" class="breadcrumb-row">
-		<div class="container">
-			<ul class="list-inline">
-				<li><a href="{{ URL::to('/') }}">Home</a></li>
-				<li>Search</li>
-				@if($type != 0) 
-				<li class="active">
-					@if($type == 1)
-						Users
-					@else
-						Opportunities
-					@endif
-				</li>
-				@endif
-			</ul>
-		</div>
-	</div>
-	<div style="margin-top:30px;margin-bottom:40px;" class="row"> 
-	 <!-- Header -->
-		<div style="min-height:300px;" class="col-md-4">
-			<div class="search_button_block">
-				<button style="width:100%;" class="btn btn-primary search">Search</button>
-			</div>
-			<div class="search_filter_item_block">
-				<h4>Search for</h4>
-				<label>
-					<input {{ $type == 1 ? 'checked' : '' }} type="radio" name="type" value="1" /> Users
-				</label>
-				<label>
-					<input {{ $type == 2 ? 'checked' : '' }} type="radio" name="type" value="2" /> Opportunities
-				</label>
-			</div>
-			@if($type == 1 || $type == 2)
-			<div class="search_filter_item_block">
-				<h4><span class="fa fa-map-marker"></span> Location</h4>
-				<select style="width:47%;float:left;" class="search_country_code form-control">
-					<option value="">Country</option>
-					@foreach($countries as $c_code => $c)
-						<option {{ $country == $c_code ? 'selected' : '' }} value="{{ $c_code }}">{{ $c }}</option>
-					@endforeach
-				</select>
-				<input type="text" placeholder="City" style="width:47%;float:right;" class="search_city form-control" value="{{ $city }}" />
-			</div>
-			@endif
-			@if($type == 2)
-				@if(false)
-				<div class="search_filter_item_block">
-					<h4> Field</h4>
-					<select style="width:100%;" multiple name="" class="search_opc_fields form-control">
-						@foreach($all_opc_fields as $f)	
-							<option {{ in_array($f,$opc_fields) ? 'selected' : '' }} value="{{ $f }}">{{ $f }}</option>
-						@endforeach
-					</select>
+<div id="explore">
+    <div class="container bg-gray">
+		<div class="col-md-10 main_area mt-5 pt-5 margin-0-auto pb-5">
+            <div class="row mt-3 col-md-12">
+				<div class="header">			
+				<p style="float: left;"><img src='/assets/images/search_icon.png' alt='Explore' >Explore</p>
 				</div>
-				<div class="search_filter_item_block">
-					<h4> Salary</h4>
-					<select style="width:47%;float:left;" class="search_from_salary form-control">
-						<option value="">From</option>
-						@for($i = 0;$i<=10000;$i += 1000)
-							
-							<option {{ trim($from_salary) != '' && $from_salary == $i ? 'selected' : '' }} value="{{ $i }}">{{ $i }}</option>
-							@if($i == 0)
-								<option {{ trim($from_salary) != '' && $from_salary == 1 ? 'selected' : '' }} value="1"><1000</option>
-							@endif
-						@endfor
-					</select>
-					<select style="width:47%;float:right;" class="search_to_salary form-control">
-						<option value="">To</option>
-						@for($i = 0;$i<=10000;$i += 1000)
-							<option {{ trim($to_salary) != '' && $to_salary == $i ? 'selected' : '' }} value="{{ $i }}">{{ $i }}</option>
-							@if($i == 0)
-								<option {{ trim($to_salary) != '' && $to_salary == 999 ? 'selected' : '' }} value="999"><1000</option>
-							@endif
-						@endfor
-					</select>
+			</div>
+			<div class="row mt-3 col-md-10 margin-0-auto search_pad">
+				<div class="col-md-6 p-0 search_filter_item_block_new">
+					<img src='/assets/images/search_icon.png' alt='Explore' class="keyword_img">
+					<input type="text" name="search" style="border-radius: 5px 0px 0px 5px;height: 44px;" class="form-control search-slt search_input " value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}" placeholder="Search for opportunities, open-to-work cards or users">
 				</div>
-				<div class="search_filter_item_block">
-					<h4> Hours per week</h4>
-					<select style="width:47%;float:left;" class="search_from_hour form-control">
-						<option value="">From</option>
-						@for($i = 0;$i<=40;$i += 5)
-							<option {{ trim($from_hour) != '' && $from_hour == $i ? 'selected' : '' }} value="{{ $i }}">{{ $i }}</option>
-						@endfor
-					</select>
-					<select style="width:47%;float:right;" class="search_to_hour form-control">
-						<option value="">To</option>
-						@for($i = 0;$i<=40;$i += 5)
-							<option {{ trim($to_hour) != '' && $to_hour == $i ? 'selected' : '' }} value="{{ $i }}">{{ $i }}</option>
-						@endfor
-					</select>
-				</div>
-				@endif
-			@endif
-			@if($type == 1)
-				@if(false)
-					<div class="search_filter_item_block">
-						<h4> Profession</h4>
-						<input type="text" placeholder="Type a profession" class="form-control search_profession" value="{{ $profession }}" />
-					</div>
-					<div class="search_filter_item_block">
-						<h4> Education</h4>
-						<input type="text" placeholder="Type a instituion or title" class="form-control search_education" value="{{ $education }}" />
-					</div>
-					<div class="search_filter_item_block">
-						<h4> Availablity</h4>
-						<label>
-							<input type="checkbox" {{ in_array(1,$available) ? 'checked' : '' }} class="search_availability" name="availability[]" value="1" /> Avilable
-						</label>
-						<label>
-							<input type="checkbox" {{ in_array(2,$available) ? 'checked' : '' }} class="search_availability" name="availability[]" value="2" /> Not available
-						</label>
-					</div>
-					<div class="search_filter_item_block">
-						<h4> Skillset</h4>
-						<select placeholder="Skills" style="width:100%;" multiple name="" class="search_skills form-control">
-							@foreach($all_skills as $s)	
-								<option {{ in_array($s,$skills) ? 'selected' : '' }} value="{{ $s }}">{{ $s }}</option>
-							@endforeach
+				<div class="col-md-4 p-0">
+					<div class="input-group">
+						<select style="width:100%;" multiple class="opc_explore form-control search_city">
+							<option value="{{ $city !='' ? $city : '' }}" {{ $city !='' ? 'selected' : '' }}>{{ $city !='' ? $city : '' }}</option>
 						</select>
 					</div>
-				@endif
-			@endif
-			
-		</div>
-		<div style="min-height:300px;" class="col-md-8">
-			@if($opportunity_cards !== null && $opportunity_cards->count() > 0)
-				@foreach($opportunity_cards as $opc)
-					<div data-opt-id="{{ $opc->id }}" class="opp_card_block">
-						
-						<div class="dropdown opp_card_actions_block">
-							<button class="btn btn-light dropdown-toggle" type="button" id="opt{{ $opc->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="sr-only"></span>
-							</button>
-							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="opt{{ $opc->id }}">
-								@if($opc->user_id == $user_id)
-									<a data-opt-id="{{ $opc->id }}" class="dropdown-item invite_user_to_this_card" href="#"> Invite user</a>
-									<a data-opt-id="{{ $opc->id }}" class="dropdown-item" href="/cards/{{ $opc->id }}"> Expand</a>
-									<a data-opt-id="{{ $opc->id }}" class="dropdown-item edit_opportunity_card_link" href=""> Edit</a>
-									<a data-opt-id="{{ $opc->id }}" class="dropdown-item delete_opportunity_card_link"> Delete</a>
-								@else
-									<li class="dropdown-submenu"><a data-opt-id="{{ $opc->id }}" class="dropdown-item dropdown-toggle get_opc_collections " href="#">Add to my collection</a>
-										<ul class="view_collections_block dropdown-menu">
-											
-										</ul>
-									</li>
+				</div>
+				<div class="col-md-2 p-0">
+					
+                    <button type="button" class="btn wrn-btn search search_btn" >Search</button>
+                </div>
+			</div>
+
+			<div class="col-md-10 row  mt-3 margin-0-auto search_body">
+				<div class="col-md-4 left_filter_area">
+					<h4>Filter</h4>
+					<div class="form-check">
+						<label class="form-check-label">
+							<input type="radio" class="form-check-input" {{ $type == 2 ? 'checked' : '' }} name="type"  value="2">Opportunity
+						</label>
+					</div>
+					<div class="form-check">
+						<label class="form-check-label">
+							<input type="radio" class="form-check-input" {{ $type == 3 ? 'checked' : '' }} name="type" value="3">Open-to-work
+						</label>
+					</div>
+					<div class="form-check">
+						<label class="form-check-label">
+							<input type="radio" class="form-check-input" {{ $type == 1 ? 'checked' : '' }} name="type" value="1">Users
+						</label>
+					</div>
+				</div>	
+				<div  class="col-md-8 filter_result">			
+				@if($users !== null && $users->count() > 0) 
+					@foreach($users as $u)
+					<div data-user-id="{{ $u->id }}" class="search_user_block filter_oppbox">
+						<div class="card align-last card-custom search_user_rlt_card">
+							<p class="search_opt_rlt_card_label">User
+								<span class="search_opt_card">
+									<img src="/assets/images/location2.png" alt="Location" > 
+									<span class="search_opp_city">{{ isset($countries[$u->country_code]) ? $countries[$u->country_code] : $u->country_code }}, {{ $u->city }}</span>
+								</span>
+							</p>
+							<div class="search_opt_card_body">	
 									
+								@if(is_file(base_path() . '/public/uploads/profile/'.$u->id.'/'.$u->profile_image_cropped))
+									<img  style="width: 90px;float: left;margin-right: 18px;" src="{{ URL::to('/') }}/{{ 'uploads/profile/'.$u->id.'/'.$u->profile_image_cropped }}" />
+								@else
+									<img  style="width: 90px;float: left;margin-right: 18px;" src="{{ URL::to('/') }}/assets/images/no_profile_image.jpg" />
+								@endif	
+									<p class="search_opt_body_title">{{ $u->full_name }}</p>
+									<p style="font-size: 25px;margin: 0px;">{{ $u->profession }}</p>	
+
+								<div class="other_urls">
+									
+								@if($u->id == $user_id)
+									<a href="#" class="text-decoration-none float-right textcolor-blue btn-customs " style="color: #CA7073">Edit</a>  
+								@else
+									<div>
+										<a href="#" data-pk="{{ $u->id }}" data-type="checklist" data-source="{{ URL::to('/') }}/ajax/get_user_collection_list/{{$u->id}}"  data-title="Select collections" class="user_collection editable editable-click float-right  text-decoration-none textcolor-blue btn-customs" data-placement="bottom"   data-original-title="" title="" style="color: #219BC4">Add to collection</a>
+									</div>
 								@endif
+																							
+									<a href="/messages/{{ $u->id }}" data-type="checklist"  data-title="Select collections" class="editable editable-click text-decoration-none textcolor-blue float-right btn-customs" data-placement="bottom" data-original-title="" title="">Send a message</a>
+									<a href="/user/{{ $u->id }}/view" data-type="text"  class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Go to profile</a>                     
+										
+									<div class="clearfix"></div>
+								</div>
 							</div>
 						</div>
-						
-						
-						<h3>{{ strlen($opc->title) > 22 ? substr($opc->title,0,22).'...' : $opc->title }}</h3>
-						<h4>{{ strlen($opc->company) > 22 ? substr($opc->company,0,22).'...' : $opc->company }}</h4> 
-						
-						<div class="opp_card_block_bottom">
-							<p><span class="fa fa-map-marker"></span> {{ (isset($countries[$opc->country_code]) ? $countries[$opc->country_code] : $opc->country_code).', '.$opc->city }}</p>
-						</div>
-					</div>
-				@endforeach
-			@endif
-					
-			@if($users !== null && $users->count() > 0) 
-				@foreach($users as $u)
-				<div data-user-id="{{ $u->id }}" class="search_user_block">
-					@if(is_file(base_path() . '/public/uploads/profile/'.$u->id.'/'.$u->profile_image_cropped))
-						<img class="search_profile_image" src="{{ URL::to('/') }}/{{ 'uploads/profile/'.$u->id.'/'.$u->profile_image_cropped }}" />
-					@else
-						<img class="search_no_profile_image" src="{{ URL::to('/') }}/assets/images/no_profile_image.jpg" />
-					@endif
-					<div class="search_user_info_block">
-						<h3>{{ $u->full_name }}</h3>
-						<h4>{{ $u->profession }}</h4>
-						<p><span class="fa fa-map-marker"></span> {{ isset($countries[$u->country_code]) ? $countries[$u->country_code] : $u->country_code }}, {{ $u->city }}</p>
-					</div>
-					<div class="search_user_actions_block">
-						<a data-opt-id="" class="growyspace_btn" href="/messages/{{ $u->id }}"><span><img class="growyspace_btn_icon" src="/assets/images/send_message.png" /></span></a>
-						<a data-user-id="{{ $u->id }}" gys-toggle-id='view_collections_block_u{{ $u->id }}' class="get_user_collections growyspace-toggle growyspace_btn" href="#"><span><img class="growyspace_btn_icon" src="/assets/images/add_to_my_collection.png" /></span></a>
-						<div gys-toggle="view_collections_block_u{{ $u->id }}" class="hidden collections_block">
-							<ul class="view_collections_block">
-								
-							</ul>
-						</div>
-					</div>
-					<div class="hidden search_user_location"></div>
-				</div>
-				@endforeach
-			@endif
-			
-			@if($need_to_process_for_searching === true)
-				@if(
-					($users == null || ($users !== null && $users->count() == 0 )  ) &&
-					($opportunity_cards == null || ($opportunity_cards !== null && $opportunity_cards->count() == 0 )  ) 
-				)
-					<h2>No search result</h2>
+					</div>					
+					@endforeach
 				@endif
-			@endif
+
+				@if($opportunity_cards !== null && $opportunity_cards->count() > 0)
+					@foreach($opportunity_cards as $opc)
+					<div data-opt-id="{{ $opc->id }}" class="search_user_block filter_oppbox">
+						<div class="card align-last card-custom search_opt_rlt_card">
+							<p class="search_opt_rlt_card_label">Oppportunity
+								<span class="search_opt_card">
+									<img src="/assets/images/location2.png" alt="Location"> 
+									<span class="search_opp_city">{{ (isset($countries[$opc->country_code]) ? $countries[$opc->country_code] : $opc->country_code).', '.$opc->city }}</span>
+								</span>
+							</p>
+							<div class="search_opt_card_body">
+							
+									<p class="search_opt_body_title">{{ strlen($opc->title) > 150 ? substr($opc->title,0,150).'...' : $opc->title }}</p>
+									<p class="search_opt_body_company">{{ strlen($opc->company) > 150 ? substr($opc->company,0,150).'...' : $opc->company }}</p>										
+								
+
+								<div class="other_urls">
+									<div>
+										<a href="#" data-pk="{{ $opc->id }}" data-type="checklist" data-source="{{ URL::to('/') }}/ajax/get_opc_collection_list/{{$opc->id}}"  data-title="Select collections" class="opportunity_collection editable editable-click float-right  text-decoration-none textcolor-blue btn-customs" data-placement="bottom"   data-original-title="" title="">Add to collection</a>
+									</div>
+									<div>                     
+										<a href="{{ URL::to('/') }}/opentowork/{{ $opc->id }}/refer" class="text-decoration-none textcolor-blue float-right btn-customs" data-toggle="dropdown">Send Open-to-work</a>    
+													
+										<div class="dropdown-menu dropdown-menu-right"  style="padding: 0px;">
+										@if(count($opt_list) > 0) 
+											<ul style="margin: 0px;padding: 0px;">
+												@foreach ($opt_list as $item)
+													<li class="send_opentowork"><a href="{{ URL::to('/') }}/opentowork/{{ $item->id }}">{{$item->title}}</a></li>
+												@endforeach
+													<li class="send_opentowork"><a href="{{ URL::to('/') }}/opentowork/{{ $opc->id }}/refer">Create New one</a></li>
+											</ul>
+										@else
+											<li class="send_opentowork"><a href="{{ URL::to('/') }}/opentowork/{{ $opc->id }}/refer">Create New one</a></li>
+										@endif
+										</div>
+									</div>
+
+									<a href="{{ URL::to('/') }}/cards/{{$opc->id}}"  data-type="text" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Read more</a>                     
+									<div class="clearfix"></div>				
+								</div>
+							</div>
+						</div>
+					</div>					
+					@endforeach
+				@endif
+				@if($opentowork_cards !== null && $opentowork_cards->count() > 0)
+					@foreach($opentowork_cards as $opc)
+					<div data-opt-id="{{ $opc->id }}" class="search_user_block filter_optbox">
+						<div class="card align-last card-custom search_opp_rlt_card">
+							<p class="search_opt_rlt_card_label">Open-to-work
+								<span class="search_opt_card">
+									<img src="/assets/images/location2.png" alt="Edit" style="width: 15px;"> 
+									<span class="search_opp_city">{{ (isset($countries[$opc->country_code]) ? $countries[$opc->country_code] : $opc->country_code).', '.$opc->city }}</span>
+								</span>
+							</p>
+							<div class="search_opt_card_body">
+							
+									<p class="search_opt_body_title">{{ strlen($opc->title) > 150 ? substr($opc->title,0,150).'...' : $opc->title }}</p>
+									<p class="search_opt_body_company">Areas of interest</p>			
+		
+								<ul class="list-unstyled list-inline margin-0-auto mb-0 request_skills">
+
+									@foreach(json_decode($opc->roles,true) as $oc)
+									<li class="list-inline-item mr-0 pr-2" style="margin:0px">
+										<div class="chip bgcolor-purple mr-0 chip-custom">{{ $oc }}</div>
+									</li>
+									@endforeach
+								</ul>						
+								
+
+								<div style="padding-right: 18px; padding-top:27px;">
+									<div>
+									<a href="#" data-pk="{{ $opc->id }}" data-type="checklist" data-source="{{ URL::to('/') }}/ajax/get_opentowork_collection_list/{{$opc->id}}"  data-title="Select collections" class="opentowork_collection editable editable-click  float-right  text-decoration-none textcolor-blue btn-customs" data-placement="bottom"   data-original-title="" title="">Add to collection</a>
+									</div>
+									<div>
+										<a href="{{ URL::to('/') }}/opentowork/{{ $opc->id }}/refer" class=" float-right  text-decoration-none textcolor-blue btn-customs" data-toggle="dropdown">Send Opportunity</a>
+										<div class="dropdown-menu dropdown-menu-right"  style="padding: 0px;">
+										@if(count($opc_list) > 0) 
+											<ul style="margin: 0px;padding: 0px;">
+												@foreach ($opc_list as $item)
+													<li class="send_opentowork"><a href="{{ URL::to('/') }}/cards/{{ $item->id }}">{{$item->title}}</a></li>
+												@endforeach
+													<li class="send_opentowork"><a href="{{ URL::to('/') }}/cards/{{ $opc->id }}/refer">Create New one</a></li>
+											</ul>
+										@else
+											<li class="send_opentowork"><a href="{{ URL::to('/') }}/cards/{{ $opc->id }}/refer">Create New one</a></li>
+										@endif
+										</div>
+									</div>
+
+									<a href="{{ URL::to('/') }}/cards/{{$opc->id}}"  data-type="text" data-title="Copy this link to share" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Read more</a>                     
+													
+								</div>
+							</div>
+						</div>
+					</div>					
+					@endforeach
+				@endif
+				@if($need_to_process_for_searching === true)
+					@if(
+						($users == null || ($users !== null && $users->count() == 0 )  ) &&
+						($opportunity_cards == null || ($opportunity_cards !== null && $opportunity_cards->count() == 0 )  ) 
+						&& ($opentowork_cards == null || ($opentowork_cards !== null && $opentowork_cards->count() == 0 )  ) 
+					)
+						<h2>No search result</h2>
+					@endif
+				@endif
+
+				</div>
+			</div>
+			<!-- <div class="alert alert-info text-center" style="width: 55%; margin: 0 auto;position: absolute;bottom: 30px;left: 20%;right: 20%;"> -->
+			<div class="alert alert-info text-center" style="">
+			Are you looking to create an opportunity or a open-to-work card? Visit your <a href="/user/my_account" style="text-decoration:none; color:#219BC4">profile</a> to create one.
+			</div>
 		</div>
-    </div>
-	
-	
+	</div>
 </div>
 
 @include('popups.view_opportunity_card')

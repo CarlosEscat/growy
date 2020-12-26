@@ -60,17 +60,36 @@
 
 					<div style="padding-right: 18px; padding-top:27px;">
 						@if(!$third_person)	
-							<a href="#" class="float-right text-decoration-none textcolor-blue btn-customs " style="color: #CA7073" data-toggle="dropdown">Delete from collection</a>  
-										
-							<div class="dropdown-menu dropdown-menu-right"  style="padding: 0px;">
-								<p style="padding: 10px;">Are you sure you want to delete?</p>
-								<div style="width: 90%;margin: 0 auto;padding-bottom: 10px;">
-									<span class="delete_my_individual_collection" style="color: #CA7073;" collection_id="{{$collection_id}}" item_type="opportunity" item_id="{{$opc->id}}">Delete</span> <span style="float: right;color: #219BC4;">Back</span>
-								</div>	
+							<div>
+								<a href="#" class="float-right text-decoration-none textcolor-blue btn-customs " style="color: #CA7073" data-toggle="dropdown" >Delete from collection</a>  
+											
+								<div class="dropdown-menu dropdown-menu-right"  style="padding: 0px;">
+									<p style="padding: 10px;">Are you sure you want to delete?</p>
+									<div style="width: 90%;margin: 0 auto;padding-bottom: 10px;">
+										<span class="delete_my_individual_collection" style="color: #CA7073;" collection_id="{{$collection_id}}" item_type="opportunity" item_id="{{$opc->id}}">Delete</span> <span style="float: right;color: #219BC4;">Back</span>
+									</div>	
 
+								</div>
 							</div>
-						@endif                       
-						<a href="#"  data-type="checklist" data-source="#" data-title="Select collections" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Send Open-to-work</a>
+						@endif      
+							<div>
+
+								<a href="{{ URL::to('/') }}/opentowork/{{ $opc->id }}/refer" class=" float-right  text-decoration-none textcolor-blue btn-customs" data-toggle="dropdown" >Send Open-to-work</a>    
+														
+								<div class="dropdown-menu dropdown-menu-right"  style="padding: 0px;">
+								@if(count($opt_list) > 0) 
+									<ul style="margin: 0px;padding: 0px;">
+										@foreach ($opt_list as $item)
+											<li class="send_opentowork"><a href="{{ URL::to('/') }}/opentowork/{{ $item->id }}">{{$item->title}}</a></li>
+										@endforeach
+											<li class="send_opentowork"><a href="{{ URL::to('/') }}/opentowork/{{ $opc->id }}/refer">Create New one</a></li>
+									</ul>
+								@else
+									<li class="send_opentowork"><a href="{{ URL::to('/') }}/opentowork/{{ $opc->id }}/refer">Create New one</a></li>
+								@endif
+								</div>
+							</div>                 
+						
 						<a href="{{ URL::to('/') }}/cards/{{$opc->id}}"  data-type="text" data-title="Copy this link to share" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Read more</a>                     
 										
 					</div>
@@ -108,7 +127,20 @@
 
 							</div>
 						@endif                     
-						<a href="#"   data-type="checklist" data-source="#" data-title="Select collections" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="">Send opportunity</a>
+						<a href="{{ URL::to('/') }}/opentowork/{{ $opc->id }}/refer" class=" float-right  text-decoration-none textcolor-blue btn-customs" data-toggle="dropdown">Send Opportunity</a>
+						<div class="dropdown-menu dropdown-menu-right"  style="padding: 0px;">
+						@if(count($opc_list) > 0) 
+							<ul style="margin: 0px;padding: 0px;">
+								@foreach ($opc_list as $item)
+									<li class="send_opentowork"><a href="{{ URL::to('/') }}/cards/{{ $item->id }}">{{$item->title}}</a></li>
+								@endforeach
+									<li class="send_opentowork"><a href="{{ URL::to('/') }}/cards/{{ $opc->id }}/refer">Create New one</a></li>
+							</ul>
+						@else
+							<li class="send_opentowork"><a href="{{ URL::to('/') }}/cards/{{ $opc->id }}/refer">Create New one</a></li>
+						@endif
+						</div>
+
 						<a href="{{ URL::to('/') }}/opentowork/{{$opc->id}}" data-type="text" data-title="Copy this link to share" class="editable editable-click float-right text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="" >Read more</a>                     
 										
 					</div>

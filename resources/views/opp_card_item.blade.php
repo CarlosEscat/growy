@@ -12,12 +12,12 @@
 	</div>
 	@endif
 	@if($url == 'collections')
-		<img src="/assets/images/collection_header_icon.png" alt="sunil" style="float: left;width: 57px;margin: 13px 0px 0px 12px;">
-		<div style="font-size: 20px;font-weight: 600;margin: 0px;padding-top: 16px;padding-left: 14px;width: 80%;float: left;">
+		<img src="/assets/images/collection_header_icon.png" alt="sunil" class="msg_collection_img">
+		<div class="msg_collection_opp">
 			<p>{{$name}}</p>
 			<p>Created by: <span>{{$user}}</span></p>
 		</div>
-		<a href="{{ URL::to('/') }}/{{$url}}/{{ $opc->id }}" style="text-decoration: none;color: #58C0FA;font-weight: 500;font-size: 20px;position: absolute;bottom: 12px;right: 12px;">Go to Collection</a>
+		<a href="{{ URL::to('/') }}/{{$url}}/{{ $opc->id }}" class="msg_collection_go">Go to Collection</a>
 
 	@else
 		<p style="font-size: 20px;font-weight: 600; margin: 0px;padding-top: 20px;padding-left: 14px;">{{$name}}</p>

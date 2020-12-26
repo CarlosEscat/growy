@@ -686,7 +686,6 @@ html {
 .search_user_block {
   cursor: pointer;
   width: 762px;
-  height: 157px;
   float: left;
   margin: 0 10px 10px 0;
   position: relative;
@@ -938,7 +937,7 @@ html {
 .incoming_msg_img {
   display: inline-block;
   width: 6%;
-  margin-top: 10px;
+  margin-top: 18px;
 }
 .incoming_msg_img img {
   max-width: 100%;
@@ -986,6 +985,7 @@ html {
   width: auto;
   border-radius: 10px;
   padding: 12px 16px 12px 16px;
+  line-height: normal;
 }
 .message_loader {
   border: 16px solid #f3f3f3;
@@ -1243,9 +1243,9 @@ html {
   color: #8fcaeb;
 }
 .search_input {
-  height: 50px;
-  border-radius: 27px;
-  padding-left: 26px;
+  border-radius: 10px 0px 0px 10px;
+  height: 44px;
+  padding-left: 55px;
 }
 .search_input::placeholder {
   color: #8fcaeb;
@@ -1513,6 +1513,9 @@ html {
 .messages_back_arrow {
   display: none;
 }
+.change_chat {
+  display: none;
+}
 @media only screen and (max-width: 1350px) {
   .top_menu_block ul li {
     padding: 0 6px;
@@ -1593,7 +1596,9 @@ html {
   .profile_name_profession_block p {
     margin-bottom: 0 !important;
   }
-  
+  #explore .btn-customs{
+    display: unset;
+  }
 }
 @media only screen and (max-width: 768px) {
   .messages_back_arrow {
@@ -1604,15 +1609,16 @@ html {
     width: 25px;
     z-index: 100;
   }
+
   .message_user_profile_image {
     position: absolute;
-    left: 33px;
-    top: 31px;
-    width: 74px;
+    left: 15px;
+    top: 15px;
+    width: 70px;
   }
   .message_recipient_info_name_profession_block {
     position: absolute;
-    left: 114px;
+    left: 100px;
     top: 13px;
   }
   .message_recipient_info_block h2 {
@@ -1753,7 +1759,11 @@ html {
     width: 65px;
   }
 }
-
+@media only screen and (max-width:599px){
+  .change_chat {
+    display: block;
+  }
+}
 /* ********************************************************************************************* */
 /* NEW GROWYSPACE CSS */
 /* ********************************************************************************************* */
@@ -2224,7 +2234,7 @@ html {
   * Opportunity page
   * Written by Alexander
   */
-#opportunity .container, #setting .container, #opentowork .container, #collections .container, #collections .container{
+#opportunity .container, #setting .container, #opentowork .container, #collections .container, #collections .container, #explore .container, #messages .container{
   max-width: 100%;
 }
 .bg-gray{
@@ -2232,6 +2242,9 @@ html {
 }
 .margin-0-auto{
   margin:0 auto;
+}
+.padding-0{
+  padding: 0px;
 }
 .main_area{
   min-height: 1000px;
@@ -2324,7 +2337,7 @@ li.select2-selection__choice{
 }
 
 /* settings */
-#setting .header, #collections .header{
+#setting .header, #collections .header, #explore .header, #messages .header{
   background: #fff;
   /* border: 1px solid red; */
   color: #332960;
@@ -2332,7 +2345,7 @@ li.select2-selection__choice{
   font-size: 2.5rem;
   border-radius: 10px;
 }
-#setting .header p, #collections .header p{
+#setting .header p, #collections .header p, #explore .header p, #messages .header p{
   float: left;
   padding-left: 20px;
   padding-right: 20px;
@@ -2579,9 +2592,13 @@ li.select2-selection__choice{
 }
 
 .msg_left::-webkit-scrollbar {
-    -webkit-appearance: none;
+    width:8px;
+    background:#fff;
 }
-
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
 .msg_left::-webkit-scrollbar:vertical {
     width: 11px;
 }
@@ -2665,4 +2682,538 @@ li.select2-selection__choice{
 .send_opentowork a{
   text-decoration: none;
   color: #000;
+}
+.opc_explore .select2-container--default .select2-selection--multiple{
+  border-radius: 0px;
+}
+.search_user_block .request_skills{
+  padding-bottom: 0px;
+}
+
+/* Messages */
+
+.msg_body{
+  margin-top:30px;
+  margin-bottom:40px;
+}
+.msg_note{
+  padding: 25px;
+  line-height: 30px;
+  border-radius: 10px;
+  margin-top: 55px;
+}
+.msg_note a{
+  text-decoration:none;
+  color:#219BC4
+}
+.msg_note_cont{
+  width: 97%;
+  font-size: 17px;
+}
+.msg_note .alert-dismissible .close {
+  top: -5px;
+}
+.msg_go_profile{
+  position: absolute;
+  right: 20px;
+  bottom: 15px;
+  color: #219BC4;
+  text-decoration: none;
+}
+.msg_block_custom{
+  position:relative;
+  height:400px;
+  overflow-y:scroll;
+  padding: 12px;
+  background:#fff;
+}
+.msg_input_custom{
+  z-index:0;
+  background: #FFFFFF; 
+  border: 0.5px solid #000000;
+  box-sizing: border-box;
+  height: 58px;
+}
+.msg_attach{
+  position: absolute; 
+  right: 20px;
+  top: 15px;
+}
+.msg_name{
+  font-size: 26px;
+  margin: 0px;
+}
+.msg_profession{
+  font-size: 20px;
+  margin: 0px;
+}
+.msg_left_img{
+  width: 57px;
+  float: left;
+  margin-right: 18px;
+}
+.msg_left_name{
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 36px;
+  letter-spacing: -0.015em;
+  color: #000000;
+  margin:0px;
+  padding-top: 5px
+}
+.msg_left_profession{
+  color:#000;
+  padding-left: 8px;
+}
+#messages .edit_collection_link{
+  position: absolute;
+  right:5px;
+  top:5px;
+}
+#messages .mgs_date{
+  position: absolute;
+  right:5px;
+  bottom: 5px;
+  font-size: 12px;
+}
+.msg_collection_opp{
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0px;
+  padding-top: 16px;
+  padding-left: 14px;
+  width: 80%;
+  float: left;
+}
+.msg_collection_go{
+  text-decoration: none;
+  color: #58C0FA;
+  font-weight: 500;
+  font-size: 20px;
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+}
+.msg_collection_img{
+  float: left;
+  width: 57px;
+  margin: 13px 0px 0px 12px;
+}
+.left_filter_area{
+  height:172px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  padding: 15px;
+}
+.left_filter_area h4{
+  font-weight: 600;
+  font-size: 30px;
+  padding-top: 10px;
+}
+.filter_result{
+  padding-left: 45px;
+  margin: 0 auto;
+  padding-right: 0px;
+}
+.filter_oppbox{
+  margin: 0px;
+  float:unset;
+  width:auto;
+  margin-bottom: 1rem;
+}
+.filter_optbox{
+  margin: 0px;
+  float:unset;
+  width:auto;
+  margin-bottom: 2rem;
+}
+.search_opt_rlt_card{
+  background: #3170AF;
+  padding: 0px;
+  height: 56px;
+  width: auto;
+}
+
+.search_opt_card{
+  text-decoration: none;
+  padding-right: 24px;
+  float: right;
+}
+
+.search_opt_card_body{
+  margin-top:10px;
+  padding-left: 18px;
+  padding-top: 18px;
+  background: #FFFFFF;
+  padding-bottom: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 0px 0px 10px 10px;
+}
+
+.search_opt_body_company{
+  margin: 0px;
+  font-size: 18px;
+  line-height: 30px;
+}
+.search_opp_rlt_card {
+  background: #65C5BF;
+  padding: 0px;
+  height: 56px;
+  width: auto;
+}
+.search_user_rlt_card{
+  background: #B7B1D8;
+  padding: 0px;
+  height: 56px;
+  width: auto;
+}
+.search_btn{
+  background: #332960;
+  color: #fff;
+  width: 100%;
+  padding-top: 10px;
+  border-radius: 0px 10px 10px 0px;
+}
+.keyword_img{
+  position: absolute;
+  width: 25px;
+  left: 15px;
+  top: 10px;
+}
+.search_body{
+  padding:0px;
+}
+.other_urls{
+  padding-right: 18px; 
+  padding-top:27px;
+}
+@media (min-width:320px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ 
+.msg_left.col-md-4{
+  width: 100%;
+}
+.msg_left_item{
+  padding: 10px 15px 10px 15px;
+}
+.msg_left_name{
+  font-size: 17px;
+}
+
+#setting .header, #collections .header, #explore .header, #messages .header {
+  font-size: 1.8rem;
+}
+#setting .header p, #collections .header p, #explore .header p, #messages .header p {
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 0px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.icon_title{
+  margin-left: 15px;
+}
+.header img{
+  width: 35px;
+}
+#messages{
+  margin-top: 180px;
+}
+#messages .main_area{
+ padding:0px;
+}
+#messages .msg_left_name{
+  line-height: normal;
+}
+#messages .msg_left_profession{
+  margin-top:5px;
+  margin-bottom: 0px;
+  font-size: 13px;
+}
+.msg_name {
+  font-size: 17px;
+  margin: 0px;
+}
+.msg_profession {
+  font-size: 13px;
+  margin: 0px;
+}
+.msg_go_profile {
+  position: absolute;
+  right: 30%;
+  left: 30%;
+  text-align: center;
+  bottom: 3px;
+  color: #219BC4;
+  text-decoration: none;
+}
+.incoming_msg_img {
+  display: inline-block;
+  width: 15%;
+  margin-top: 20px;
+}
+.received_msg {
+  display: inline-block;
+  padding: 0 0 0 14px;
+  vertical-align: top;
+  width: 93%;
+  margin-top: 19px;
+}
+.received_withd_msg {
+  width: auto;
+}
+.received_withd_msg p {
+  color: #1C3041;
+  font-size: 17px;
+  margin: 0;
+  padding: 10px 10px 10px 10px;
+  width: 100%;
+  background: #E5E5E5;
+  border-radius: 10px;
+  line-height: normal;
+}
+#messages .outgoing_opp_card .opp_card_block {
+  width: 100%;
+  margin: 0 auto;
+}
+#messages .msg_collection_opp{
+  font-size: 18px;
+  width: 70%;
+}
+.msg_collection_go{
+  bottom: 20px;
+}
+.msg_collection_img{
+  width: 50px;
+  margin: 17px 0px 0px 12px;
+}
+
+/* explore */
+#explore{
+  margin-top: 180px;
+}
+#explore .main_area{
+  padding:0px;
+}
+#explore .filter_result{
+  padding:0px;
+}
+.search_opt_rlt_card_label{
+  font-size: 13px;
+  padding-left: 15px;
+  margin: 0px;
+  margin-top: 10px;
+  color: #fff;
+}
+.search_opt_card {
+  text-decoration: none;
+  padding-right: 10px;
+  float: right;
+}
+#explore .search_opt_card img{
+  width: 10px;
+}
+.search_opp_city {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 24px;
+  letter-spacing: -0.015em;
+  color: #FFFFFF;
+  float: right;
+  padding-top: 0px;
+  padding-left: 5px;
+}
+.search_opt_card_body {
+  margin-top: 10px;
+  padding-left: 18px;
+  padding-top: 18px;
+  background: #FFFFFF;
+  padding-bottom: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 0px 0px 10px 10px;
+}
+.search_opt_body_title {
+  margin: 0px;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: normal;
+}
+.search_opt_body_company {
+  margin: 0px;
+  font-size: 15px;
+  line-height: normal;
+}
+.left_filter_area{
+  margin-bottom: 1rem;
+}
+.filter_oppbox {
+  margin-bottom: 1rem;
+}
+#explore .btn-customs{
+  font-size: 16px
+}
+.other_urls{
+  text-align: center;
+}
+#explore .float-right{
+  float: unset !important;
+}
+.other_urls {
+  padding-right: 18px;
+  padding-top: 15px;
+}
+.search_user_block {
+  min-height: 240px;
+}
+}
+@media (min-width:480px)  { /* smartphones, Android phones, landscape iPhone */ 
+
+}
+@media (min-width:600px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
+
+}
+@media (min-width:801px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+
+}
+
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ 
+  .incoming_msg_img {
+    width: 6%;
+  }
+  .msg_go_profile {
+    position: absolute;
+    right: 20px;
+    left:unset;
+    bottom: 15px;
+    color: #219BC4;
+    text-decoration: none;
+  }
+  #explore{
+    margin-top: 0px;
+  }
+  #explore .float-right {
+    float: right !important;
+  }
+  #explore .col-md-10 {
+    max-width: 77.333333%;
+    padding: 0px;
+  }
+  .left_filter_area{
+    width: 80%;
+  }
+  #explore .filter_result {
+    padding: 0px;
+    padding-left: 50px;
+  }
+  
+
+
+}
+@media (min-width:1281px) { /* hi-res laptops and desktops */
+  #explore{
+    margin-top: 0px;
+  }
+  #explore .col-md-10 {
+    max-width: 77.333333%;
+  }
+  .search_opt_rlt_card_label{
+    font-size: 25px;
+    padding-left: 18px;
+    margin: 0px; 
+    margin-top: 10px;
+    color: #fff;
+  }
+  .search_opp_city{
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.015em;
+    color: #FFFFFF;
+    float: right;padding-top: 8px;padding-left: 8px;
+  }
+  #explore .search_opt_card img {
+    width: 12px;
+  }
+  .search_opt_body_title{
+    margin: 0px;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: normal;
+  }
+  #explore .btn-customs {
+    font-size: 18px;
+  }
+}
+@media (min-width:1400px) {
+  .search_user_block {
+    min-height: 220px;
+}
+}
+@media screen and (min-width: 600px) and  (max-width: 1024px){
+  #messages{
+    margin-top: 112px;
+  }
+  #messages .main_area {
+    padding: 0px;
+    max-width: 100%;
+  }
+  #messages .col-md-4 {
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+  .messages_right {
+    flex: 0 0 60%;
+    max-width: 60%;
+  } 
+  .incoming_msg_img {
+    width: 10%;
+  }
+  .msg_go_profile {
+    position: absolute;
+    right: 20px;
+    left:unset;
+    bottom: 15px;
+    color: #219BC4;
+    text-decoration: none;
+  }
+  #explore .float-right {
+    float: right !important;
+  }
+
+  #explore {
+    margin-top: 140px;
+  }
+  #explore .col-md-10{
+    max-width: 100%;
+  }
+  .search_pad{
+    max-width: 100%;
+    padding: 0px;
+    margin: 0 auto;
+  }
+  .search_btn {
+    background: #332960;
+    color: #fff;
+    width: 100%;
+    padding-top: 10px;
+    border-radius: 0px 10px 10px 0px;
+  }
+  .search_body{
+    max-width: 100%;
+  }
+  .left_filter_area{
+    width: 100%;
+  }
+  #explore .filter_result {
+    padding: 0px;
+    padding-left: 20px;
+  }
+  #explore .btn-customs {
+    font-size: 15px;
+  }
+  .search_user_block {
+    min-height: 180px;
+  }
+  .filter_oppbox {
+    margin-bottom: 1rem;
+}
 }

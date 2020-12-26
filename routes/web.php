@@ -119,8 +119,9 @@ Route::post('/ajax/update_profession' ,'AjaxController@update_profession');
 Route::post('/ajax/get_user_data' ,'AjaxController@get_user_data');
 Route::post('/ajax/add_to_my_collection' ,'AjaxController@add_to_my_collection');
 Route::post('/ajax/delete_my_individual_collection' ,'AjaxController@delete_my_individual_collection');
-Route::post('/ajax/add_to_my_collection_from' ,'AjaxController@add_to_my_collection_from');
-Route::post('/ajax/add_to_my_collection_from2' ,'AjaxController@add_to_my_collection_from2');
+Route::post('/ajax/add_to_my_opportunity_collection' ,'AjaxController@add_to_my_opportunity_collection');
+Route::post('/ajax/add_to_my_opentowork_collection' ,'AjaxController@add_to_my_opentowork_collection');
+Route::post('/ajax/add_to_my_user_collection' ,'AjaxController@add_to_my_user_collection');
 Route::post('/ajax/add_collection' ,'AjaxController@add_collection');
 Route::post('/ajax/delete_collection' ,'AjaxController@delete_collection');
 Route::post('/ajax/get_collection_items' ,'AjaxController@get_collection_items');
@@ -135,11 +136,17 @@ Route::post('/ajax/get_unread_mesages_info' ,'AjaxController@get_unread_mesages_
 Route::post('/ajax/get_user_collections' ,'AjaxController@get_user_collections');
 Route::post('/ajax/get_opc_collections' ,'AjaxController@get_opc_collections');
 Route::get('/ajax/get_opc_collection_list/{opc_id}' ,'AjaxController@get_opc_collection_list');
+Route::get('/ajax/get_opentowork_collection_list/{opc_id}' ,'AjaxController@get_opentowork_collection_list');
+Route::get('/ajax/get_user_collection_list/{id}' ,'AjaxController@get_user_collection_list');
 Route::get('/ajax/get_endorse_list/{opc_id}/{skill}' ,'AjaxController@get_endorse_list');
 Route::post('/ajax/hide_account' ,'AjaxController@hide_account');
 Route::post('/ajax/delete_account' ,'AjaxController@delete_account');
 Route::post('/ajax/add_edit_opentowork_card' ,'AjaxController@add_edit_opentowork_card');
 Route::post('/ajax/endorse_opentowork' ,'AjaxController@endorse_opentowork');
+Route::get('/about' ,'InfoController@about');
+Route::get('/contact' ,'InfoController@contact');
+Route::get('/terms' ,'InfoController@terms');
+Route::get('/privacy' ,'InfoController@privacy');
 
 Route::prefix('growyspace-admin')->group(function() {
 

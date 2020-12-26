@@ -26,7 +26,14 @@ $(document).ready(function() {
 			messages_page_design_controller();
 		});
 	}
-	
+	//search page
+	if($('#explore').length > 0) {
+		search_page_design_controller();
+		
+		$( window ).resize(function() {
+			search_page_design_controller();
+		});
+	} 
 	
 	$(document).on('click','.growyspace-toggle',function(){
 		var t_id = $(this).attr('gys-toggle-id');
@@ -51,7 +58,8 @@ $(document).ready(function() {
 		}
 	});
 	
-	$(".search_filter_item_block input").on('keyup', function (e) {
+	
+	$(".search_filter_item_block_new input").on('keyup', function (e) {
 		if (e.keyCode === 13) {
 			$('.search').click();
 		}
@@ -1801,7 +1809,7 @@ $(document).ready(function() {
 	});
 	
 	
-	$('.opc_fields,.search_opc_fields,.search_skills,.opc_roles,.search_opc_opc_roles').select2({
+	$('.opc_fields,.search_opc_fields,.search_skills,.opc_roles,.search_opc_opc_roles,.opc_explore').select2({
 		tags: true
 		//tokenSeparators: [',', ' ']
 	});
@@ -2810,17 +2818,25 @@ $(document).ready(function() {
 	});
 
 	//add to collection in the opportunity
-	$('#opportunity_collection').editable({
+	$('.opportunity_collection').editable({
 		type: 'POST',
-		url: base_url + 'ajax/add_to_my_collection_from',
+		url: base_url + 'ajax/add_to_my_opportunity_collection',
 
 		display: function(value, sourceData) {
 		
 		}
 	});	
-	$('#opentowork_collection').editable({
+	$('.opentowork_collection').editable({
 		type: 'POST',
-		url: base_url + 'ajax/add_to_my_collection_from2',
+		url: base_url + 'ajax/add_to_my_opentowork_collection',
+
+		display: function(value, sourceData) {
+		
+		}
+	});	
+	$('.user_collection').editable({
+		type: 'POST',
+		url: base_url + 'ajax/add_to_my_user_collection',
 
 		display: function(value, sourceData) {
 		
@@ -3027,11 +3043,20 @@ function get_unread_mesages_info() {
 	});
 }
 function messages_page_design_controller() {
-	if($( window ).width() <= 768 && $('.messages_right').hasClass('load_messages_case')) {
-		$('.messages_left').addClass('hidden');
+	if($( window ).width() < 600 && $('.messages_right').hasClass('load_messages_case')) {
+		$('.msg_left').addClass('hidden');
 	} else {
-		$('.messages_left').removeClass('hidden');
+		$('.msg_left').removeClass('hidden');
 	}
+
+}
+function search_page_design_controller() {
+	if($( window ).width() < 600) {
+		$('.search_pad').addClass('hidden');
+	} else {
+		$('.search_pad').removeClass('hidden');
+	}
+
 }
 
 $('.opentowork_endorse').click(function(){

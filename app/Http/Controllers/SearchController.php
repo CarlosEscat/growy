@@ -15,6 +15,7 @@ use Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\DB;
 use App\Opportunity_card;
+use App\Opentowork_card;
 
 
 class SearchController extends Controller
@@ -58,18 +59,21 @@ class SearchController extends Controller
 		$education = isset($_GET['education']) ? $_GET['education'] : '';
 		$keyword = isset($_GET['search']) ? $_GET['search'] : '';
 		$profession = isset($_GET['profession']) ? $_GET['profession'] : '';
-		$type = isset($_GET['type']) && in_array($_GET['type'],[1,2]) ? $_GET['type'] : 0;
-				
+		$type = isset($_GET['type']) ? $_GET['type'] : 0;
+	
 		$available = isset($_GET['available']) && !empty($_GET['available']) ? explode(',',$_GET['available']) : [];
 		$opportunity_cards = NULL;
+		$opentowork_cards = NULL;
 		$users = NULL;
 				
 		//addslashes
 		$sub_query = "1=1";
 		$sub_query2 = "1=1";
+		$sub_query3 = "1=1";
 		$need_to_process_for_searching = false;
 		$need_to_process_for_searching_users = false;
 		$need_to_process_for_searching_cards = false;
+		$need_to_process_for_searching_open = false;
 		
 		
 		if($type == 2 || $type == 0) {
@@ -142,9 +146,69 @@ class SearchController extends Controller
 			}
 			
 			if($need_to_process_for_searching === true) {
-				$opportunity_cards = Opportunity_card::whereRaw($sub_query)->
+				$opportunity_cards = Opportunity_card::whereRaw($sub_query)->orderBy('id','desc')->
 						paginate(100);
 							
+				/*$opportunity_cards = DB::table('opportunity_cards')
+					->leftJoin('opportunity_card_fields', 'users.id', '=', 'posts.user_id')
+					->get();	*/		
+					
+							
+			}
+		}	
+		//open-to-work
+		if($type == 3 || $type == 0) {
+			if($type == 3) {
+				$need_to_process_for_searching = true;
+				$need_to_process_for_searching_open = true;
+				
+			}
+			if(!empty($opc_fields)) {
+				$t = "";
+				
+				foreach($opc_fields as $k =>  $f) {
+					$f = addslashes($f);
+					$t .= ($k == 0 ? "" : " OR ")."opentowork_cards.fields LIKE '%$f%'";
+					$t .= ($k == 0 ? "" : " OR ")."opentowork_cards.roles LIKE '%$f%'";
+				}
+				
+				$sub_query3 .= " AND (".$t.")";
+				$need_to_process_for_searching = true;
+				$need_to_process_for_searching_open = true;
+			}
+			
+			
+			
+			if(trim($country) != '') {
+				$country = addslashes($country);
+				$sub_query3 .= " AND opentowork_cards.country_code='$country'";
+				$need_to_process_for_searching = true;
+			}
+			
+			if(trim($city) != '') {
+				$city = addslashes($city);
+				$sub_query3 .= " AND opentowork_cards.city LIKE '$city'";
+				$need_to_process_for_searching = true;
+			}
+			
+			
+			if(!empty($keyword)) {
+				$keyword = addslashes($keyword);
+				$sub_query3 .= " AND 
+					(
+						opentowork_cards.title LIKE '%$keyword%' OR 
+						opentowork_cards.description LIKE '%$keyword%' OR
+						opentowork_cards.city LIKE '%$keyword%' OR
+						opentowork_cards.fields LIKE '%$keyword%' OR
+						opentowork_cards.roles LIKE '%$keyword%' 
+					)
+				";
+				$need_to_process_for_searching = true;
+			}
+			
+			if($need_to_process_for_searching === true) {
+				$opentowork_cards = Opentowork_card::whereRaw($sub_query3)->orderBy('id','desc')->
+						paginate(100);		
 				/*$opportunity_cards = DB::table('opportunity_cards')
 					->leftJoin('opportunity_card_fields', 'users.id', '=', 'posts.user_id')
 					->get();	*/		
@@ -152,7 +216,9 @@ class SearchController extends Controller
 							
 			}
 		}	
-			
+
+
+
 		if($type == 1  || $type == 0) {
 			if($type == 1) {
 				$need_to_process_for_searching = true;
@@ -232,6 +298,7 @@ class SearchController extends Controller
 			$sub_query2 .= " AND users.id != 2";
 			
 			if($need_to_process_for_searching === true) {
+				
 				$users = DB::table('users')
 					->leftJoin('user_educations', 'users.id', '=', 'user_educations.user_id')
 					->leftJoin('user_skills', 'users.id', '=', 'user_skills.user_id')
@@ -240,8 +307,10 @@ class SearchController extends Controller
 					->select(
 						'users.*'
 					)
-					->groupBy('users.id')
+					->groupBy('users.id')->orderBy('id','desc')
 					->paginate(100); 
+
+				
 			}
 		}
 		
@@ -250,7 +319,9 @@ class SearchController extends Controller
 		
 		//echo '<pre>';
 		//print_r( $uc_map);exit;
-		
+	
+		$opportunityList = Opportunity_card::where('user_id',$user_id)->get();
+		$opentoworkList = Opentowork_card::where('user_id',$user_id)->get();
 		return view('search',[
 			'need_to_process_for_searching' => $need_to_process_for_searching,
 			'search_url' => $search_url,
@@ -265,6 +336,7 @@ class SearchController extends Controller
 			'to_hour' => $to_hour,
 			'type' => $type,
 			'opportunity_cards' => $opportunity_cards,
+			'opentowork_cards' => $opentowork_cards,
 			'user_id' => $user_id,
 			'available' => $available,
 			'education' => $education,
@@ -272,7 +344,9 @@ class SearchController extends Controller
 			'all_skills' => $all_skills,
 			'skills' => $skills,
 			'users' => $users,
-			'user_collections' => $user_collections
+			'user_collections' => $user_collections,
+			'opc_list' => $opportunityList,
+			'opt_list' => $opentoworkList,
 		]);
 	}
 	

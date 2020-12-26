@@ -139,7 +139,7 @@ class User_message extends Model
 						$messages_html .= '<div class="incoming_msg_img"> <img src="'.$message->from_user_profile_image().'" alt="sunil"> </div>';
 						$messages_html .= '<div class="received_msg">';
 							$messages_html .= '<div class="received_withd_msg">';
-							   $messages_html .= '<span>'.$msg.'</span>';
+							   $messages_html .= '<p>'.$msg.'</p>';
 							// $messages_html .= '<span class="time_date"> '.$am_pm_time.'</span></div>';
 						$messages_html .= '</div>';
 					$messages_html .= '</div>';
@@ -198,14 +198,13 @@ class User_message extends Model
 		$active_conversation_class = '';
 		if($to_user !== NULL && $messages !== NULL && $conversation_messages_count == 0 ) {
 			$con_html .= '<div data-user-id = "'.$user_id.'" class="msg_left_item collection_item_block active" style="margin: 0;z-index:999">';
-				$con_html .= '<img style="width: 57px;float: left;margin-right: 18px;" src="'.$to_user->profile_image().'" />';
-				$con_html .= '<p style="font-weight: 600;font-size: 26px;line-height: 36px;letter-spacing: -0.015em;color: #000000;margin:0px;padding-top: 5px">'.$to_user->full_name.'<a href="#" class="editIcon float-right edit_collection_link">';
+				$con_html .= '<img class="msg_left_img" src="'.$to_user->profile_image().'" />';
+				$con_html .= '<p class="msg_left_name">'.$to_user->full_name.'<a href="#" class=" edit_collection_link">';
 				if($not_read_class) $con_html .= '<img src="/assets/images/new_message_icon.png" alt="Edit">';
 				else $con_html .= '<img src="/assets/images/open_message_icon.png" alt="Edit">';
 				
 				$con_html .= '</a></p>';
-				$con_html .= '<p style="color:#000;padding-left: 8px;">'.$to_user->profession.'</p>';
-			$con_html .= '<a href="#" data-type="text"  class="editable editable-click float-right text-decoration-none textcolor-blue btn-msg-customs collection_share" ></a>';
+				$con_html .= '<p class="msg_left_profession">'.$to_user->profession.'</p>';
 			$con_html .= '</div>';
 			
 				
@@ -240,25 +239,14 @@ class User_message extends Model
 				$not_read_class = ' not_read_conversation ';
 			}
 			
-			// $con_html .= '<div data-user-id = "'.$id.'" class="' . $not_read_class . $active_conversation_class .' messages_conversation_item_block">';
-				
-			// 	$con_html .= '<img src="'.$u->profile_image().'" />';
-			// 	$con_html .= '<div class="messages_conversation_item_info_block">';
-			// 		$con_html .= '<div class="msg_conversation_middle_block">';
-			// 			$con_html .= '<h4>'.$name.'</h4>';
-			// 			$con_html .= '<p>'.(strlen($con->last_message) > 30 ? substr($con->last_message,0,30).'...' : $con->last_message  ).'</p>';
-			// 		$con_html .= '</div>';
-			// 		$con_html .= '<div class="msg_conversation_right_block"><p>'.(date('M d', strtotime($con->updated_at))).'</p></div>';
-			// 	$con_html .= '</div>';
-			// $con_html .= '</div>';
 			$con_html .= '<div data-user-id = "'.$id.'" class="msg_left_item ' . $not_read_class . $active_conversation_class .'" style="margin: 0;z-index:'.$z_index.'">';
-			$con_html .= '<img style="width: 57px;float: left;margin-right: 18px;" src="'.$u->profile_image().'" />';
-			$con_html .= '<p style="font-weight: 600;font-size: 26px;line-height: 36px;letter-spacing: -0.015em;color: #000000;margin:0px;padding-top: 5px">'.$name.'<a href="#" class="editIcon float-right edit_collection_link">';
+			$con_html .= '<img class="msg_left_img" src="'.$u->profile_image().'" />';
+			$con_html .= '<p class="msg_left_name">'.$name.'<a href="#" class="edit_collection_link">';
 			if($not_read_class) $con_html .= '<img src="/assets/images/new_message_icon.png" alt="Edit">';
 			else $con_html .= '<img src="/assets/images/open_message_icon.png" alt="Edit">';
 			$con_html .= '</a></p>';
-			$con_html .= '<p style="color:#000;padding-left: 8px;">'.$u->profession.'</p>';
-			$con_html .= '<a href="#" data-type="text"  class="editable editable-click float-right text-decoration-none textcolor-blue btn-msg-customs collection_share" >'.(date('M d', strtotime($con->updated_at))).'</a>';
+			$con_html .= '<p class="msg_left_profession">'.$u->profession.'</p>';
+			$con_html .= '<span class="mgs_date">'.(date('M d', strtotime($con->updated_at))).'</span>';
 			$con_html .= '</div>';
 			$z_index--;
 		}

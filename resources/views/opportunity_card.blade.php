@@ -51,7 +51,7 @@
                     <div>
                     <a href="{{ URL::to('/') }}/user/my_account" class=" float-right  text-decoration-none textcolor-blue btn-customs">Go to user profile</a>                    
                     
-                    <a href="#" id="opportunity_collection" data-pk="{{ $opc->id }}" data-type="checklist" data-source="{{ URL::to('/') }}/ajax/get_opc_collection_list/{{$opc->id}}"  data-title="Select collections" class="editable editable-click  float-right  text-decoration-none textcolor-blue btn-customs" data-placement="bottom"   data-original-title="" title="">Add to collection</a>
+                    <a href="#" data-pk="{{ $opc->id }}" data-type="checklist" data-source="{{ URL::to('/') }}/ajax/get_opc_collection_list/{{$opc->id}}"  data-title="Select collections" class="opportunity_collection editable editable-click  float-right  text-decoration-none textcolor-blue btn-customs" data-placement="bottom"   data-original-title="" title="">Add to collection</a>
                     
                     
                     <a href="#" id="opportunity_share" data-type="text" data-pk="1" data-title="Copy this link to share" class="editable editable-click  float-right  text-decoration-none textcolor-blue btn-customs" data-placement="bottom" data-original-title="" title="" data-value="{{ URL::to('/') }}/cards/{{ $opc->id }}">Share</a>  

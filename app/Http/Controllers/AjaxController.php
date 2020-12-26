@@ -528,6 +528,8 @@ class AjaxController extends Controller
 			$items_count = $users->count() + $opportunity_cards->count();
 			
 			$countries = Config::get('countries');	
+			$opportunityList = Opportunity_card::where('user_id',$user_id)->get();
+			$opentoworkList = Opentowork_card::where('user_id',$user_id)->get();
 			$collection_items_html = (String) view('collections.items',[
 				'countries' => $countries,				
 				'user_id' => $user_id,			
@@ -536,7 +538,9 @@ class AjaxController extends Controller
 				'collection_name' => $collection->name,				
 				'opportunity_cards' => $opportunity_cards,
 				'opentowork_cards' => $opentowork_cards,
-				'third_person' => $third_person
+				'third_person' => $third_person,
+				'opc_list' => $opportunityList,
+				'opt_list' => $opentoworkList,
 			]);
 			
 			echo json_encode(array(
@@ -796,7 +800,7 @@ class AjaxController extends Controller
 			));
 		}
 	}
-	public function add_to_my_collection_from(Request $request) {
+	public function add_to_my_opportunity_collection(Request $request) {
 		if(!Auth::guard('user')->check()) {
 			echo json_encode(array(
 				'complete' => false,
@@ -850,7 +854,7 @@ class AjaxController extends Controller
 	));
 		
 	}	
-	public function add_to_my_collection_from2(Request $request) {
+	public function add_to_my_opentowork_collection(Request $request) {
 		if(!Auth::guard('user')->check()) {
 			echo json_encode(array(
 				'complete' => false,
@@ -894,6 +898,60 @@ class AjaxController extends Controller
 				$user_collection_item = new User_collection_item;
 				$user_collection_item->collection_id = $collection_id;
 				$user_collection_item->opentowork_card_id = $card_id;
+				$user_collection_item->save();
+			}
+		}
+
+					
+	echo json_encode(array(
+		'complete' => true,
+	));
+		
+	}	
+	public function add_to_my_user_collection(Request $request) {
+		if(!Auth::guard('user')->check()) {
+			echo json_encode(array(
+				'complete' => false,
+				'message' => 'Wrong Request',
+			));exit;
+		}
+        $inputs = Input::all();
+		$item_type = $inputs['name'];
+		$card_id = $inputs['pk'];
+		$collection_list = $inputs['value'];
+		$user_id = Auth::guard('user')->user()->id;
+		if(is_array($collection_list)){
+			foreach($collection_list as $key => $collection_id){
+				
+				$itemList = User_collection_item::where('collection_id',$collection_id)->where('user_id',$card_id)->pluck('user_id')->toArray();
+				
+				if(count($itemList) > 0) {
+					// already registered
+					//$o = User_collection_item::where('collection_id',$collection_id)->where('opportunity_card_id',$card_id)->delete();
+					
+
+				}else{
+					$user_collection_item = new User_collection_item;
+					$user_collection_item->collection_id = $collection_id;
+					$user_collection_item->user_id = $card_id;
+					$user_collection_item->save();
+				}
+			}
+		}else{
+			$collection_id = $collection_list;
+			
+			$itemList = User_collection_item::where('collection_id',$collection_id)->where('user_id',$card_id)->pluck('user_id')->toArray();
+			
+			if(count($itemList) > 0) {
+				// already registered
+				//$o = User_collection_item::where('collection_id',$collection_id)->where('opportunity_card_id',$card_id)->delete();
+				
+				
+
+			}else{
+				$user_collection_item = new User_collection_item;
+				$user_collection_item->collection_id = $collection_id;
+				$user_collection_item->user_id = $card_id;
 				$user_collection_item->save();
 			}
 		}
@@ -2054,9 +2112,10 @@ class AjaxController extends Controller
 			foreach($user_collections as $uc) {
 				// $ugi = $uc->items_with_opc($opc_id);
 				$collectonID = $uc->id;
+				$user_collections_items = User_collection_item::where('collection_id',$collectonID)->whereNotNull('opportunity_card_id')->get();
 				//$itemList = User_collection_item::where('collection_id',$collectonID)->where('opportunity_card_id',$opc)->pluck('opportunity_card_id')->toArray();
 				//if(count($itemList) > 0){
-					$rlt[] = ["value" => $collectonID, "text" => $uc->name];
+				if(count($user_collections_items))	$rlt[] = ["value" => $collectonID, "text" => $uc->name];
 				//}else{
 					
 				//}
@@ -2072,6 +2131,97 @@ class AjaxController extends Controller
 				// }
 				
 				
+				
+			}
+			
+			echo json_encode($rlt);
+			
+		}
+	}
+	public function get_opentowork_collection_list(Request $request) {
+		if ($request->ajax()) {
+			$rlt = array();
+			if(!Auth::guard('user')->check()) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request1',
+					'action' => 'redirect_to_login_page'
+				));exit;
+			}
+			
+			$user_id = Auth::guard('user')->user()->id;
+			$opc_id = isset($request->opc_id) ? $request->opc_id : false;
+			
+			if($opc_id === false) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request2',
+				));exit;
+			}
+			
+			$opc = Opentowork_card::find($opc_id);
+			
+			if($opc === null) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request3',
+				));exit;
+			}
+			
+			$user_collections = User_collection::where('user_id',$user_id)->get();
+			$collections_html = '';
+			
+			foreach($user_collections as $uc) {
+				// $ugi = $uc->items_with_opc($opc_id);
+				$collectonID = $uc->id;
+				$user_collections_items = User_collection_item::where('collection_id',$collectonID)->whereNotNull('opentowork_card_id')->get();
+			
+				if(count($user_collections_items))	$rlt[] = ["value" => $collectonID, "text" => $uc->name];
+
+				
+			}
+			
+			echo json_encode($rlt);
+			
+		}
+	}
+	public function get_user_collection_list(Request $request) {
+		if ($request->ajax()) {
+			$rlt = array();
+			if(!Auth::guard('user')->check()) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request1',
+					'action' => 'redirect_to_login_page'
+				));exit;
+			}
+			
+			$user_id = Auth::guard('user')->user()->id;
+			$opc_id = isset($request->id) ? $request->id : false;
+			
+			if($opc_id === false) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request2',
+				));exit;
+			}
+			
+			$opc = User::find($opc_id);
+			
+			if($opc === null) {
+				echo json_encode(array(
+					'complete' => false,
+					'message' => 'Wrong Request3',
+				));exit;
+			}
+			
+			$user_collections = User_collection::where('user_id',$user_id)->get();
+			$collections_html = '';
+			
+			foreach($user_collections as $uc) {
+				$collectonID = $uc->id;
+				$user_collections_items = User_collection_item::where('collection_id',$collectonID)->whereNotNull('user_id')->get();
+				if(count($user_collections_items))$rlt[] = ["value" => $collectonID, "text" => $uc->name];
 				
 			}
 			

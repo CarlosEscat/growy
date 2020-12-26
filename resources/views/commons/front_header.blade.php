@@ -60,7 +60,7 @@
 			<form style="width:100%;" action="{{ URL::to('/') }}/search"> 
 				<div class="search_input_block">
 					<span class="fa fa-search search_icon"></span>
-					<input type="text" class="search_input form-control" name="search" value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}" placeholder="What are you looking for?">
+					
 					<input type="hidden" name="type" value="{{ isset($_GET['type']) ? $_GET['type'] : 0 }}" />
 				</div>
 			</form>
