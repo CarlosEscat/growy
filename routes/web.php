@@ -57,7 +57,7 @@ Route::post('/user/change_password', 'UserController@change_password_post');
 Route::post('/user/change_contact_info', 'UserController@change_contact_info_post');
 Route::get('/user/register', 'UserController@register');
 Route::get('/user/login', 'UserController@login');
-
+Route::get('/user/my_account/edit', 'UserController@editprofile');
 
 
 

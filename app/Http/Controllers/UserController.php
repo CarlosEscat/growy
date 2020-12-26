@@ -362,6 +362,74 @@ class UserController extends Controller
 		]);
 	}
 	
+	public function editprofile() {
+		if(!Auth::guard('user')->check()) {
+			session(['redirect_back' => url()->full()]);
+			return redirect('/user/login');
+		}
+		
+		
+		
+		$countries = Config::get('countries');
+		$user_id = Auth::guard('user')->user()->id;
+		$user = User::find($user_id);
+		
+		if ($user->is_deleted == 1) {
+			Auth::guard('user')->logout();
+			return redirect('/')->withInput()->withErrors(['Your account cancelled please contact support.']);
+		}
+		
+		$country_code = $user->country_code;
+		
+		$country = isset($countries[$country_code]) ? $countries[$country_code] : '';
+		$opportunity_cards = Opportunity_card::where('user_id',$user_id)->get();
+		$user_skills = User_skill::where('user_id',$user_id)->orderBy('name','asc')->pluck('name')->toArray();
+		$user_educations = User_education::where('user_id',$user_id)->get();
+		
+		$months = [
+			'01' => 'January',
+			'02' => 'February',
+			'03' => 'March',
+			'04' => 'April',
+			'05' => 'May',
+			'06' => 'June',
+			'07' => 'July',
+			'08' => 'August',
+			'09' => 'September',
+			'10' => 'October',
+			'11' => 'November',
+			'12' => 'December'
+		];
+		
+		$user_experiences = User_experience::where('user_id',$user_id)->get();		
+		
+		$profile_image_src = false;
+		
+		if(trim($user->profile_image_cropped) != '') {
+			$path = base_path() . '/public/uploads/profile/'.$user_id.'/'.$user->profile_image_cropped;
+			
+			if(is_file($path)) {
+				$profile_image_src = URL::to('/').'/uploads/profile/'.$user_id.'/'.$user->profile_image_cropped;
+			}
+		}
+		
+		
+		
+		return view('user.editprofile',[
+			'profile_image_src' => $profile_image_src,
+			'countries' => $countries,
+			'country' => $country,
+			'opportunity_cards' => $opportunity_cards,
+			'user_skills' => $user_skills,
+			'user_educations' => $user_educations,
+			'user_experiences' => $user_experiences,
+			'months' => $months,
+			'user' => $user,
+			'owner' => true,
+			'user_id' => $user_id
+		]);
+	}
+	
 	public function login() {
 		if(isset($_GET['test'])) {
 			

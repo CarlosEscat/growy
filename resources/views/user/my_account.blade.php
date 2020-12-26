@@ -244,7 +244,7 @@
 
 				<div class="edit_profyle">
 				<a style="color:#219BC4;font-size:20px;text-decoration:none;margin-right:5%;" href="">Add to collection </a>
-				<a style="color:#219BC4;font-size:20px;text-decoration:none;" href="">  <img style="width: 32px;" class="add_education_link" src="../assets/images/Icon-edit-new.png" /> Edit</a>
+				<a style="color:#219BC4;font-size:20px;text-decoration:none;" href="{{ Auth::guard('user')->check() ? URL::to('/').'/user/my_account/edit' : URL::to('/') }}">  <img style="width: 32px;" class="add_education_link" src="../assets/images/Icon-edit-new.png" /> Edit</a>
 
 				</div>
 			
